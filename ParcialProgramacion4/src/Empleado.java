@@ -18,7 +18,7 @@ public class Empleado {
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.historialDeCargos = new ArrayList<Cargo>();
-        this.habilidades = new Hashtable<Habilidad,Integer>();
+        this.habilidades = new Hashtable<Habilidad, Integer>();
         this.fechaDeIngreso = fechaDeIngreso;
     }
 
