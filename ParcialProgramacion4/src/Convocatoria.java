@@ -12,13 +12,13 @@ public class Convocatoria {
     private Hashtable<Habilidad,Integer>requisitos;
     private ArrayList<Empleado>asignados;
 
-    public Convocatoria(int codigo, Puesto puesto, Fecha fecha, int cantEmpleadosRequeridos){
+    public Convocatoria(int codigo, Puesto puesto, Fecha fecha, int cantEmpleadosRequeridos) {
         this.codigo = codigo;
-        postulados = new ArrayList<>();
+        this.postulados = new ArrayList<Empleado>();
         this.puesto = puesto;
         this.fecha = fecha;
         this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
-        requisitos = new Hashtable<Habilidad,Integer>();
-        asignados = new ArrayList<>();
+        this.requisitos = new Hashtable<Habilidad,Integer>();
+        this.asignados = new ArrayList<Empleado>();
     }
 }

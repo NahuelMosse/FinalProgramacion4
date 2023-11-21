@@ -6,11 +6,11 @@ public class Empresa {
     private ArrayList<Convocatoria>convocatorias;
     private ArrayList<Habilidad>habilidades;
 
-    public Empresa(){
-        empleados = new ArrayList<>();
-        puestos = new ArrayList<>();
-        convocatorias = new ArrayList<>();
-        habilidades = new ArrayList<>();
+    public Empresa() {
+        this.empleados = new ArrayList<Empleado>();
+        this.puestos = new ArrayList<Puesto>();
+        this.convocatorias = new ArrayList<Convocatoria>();
+        this.habilidades = new ArrayList<Habilidad>();
     }
 
     

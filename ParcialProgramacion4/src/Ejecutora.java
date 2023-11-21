@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Ejecutora {
-    public static void main(String [] args){
-        Scanner s = new Scanner(System.in);
+    public static void main(String [] args) {
+        Scanner scanner = new Scanner(System.in);
         Empresa empresa = new Empresa();
 
-        int opc = 0;
+        int opcion = 0;
         do{
             System.out.println(
 			"\n 1-"+
@@ -16,9 +16,11 @@ public class Ejecutora {
 			"\n 6-"+
 			"\n 7-");
 			System.out.println("opcion: ");
-			opc = s.nextInt();
+			opcion = scanner.nextInt();
 
-            switch (opc) {
+            switch (opcion) {
+            case 0:
+                break;
             case 1:
                 
                 break;
@@ -46,6 +48,6 @@ public class Ejecutora {
                 break;
             }
 
-        } while(opc!=0);
+        } while(opcion!=0);
     }
 }

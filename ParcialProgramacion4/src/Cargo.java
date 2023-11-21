@@ -5,7 +5,7 @@ public class Cargo {
     private Fecha fechaFin;
     private Puesto puesto;
 
-    public Cargo(Fecha fechaInicio, Fecha fechaFin, Puesto puesto){
+    public Cargo(Fecha fechaInicio, Fecha fechaFin, Puesto puesto) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.puesto = puesto;

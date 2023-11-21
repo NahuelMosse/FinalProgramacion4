@@ -6,11 +6,11 @@ public abstract class Puesto {
     private ArrayList<Convocatoria>convocatorias;
     private ArrayList<Empleado>empleados;
 
-    public Puesto(String nombre, double sueldo){
+    public Puesto(String nombre, double sueldo) {
         this.nombre = nombre;
         this.sueldo = sueldo;
-        convocatorias = new ArrayList<>();
-        empleados = new ArrayList<>();
+        this.convocatorias = new ArrayList<Convocatoria>();
+        this.empleados = new ArrayList<Empleado>();
     }
     
 }
