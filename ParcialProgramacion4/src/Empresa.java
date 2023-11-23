@@ -46,7 +46,7 @@ public class Empresa {
 
     }
 
-    //overriding 
+    //overriding para solo agregar a la lista una habilidad ya definida, se usa en pedirListaHabilidades
     public void agregarHabilidad(Habilidad habilidadNueva) {
         habilidades.add(habilidadNueva);
         System.out.println("habilidad registrada en la lista general de la empresa");
@@ -237,6 +237,15 @@ public class Empresa {
                 System.out.println("codigo habilidad: ");
                 int codigoHabilidad = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
 
+                //VERIFICAR QUE CODIGO NO SEA REPETIDO
+                Habilidad habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
+
+                while (habilidadRepetida==null) {
+                    System.out.println("codigo repetido, elija otro: ");
+                    codigoHabilidad = Integer.parseInt(scanner.nextLine());
+                    habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
+                }
+
                 System.out.println("descripcion: ");
                 String descripcion = scanner.nextLine();
 
@@ -259,13 +268,74 @@ public class Empresa {
             } else
                 System.out.println("habilidad ya esta agregada en la lista");
 
-
             System.out.println("agregar otra habilidad: (SI/NO)");
             otra = scanner.nextLine(); //nextLinea porque despues va otro nextLine para evitar que se coma el salto de pagina
         } while (otra.equalsIgnoreCase("SI"));
 
         return habilidades;
     }
+
+
+    //CU-04 AGREGAR o GENERAR NUEVA CONVOCATORIA
+    public void agregarConvocatoria() {
+        System.out.println("codigo convocatoria: ");
+        int codigoConvocatoria = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
+
+        Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
+
+        if(convocatoriaRepetida==null) {
+            System.out.println("nombre puesto: ");
+            String nombrePuesto = scanner.nextLine();
+
+            Puesto puestoConvocatoria = this.buscarPuestoVacante(nombrePuesto);
+
+            if(puestoConvocatoria!=null) {
+                System.out.println("fecha de la convocatoria: ");
+                Fecha fechaConvocatoria = Fecha.nuevaFecha();
+
+                System.out.println("cantidad de empleados requeridos: ");
+                int cantEmpleadosRequeridos = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
+
+                //hashtable la obtengo con la funcion pedirHabilidades, es la misma estructura
+                System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
+                Hashtable<Habilidad,Integer>requisitos = this.pedirListaHabilidades();
+
+                //crear convocatoria 
+                System.out.println("La convocatoria es para un puesto jerarquico? (SI/NO)");
+                String esJerarquico = scanner.nextLine();
+
+                while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
+                    System.out.println("Ingrese una opcion valida, SI o NO!");
+                    System.out.println("Es para un puesto jerarquico? [SI/NO]");
+                    esJerarquico = scanner.nextLine();
+                }
+
+                Convocatoria convocatoriaNueva;
+
+                if (esJerarquico.equalsIgnoreCase("SI")) {
+                    System.out.println("años minimos en la empresa que se requieren para aplicar: ");
+                    int annosMinimosEnEmpresa = Integer.parseInt(scanner.nextLine()); 
+
+                    convocatoriaNueva = new ConvocatoriaJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,annosMinimosEnEmpresa,requisitos);
+
+                } else { //ya verifique antes, solo puede ser NO
+
+                    convocatoriaNueva = new ConvocatoriaNoJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,requisitos);
+
+                }
+                //agregar convocatoria a lista de convocatorias de la empresa
+                convocatorias.add(convocatoriaNueva);
+                System.out.println("convocatoria registrada en el sistema!!!");
+
+                //agregar convocatoria al Puesto que se busca
+                puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
+
+            } else
+                System.out.println("ERROR, no existe un puesto con este nombre");
+        } else
+            System.out.println("ERROR, ya existe una convocatoria con este codigo");
+    }
+
 
 
     private Habilidad buscarHabilidad(int codigo) {
@@ -312,6 +382,18 @@ public class Empresa {
         
         if(i<empleados.size())
             return empleados.get(i);
+        else
+            return null;
+    }
+
+    private Convocatoria buscarConvocatoria(int codigo) {
+        int i = 0;
+
+        while(i<convocatorias.size() && !convocatorias.get(i).hasConvocatoria(codigo))
+            i++;
+        
+        if(i<convocatorias.size())
+            return convocatorias.get(i);
         else
             return null;
     }
