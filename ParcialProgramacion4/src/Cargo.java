@@ -11,4 +11,11 @@ public class Cargo {
         this.puesto = puesto;
     }
     
+    public boolean esActual() {
+        return fechaFin == null; //si es null, es el cargo actual
+    }
+
+    public Puesto getPuesto() {
+        return puesto;
+    }
 }
