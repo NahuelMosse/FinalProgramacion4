@@ -3,7 +3,7 @@ import utilidades.Fecha;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class Convocatoria {
+public abstract class Convocatoria {
     private int codigo;
     private ArrayList<Empleado>postulados;
     private Puesto puesto;

@@ -8,29 +8,28 @@ public class Ejecutora {
         int opcion = 0;
         do{
             System.out.println(
-			"\n 1-"+
-			"\n 2-"+
-			"\n 3-"+
+			"\n 1- agregar habilidad a lista de habilidades de la empresa"+
+			"\n 2- generar puesto vacante"+ //aca tambien se incluye a los puestos que llevaron los empleados antes y en la actualidad
+			"\n 3- agregar empleado"+
 			"\n 4-"+
 			"\n 5-"+
 			"\n 6-"+
 			"\n 7-");
 			System.out.println("opcion: ");
-			opcion = scanner.nextInt();
+            opcion = Integer.parseInt(scanner.nextLine()); //para limpiar en \n y evitar saltos de linea dentro de metodos de empresa
 
             switch (opcion) {
             case 0:
                 break;
             case 1:
-                
+                empresa.agregarHabilidad();
                 break;
-
             case 2:
+                empresa.agregarPuestoVacante();
                 break;
-            
             case 3:
+                empresa.agregarEmpleado();
                 break;
-
             case 4:
                 break;
 
@@ -49,5 +48,7 @@ public class Ejecutora {
             }
 
         } while(opcion!=0);
+
+        scanner.close();
     }
 }
