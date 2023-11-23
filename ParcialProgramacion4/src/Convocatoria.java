@@ -12,13 +12,19 @@ public abstract class Convocatoria {
     private Hashtable<Habilidad,Integer>requisitos;
     private ArrayList<Empleado>asignados;
 
-    public Convocatoria(int codigo, Puesto puesto, Fecha fecha, int cantEmpleadosRequeridos) {
+    public Convocatoria(int codigo, Puesto puesto, Fecha fecha, int cantEmpleadosRequeridos, Hashtable<Habilidad,Integer> requisitos) {
         this.codigo = codigo;
         this.postulados = new ArrayList<Empleado>();
         this.puesto = puesto;
         this.fecha = fecha;
         this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
-        this.requisitos = new Hashtable<Habilidad,Integer>();
+        this.requisitos = requisitos;
         this.asignados = new ArrayList<Empleado>();
     }
+
+    public boolean hasConvocatoria(int codigo) {
+        return this.codigo == codigo;
+    }
+
+    
 }

@@ -11,7 +11,7 @@ public class Ejecutora {
 			"\n 1- agregar habilidad a lista de habilidades de la empresa"+
 			"\n 2- generar puesto vacante"+ //aca tambien se incluye a los puestos que llevaron los empleados antes y en la actualidad
 			"\n 3- agregar empleado"+
-			"\n 4-"+
+			"\n 4- agregar convocatoria"+
 			"\n 5-"+
 			"\n 6-"+
 			"\n 7-");
@@ -31,8 +31,8 @@ public class Ejecutora {
                 empresa.agregarEmpleado();
                 break;
             case 4:
+                empresa.agregarConvocatoria();
                 break;
-
             case 5:
                 break;
                 

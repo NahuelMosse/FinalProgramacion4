@@ -21,4 +21,9 @@ public abstract class Puesto {
         empleados.add(empleadoNuevo);
         System.out.println("empleado nuevo agregado con exito a la lista de "+nombre+" !!!");
     }
+
+    public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
+        convocatorias.add(convocatoriaNueva);
+        System.out.println("convocatoria registrada en el puesto "+nombre);
+    }
 }
