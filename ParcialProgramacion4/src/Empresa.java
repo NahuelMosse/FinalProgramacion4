@@ -301,24 +301,15 @@ public class Empresa {
                 Hashtable<Habilidad,Integer>requisitos = this.pedirListaHabilidades();
 
                 //crear convocatoria 
-                System.out.println("La convocatoria es para un puesto jerarquico? (SI/NO)");
-                String esJerarquico = scanner.nextLine();
-
-                while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
-                    System.out.println("Ingrese una opcion valida, SI o NO!");
-                    System.out.println("Es para un puesto jerarquico? [SI/NO]");
-                    esJerarquico = scanner.nextLine();
-                }
-
                 Convocatoria convocatoriaNueva;
 
-                if (esJerarquico.equalsIgnoreCase("SI")) {
+                if (puestoConvocatoria.esJerarquico()) {
                     System.out.println("años minimos en la empresa que se requieren para aplicar: ");
                     int annosMinimosEnEmpresa = Integer.parseInt(scanner.nextLine()); 
 
                     convocatoriaNueva = new ConvocatoriaJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,annosMinimosEnEmpresa,requisitos);
 
-                } else { //ya verifique antes, solo puede ser NO
+                } else { 
 
                     convocatoriaNueva = new ConvocatoriaNoJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,requisitos);
 
@@ -335,6 +326,54 @@ public class Empresa {
         } else
             System.out.println("ERROR, ya existe una convocatoria con este codigo");
     }
+
+    //CU-05 INSCRIBIR EMPLEADO A CONVOCATORIA
+    public void inscribirEmpleadoConvocatoria() {
+        System.out.println("numero legajo del empleado: ");
+        int legajoEmpleado = Integer.parseInt(scanner.nextLine());
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if(empleado!=null) {
+            System.out.println("nombre del puesto al que quiere inscribirse: ");
+            String nombrePuesto = scanner.nextLine();
+
+            Puesto puestoAplicar = this.buscarPuestoVacante(nombrePuesto);
+
+            if(puestoAplicar!=null) {
+                //ver convocatorias abiertas que puede aplicar el empleado
+                puestoAplicar.mostrarConvocatoriasQueSePuedaInscribir(empleado);
+
+                System.out.println("codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
+                int codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+
+                Convocatoria convocatoria;
+
+                while (codigoConvocatoria != 0) {
+                    //buscar convocatoria con ese codigo y pedir de inscbirse a empleado
+                    convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+                    if(convocatoria!=null) {
+                        
+                        convocatoria.inscribirEmpleado(empleado);
+
+                    } else
+                        System.out.println("ERROR, codigo incorrecto, no existe convocatoria con ese codigo");
+
+
+                    System.out.println("codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
+                    codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+                }
+
+
+            } else
+                System.out.println("ERROR, no existe un puesto con ese nombre");
+
+        } else
+            System.out.println("no existen empleado con ese legajo");
+    }
+
+    
 
 
 
