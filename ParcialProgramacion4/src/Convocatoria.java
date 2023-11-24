@@ -27,9 +27,6 @@ public abstract class Convocatoria {
     }
 
     public void inscribirEmpleado(Empleado empleadoInscribir) {
-        //si se llama a este metodo en el caso de inscribirEmpleadoConvocatoria, se repite la verificacion
-        //se podria dejar por si se lo usa para otro caso de uso de inscribir empleado a una convocatoria que ya sepa cual es el codigo
-        //que pida inscribirse directamente a esa convocatoria
         if(this.empleadoPuedeInscribirse(empleadoInscribir)) {
             postulados.add(empleadoInscribir);
         } else
