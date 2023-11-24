@@ -29,6 +29,7 @@ public abstract class Convocatoria {
     public void inscribirEmpleado(Empleado empleadoInscribir) {
         if(this.empleadoPuedeInscribirse(empleadoInscribir)) {
             postulados.add(empleadoInscribir);
+            System.out.println("inscripto a la convocatoria con codigo: "+codigo);
         } else
             System.out.println("El empleado no puede inscribirse a la convocatoria con codigo: "+codigo);
     }
@@ -37,7 +38,17 @@ public abstract class Convocatoria {
         //FALTA HACER
         //ademas de verificar que empleado cumpla con requsitos, los años, etc. TAMBIEN FIJARSE QUE YA NO ESTE ESCRITO
         //PORQUE SINO PUEDE QUEDAR INSCRIPTO DOS VECES
-        return true;
+    
+        /* condiciones para que se pueda inscribir (en esta clase, en cada una y en convocatoriaJerarquica hay mas)
+            1. empleadoInscribir no puede estar en lista de postulados o asignados
+            2. empleadoInscribir debe cumplir con los requisitos de la convocatoria
+                en su lista de habilidades debe tener las habilidades y igual o mas años de experiencia en cada una
+            3. empleadoInscribir SI su cargo actual es de un puesto jerarquico, debe estar hace 4 años (VC) en este puesto
+
+            paso 2 y 3 se gestiona en clase Empleado cuando llamo a empleadoInscribir.puedeInscribirse(requisitos)
+        */
+
+        return true; //momentaneo para que no de error
     }
 
     public void mostrarme() {

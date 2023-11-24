@@ -9,4 +9,9 @@ public class ConvocatoriaJerarquico extends Convocatoria{
         super(codigo, puesto, fecha, cantEmpleadosRequeridos, requisitos);
         this.annosMinimosEnEmpresa = annosMinimosEnEmpresa;
     }
+
+    public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
+        //REVISAR
+        return super.empleadoPuedeInscribirse(empleadoInscribir) && annosMinimosEnEmpresa <= empleadoInscribir.getAnnosEnEmpresa();
+    }
 }

@@ -354,18 +354,13 @@ public class Empresa {
                     convocatoria = this.buscarConvocatoria(codigoConvocatoria);
 
                     if(convocatoria!=null) {
-                        
                         convocatoria.inscribirEmpleado(empleado);
-
                     } else
-                        System.out.println("ERROR, codigo incorrecto, no existe convocatoria con ese codigo");
-
+                        System.out.println("ERROR, codigo incorrecto, no existe convocatoria con ese codigo que pueda aplicar");
 
                     System.out.println("codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
                     codigoConvocatoria = Integer.parseInt(scanner.nextLine());
                 }
-
-
             } else
                 System.out.println("ERROR, no existe un puesto con ese nombre");
 

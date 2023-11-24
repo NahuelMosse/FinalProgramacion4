@@ -34,6 +34,7 @@ public class Ejecutora {
                 empresa.agregarConvocatoria();
                 break;
             case 5:
+                empresa.inscribirEmpleadoConvocatoria();
                 break;
                 
             case 6:
