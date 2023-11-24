@@ -6,6 +6,8 @@ public abstract class Puesto {
     private ArrayList<Convocatoria>convocatorias;
     private ArrayList<Empleado>empleados;
 
+    public abstract boolean esJerarquico();
+
     public Puesto(String nombre, double sueldo) {
         this.nombre = nombre;
         this.sueldo = sueldo;
@@ -25,5 +27,18 @@ public abstract class Puesto {
     public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
         convocatorias.add(convocatoriaNueva);
         System.out.println("convocatoria registrada en el puesto "+nombre);
+    }
+
+    public void mostrarConvocatoriasQueSePuedaInscribir(Empleado empleado) {
+        for(Convocatoria convocatoria: convocatorias) {
+            if(convocatoria.empleadoPuedeInscribirse(empleado)) {
+                convocatoria.mostrarme();
+            }
+        }
+    }
+
+    public void mostrarme() {
+        System.out.println("nombre puesto: "+nombre);
+        System.out.println("sueldo puesto: "+sueldo);
     }
 }

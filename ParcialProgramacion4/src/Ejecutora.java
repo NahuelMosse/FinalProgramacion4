@@ -12,7 +12,7 @@ public class Ejecutora {
 			"\n 2- generar puesto vacante"+ //aca tambien se incluye a los puestos que llevaron los empleados antes y en la actualidad
 			"\n 3- agregar empleado"+
 			"\n 4- agregar convocatoria"+
-			"\n 5-"+
+			"\n 5- inscribir empleado a convocatoria"+
 			"\n 6-"+
 			"\n 7-");
 			System.out.println("opcion: ");
