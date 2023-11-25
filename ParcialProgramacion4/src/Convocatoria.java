@@ -28,7 +28,7 @@ public abstract class Convocatoria {
         this.asignados = new ArrayList<Empleado>();
     }
 
-    public boolean hasConvocatoria(int codigo) {
+    public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
 
