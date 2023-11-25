@@ -5,6 +5,8 @@ public class Ejecutora {
         Scanner scanner = new Scanner(System.in);
         Empresa empresa = new Empresa();
 
+        PuestoJerarquico.setAnnosMinimosParaCambiar(); //Permite definir la cantidad de annos minima en un puesto jerarquico para poder acceder otro un puesto jerarquico
+
         int opcion = 0;
         do{
             System.out.println(
