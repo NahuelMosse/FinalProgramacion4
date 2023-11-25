@@ -12,7 +12,14 @@ public class Empleado {
     private Hashtable<Habilidad,Integer> habilidades;
     private Fecha fechaDeIngreso;
 
-    public Empleado(int legajo, String nombre, String apellido, Fecha fechaNacimiento, Fecha fechaDeIngreso, ArrayList<Cargo> historialDeCargos, Hashtable<Habilidad,Integer> habilidades) {
+    public Empleado(
+        int legajo,
+        String nombre,
+        String apellido,
+        Fecha fechaNacimiento,
+        Fecha fechaDeIngreso, ArrayList<Cargo> historialDeCargos,
+        Hashtable<Habilidad,Integer> habilidades
+    ) {
         this.legajo = legajo;
         this.nombre = nombre;
         this.apellido = apellido;
