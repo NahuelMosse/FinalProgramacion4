@@ -26,7 +26,7 @@ public class Empresa {
 
         Habilidad habilidadRepetida = this.buscarHabilidad(codigo);
 
-        if(habilidadRepetida==null) {
+        if(habilidadRepetida == null) {
             String saltoDeLinea = scanner.nextLine(); //para poder usar el nextLine en nombre porque sino ese nextLine lee el \n que produce el enter despues de  leer el codigo
             
             System.out.println("nombre habilidad: ");
