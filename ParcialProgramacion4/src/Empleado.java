@@ -52,6 +52,15 @@ public class Empleado {
         */
     }
 
+    //Utilizo el cargo para conocer las fechas para saber si el empleado cumple los requisitos de cantidad de annos en el cargo
+    public Cargo getCargoActual() {
+        int i = 0;
+        while(!this.historialDeCargos.get(i).esActual()) 
+            i++;
+
+        return this.historialDeCargos.get(i);
+    }
+
     public int getAnnosEnEmpresa() {
         //FALTA HACER
         //Restar Fecha.hoy() con fechaDeIngreso, ver mejor manera de hacerlo
