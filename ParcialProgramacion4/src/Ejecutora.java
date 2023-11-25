@@ -44,7 +44,7 @@ public class Ejecutora {
                 break;
 
             default:
-                System.out.println("opcion no valida");
+                System.out.println("Opcion no valida");
                 break;
             }
 

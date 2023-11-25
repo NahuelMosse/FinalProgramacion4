@@ -30,10 +30,10 @@ public class Empleado {
         //el puesto actual es el que tiene fechaFin==null porque no ha terminado 
         //le pregunto a cada cargo si es el actual, si es me lo devuelve, sino me devuelve null
         int i = 0;
-        while(!historialDeCargos.get(i).esActual()) //no pongo condicion de i<size porque se que alguno de los puestos es actual 
+        while(!this.historialDeCargos.get(i).esActual()) //no pongo condicion de i<size porque se que alguno de los puestos es actual 
             i++;
 
-        return historialDeCargos.get(i).getPuesto();
+        return this.historialDeCargos.get(i).getPuesto();
 
         /*Version alternativa:
         while(historialDeCargos.get(i).getPuestoSiSosActual() == null)
