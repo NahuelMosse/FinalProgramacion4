@@ -12,4 +12,8 @@ public class ConvocatoriaNoJerarquico extends Convocatoria {
     ) {
         super(codigo, puesto, fecha, cantEmpleadosRequeridos, requisitos);
     }
+
+    public  boolean esConvocatoriaJerarquica(){
+        return false;
+    }
 }
