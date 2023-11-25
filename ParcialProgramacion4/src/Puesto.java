@@ -32,7 +32,7 @@ public abstract class Puesto {
     public void mostrarConvocatoriasQueSePuedaInscribir(Empleado empleado) {
         for(Convocatoria convocatoria: convocatorias) {
             if(convocatoria.empleadoPuedeInscribirse(empleado)) {
-                convocatoria.mostrarme();
+                convocatoria.mostrar();
             }
         }
     }
