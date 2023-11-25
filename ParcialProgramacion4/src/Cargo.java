@@ -19,6 +19,10 @@ public class Cargo {
         return this.puesto;
     }
 
+    public boolean esJerarquico(){
+       return this.puesto.esJerarquico();
+    }
+
     public int tiempoEnCargo() {
         int cantDias=0;
         if(this.fechaFin == null){
