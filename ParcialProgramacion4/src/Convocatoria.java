@@ -59,9 +59,9 @@ public abstract class Convocatoria {
 
     public void mostrar() {
         System.out.println("-----------------");
-        System.out.println("codigo: "+codigo);
+        System.out.println("codigo: " + codigo);
         puesto.mostrarme();
-        System.out.println("Fecha: "+fecha.getDia()+"/"+fecha.getMes()+"/"+fecha.getAño());
+        System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAño());
         System.out.println("Requsitos: ");
         //FALTA HACER, RECORRER HASHTABLE DE REQUISITOS MOSTRANDO KEY Y VALUE
 
