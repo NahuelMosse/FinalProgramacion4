@@ -8,12 +8,12 @@ public class Ejecutora {
         int opcion = 0;
         do{
             System.out.println(
-			"\n 1- agregar habilidad a lista de habilidades de la empresa"+
-			"\n 2- generar puesto vacante"+ //aca tambien se incluye a los puestos que llevaron los empleados antes y en la actualidad
-			"\n 3- agregar empleado"+
-			"\n 4- agregar convocatoria"+
-			"\n 5- inscribir empleado a convocatoria"+
-			"\n 6-"+
+			"\n 1- Agregar habilidad a lista de habilidades de la empresa" +
+			"\n 2- Generar puesto vacante" + //aca tambien se incluye a los puestos que llevaron los empleados antes y en la actualidad
+			"\n 3- Agregar empleado" +
+			"\n 4- Agregar convocatoria" +
+			"\n 5- Inscribir empleado a convocatoria" +
+			"\n 6-" +
 			"\n 7-");
 			System.out.println("opcion: ");
             opcion = Integer.parseInt(scanner.nextLine()); //para limpiar en \n y evitar saltos de linea dentro de metodos de empresa
