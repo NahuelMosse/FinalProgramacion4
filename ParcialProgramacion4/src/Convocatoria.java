@@ -33,11 +33,12 @@ public abstract class Convocatoria {
     }
 
     public void inscribirEmpleado(Empleado empleadoInscribir) {
-        if(this.empleadoPuedeInscribirse(empleadoInscribir)) {
-            postulados.add(empleadoInscribir);
-            System.out.println("inscripto a la convocatoria con codigo: "+codigo);
+        boolean empleadoPuedeInscribirse = this.empleadoPuedeInscribirse(empleadoInscribir);
+        if(empleadoPuedeInscribirse) {
+            this.postulados.add(empleadoInscribir);
+            System.out.println("Inscripto a la convocatoria con codigo: " + codigo);
         } else
-            System.out.println("El empleado no puede inscribirse a la convocatoria con codigo: "+codigo);
+            System.out.println("El empleado no puede inscribirse a la convocatoria con codigo: " + codigo);
     }
 
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
@@ -59,7 +60,7 @@ public abstract class Convocatoria {
 
     public void mostrar() {
         System.out.println("-----------------");
-        System.out.println("codigo: " + codigo);
+        System.out.println("Codigo: " + codigo);
         puesto.mostrarme();
         System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAño());
         System.out.println("Requsitos: ");
