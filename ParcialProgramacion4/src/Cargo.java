@@ -18,4 +18,16 @@ public class Cargo {
     public Puesto getPuesto() {
         return this.puesto;
     }
+
+    public int tiempoEnCargo() {
+        int cantDias=0;
+        if(this.fechaFin == null){
+            //En el cargo actual la fecha fin es null
+            cantDias=Fecha.hoy().compareTo(this.fechaInicio);
+        }
+        else{
+            cantDias=this.fechaFin.compareTo(this.fechaInicio);
+        }
+        return cantDias;
+    }
 }
