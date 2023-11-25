@@ -21,7 +21,7 @@ public class Empresa {
 
     //CU-01 AGREGAR HABILIDAD A LISTA DE LA EMPRESA
     public void agregarHabilidad() {
-        System.out.println("codigo habilidad: ");
+        System.out.println("Codigo habilidad: ");
         int codigo = scanner.nextInt();
 
         Habilidad habilidadRepetida = this.buscarHabilidad(codigo);
