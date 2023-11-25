@@ -57,7 +57,7 @@ public abstract class Convocatoria {
         return true; //momentaneo para que no de error
     }
 
-    public void mostrarme() {
+    public void mostrar() {
         System.out.println("-----------------");
         System.out.println("codigo: "+codigo);
         puesto.mostrarme();
