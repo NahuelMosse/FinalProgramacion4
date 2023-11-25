@@ -423,7 +423,7 @@ public class Empresa {
     private Convocatoria buscarConvocatoria(int codigo) {
         int i = 0;
 
-        while(i<convocatorias.size() && !convocatorias.get(i).hasConvocatoria(codigo))
+        while(i<convocatorias.size() && !convocatorias.get(i).hasCodigo(codigo))
             i++;
         
         if(i<convocatorias.size())
