@@ -45,30 +45,30 @@ public class Ejecutora {
 	    } while (huboError);
 
             switch (opcion) {
-            case 0:
-                break;
-            case 1:
-                // empresa.agregarHabilidad();
-                break;
-            case 2:
-                // empresa.agregarPuestoVacante();
-                break;
-            case 3:
-                // empresa.agregarEmpleado();
-                break;
-            case 4:
-                // empresa.agregarConvocatoria();
-                break;
-            case 5:
-                // empresa.inscribirEmpleadoConvocatoria();
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            default:
-            	Logger.logError("La opcion " + opcion + " no esta en la lista");
-                break;
+                case 0:
+                    break;
+                case 1:
+                    // empresa.agregarHabilidad();
+                    break;
+                case 2:
+                    // empresa.agregarPuestoVacante();
+                    break;
+                case 3:
+                    // empresa.agregarEmpleado();
+                    break;
+                case 4:
+                    // empresa.agregarConvocatoria();
+                    break;
+                case 5:
+                    // empresa.inscribirEmpleadoConvocatoria();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                default:
+                	Logger.logError("La opcion " + opcion + " no esta en la lista");
+                    break;
             }
             
         } while(opcion != 0);
