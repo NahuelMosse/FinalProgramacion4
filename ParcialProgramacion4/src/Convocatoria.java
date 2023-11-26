@@ -60,18 +60,25 @@ public abstract class Convocatoria {
 
             if(this.empAnnosSuficientesCargoActual(empleadoInscribir)){
                 //Si esta en cargo jerarquico cumple con los años (2)
-                if(this.empCumpleAnnosConvocatoriaJerarquica(empleadoInscribir)){
+                if(this.empCumpleAnnosConvocatoriaJerarquica(empleadoInscribir)){ //me parece que ya esta puesto en ConvocatoriaJerarquico, no es necesario aca
                     //Cumple con los annos requeridos para el puesto (3)
                     
                     //FALTA LA CONDICION 4!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                    return true; //Puede inscribirse
+                    //condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
+                    //dar responsabilidad al empleado que tiene las habilidades
+                    if (empleadoInscribir.cumpleRequisitos(requisitos)) {
+                        return true; // puede inscribirse
+                    } else {
+                        return false;
+                    }
+
                 }
                 
             }
         }
 
-        return false;
+        return false; // verificar si esta bien poner el return aca, si no produce errores
     }
 
     //1. empleadoInscribir no puede estar en lista de postulados o asignados
@@ -111,6 +118,7 @@ public abstract class Convocatoria {
         puesto.mostrarme();
         System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAño());
         System.out.println("Requsitos: ");
+
         //RECORRER HASHTABLE DE REQUISITOS MOSTRANDO KEY Y VALUE
         Habilidad habilidad;
         Enumeration<Habilidad> enumReq = requisitos.keys();
