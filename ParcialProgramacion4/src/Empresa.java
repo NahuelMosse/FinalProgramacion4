@@ -116,7 +116,15 @@ public class Empresa {
             Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades();
 
             //constructor empleado
-            Empleado empleadoNuevo = new Empleado(legajo, nombre, apellido, fechaNacimiento, fechaIngreso, historialDeCargos, habilidades);
+            Empleado empleadoNuevo = new Empleado(
+                legajo,
+                nombre,
+                apellido,
+                fechaNacimiento,
+                fechaIngreso,
+                historialDeCargos,
+                habilidades
+            );
 
             //agrego al empleado en el puesto actual
             Puesto puestoActual = empleadoNuevo.getPuestoActual();
