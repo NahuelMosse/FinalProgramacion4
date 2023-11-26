@@ -322,7 +322,14 @@ public class Empresa {
                     System.out.println("Años minimos en la empresa que se requieren para aplicar: ");
                     int annosMinimosEnEmpresa = Integer.parseInt(scanner.nextLine()); 
 
-                    convocatoriaNueva = new ConvocatoriaJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,annosMinimosEnEmpresa,requisitos);
+                    convocatoriaNueva = new ConvocatoriaJerarquico(
+                        codigoConvocatoria,
+                        puestoConvocatoria,
+                        fechaConvocatoria,
+                        cantEmpleadosRequeridos,
+                        annosMinimosEnEmpresa,
+                        requisitos
+                    );
 
                 } else { 
 
