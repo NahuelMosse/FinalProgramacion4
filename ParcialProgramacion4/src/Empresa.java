@@ -333,7 +333,13 @@ public class Empresa {
 
                 } else { 
 
-                    convocatoriaNueva = new ConvocatoriaNoJerarquico(codigoConvocatoria,puestoConvocatoria,fechaConvocatoria,cantEmpleadosRequeridos,requisitos);
+                    convocatoriaNueva = new ConvocatoriaNoJerarquico(
+                        codigoConvocatoria,
+                        puestoConvocatoria,
+                        fechaConvocatoria,
+                        cantEmpleadosRequeridos,
+                        requisitos
+                    );
 
                 }
                 //agregar convocatoria a lista de convocatorias de la empresa
