@@ -34,4 +34,8 @@ public class Cargo {
         }
         return cantDias;
     }
+
+    public void cerrarCargo() {
+        fechaFin = Fecha.hoy();
+    }
 }

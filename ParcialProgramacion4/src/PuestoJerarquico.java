@@ -9,9 +9,9 @@ public class PuestoJerarquico extends Puesto{
         super(nombre, sueldo);
     }
 
-    public void mostrarme() {
+    public void mostrar() {
         System.out.println("Puesto jerarquico");
-        super.mostrarme();
+        super.mostrar();
     }
 
     public static void setAnnosMinimosParaCambiar(){

@@ -4,8 +4,8 @@ public class PuestoNoJerarquico extends Puesto{
         super(nombre,sueldo);
     }
 
-    public void mostrarme() {
+    public void mostrar() {
         System.out.println("puesto NO jerarquico");
-        super.mostrarme();
+        super.mostrar();
     }
 }

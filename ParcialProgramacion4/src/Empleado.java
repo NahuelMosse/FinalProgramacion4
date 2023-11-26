@@ -91,4 +91,32 @@ public class Empleado {
         //si salio porque cumpleReq fue false retorna false
         return cumpleReq; 
     }
+
+    public void mostrar() {
+        System.out.println("legajo: " + legajo);
+        System.out.println("Nombre completo: " + nombre + " " + apellido);
+        System.out.println("Puesto actual: ");
+        this.getPuestoActual().mostrar();
+        System.out.println("Habilidades: ");
+        
+    }
+
+    public void mostrarHabilidades() {
+        Habilidad habilidad;
+        Enumeration<Habilidad> enumH = habilidades.keys();
+        while (enumH.hasMoreElements()) {
+            habilidad = enumH.nextElement();
+
+            habilidad.mostrar();
+
+            System.out.println("años de experiencia: "+habilidades.get(habilidad));
+        }
+    }
+
+    public void nuevoCargo(Puesto nuevoPuesto) {
+        Cargo cargoNuevo = new Cargo(Fecha.hoy(),null,nuevoPuesto);
+        Cargo cargoAnterior = this.getCargoActual();
+        cargoAnterior.cerrarCargo();
+        historialDeCargos.add(cargoNuevo);
+    }
 }
