@@ -16,4 +16,9 @@ public class Habilidad {
     public boolean hasHabilidad(String nombre) {
         return this.nombre.equalsIgnoreCase(nombre);
     }
+
+    public void mostrar() {
+        System.out.println("Codigo: " + codigo + " | nombre: " + nombre);
+        System.out.println("Descripcion: " + descripcion);
+    }
 }
