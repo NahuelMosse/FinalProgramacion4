@@ -361,7 +361,7 @@ public class Empresa {
                     //buscar convocatoria con ese codigo y pedir de inscbirse a empleado
                     convocatoria = this.buscarConvocatoria(codigoConvocatoria);
 
-                    if(convocatoria!=null) {
+                    if(convocatoria != null) {
                         convocatoria.inscribirEmpleado(empleado);
                     } else
                         System.out.println("ERROR, codigo incorrecto, no existe convocatoria con ese codigo que pueda aplicar");
