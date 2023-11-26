@@ -83,10 +83,9 @@ public class Empresa {
 
             System.out.println("Puesto vacante añadido con exito !!!");
 
-        } else
-            System.out.println("ERROR, ya se encuentra registrado un puesto con ese nombre");
-        
-        
+        } else {
+            System.out.println("ERROR: ya se encuentra registrado un puesto con ese nombre");
+        }
     }
 
     //CU-03 AGREGAR EMPLEADO AL SISTEMA
@@ -96,7 +95,7 @@ public class Empresa {
 
         Empleado empleadoRepetido = this.buscarEmpleado(legajo);
 
-        if(empleadoRepetido==null) {
+        if(empleadoRepetido == null) {
             System.out.println("Nombre: ");
             String nombre = scanner.nextLine();
 
@@ -114,7 +113,7 @@ public class Empresa {
             
             //crear hashtable con las habilidades y años de experiencia
             System.out.println("Ingreso de habilidades del empleado con sus años de experencia en cada una: ");
-            Hashtable<Habilidad,Integer>habilidades = this.pedirListaHabilidades();
+            Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades();
 
             //constructor empleado
             Empleado empleadoNuevo = new Empleado(legajo, nombre, apellido, fechaNacimiento, fechaIngreso, historialDeCargos, habilidades);
