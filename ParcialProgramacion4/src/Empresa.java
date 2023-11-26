@@ -136,9 +136,9 @@ public class Empresa {
 
             System.out.println("Empleado agregado a lista de la empresa!!!");
 
-        } else 
-            System.out.println("ERROR, ya existe un empleado con ese numero de legajo");
-        
+        } else {
+            System.out.println("ERROR: ya existe un empleado con ese numero de legajo");
+        }
     }
 
     //para que no quede tanto codigo en metodo agregarEmpleado
@@ -148,7 +148,7 @@ public class Empresa {
         System.out.println("\nHistorial de cargos ocupados: ");
 
         //creo un arraylist local para el historial de cargos para pasarle al constructor de empleado 
-        ArrayList<Cargo>historialDeCargos;
+        ArrayList<Cargo> historialDeCargos;
         historialDeCargos = new ArrayList<Cargo>();
 
         //primero ingreso los cargos antiguos
@@ -167,7 +167,7 @@ public class Empresa {
 
             Puesto puesto = this.buscarPuestoVacante(nombrePuesto);
 
-            if(puesto!=null) {
+            if(puesto != null) {
                 System.out.println("\nFecha ingreso al puesto: ");
                 Fecha fechaInicio = Fecha.nuevaFecha();
 
@@ -202,7 +202,7 @@ public class Empresa {
 
         Puesto puestoActual = this.buscarPuestoVacante(nombrePuestoActual);
 
-        while (puestoActual==null) { //es un while porque si o si debe tener un puesto actual, sino no seria empleado
+        while (puestoActual == null) { //es un while porque si o si debe tener un puesto actual, sino no seria empleado
             System.out.println("No existe puesto con ese nombre, intente nuevamente");
             System.out.println("Nombre puesto actual: ");
             nombrePuestoActual = scanner.nextLine();
@@ -224,12 +224,12 @@ public class Empresa {
     }
 
     //sirve para CU-03 agregar empleadado y CU-04 generar convocatoria
-    private Hashtable<Habilidad,Integer> pedirListaHabilidades() {
+    private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
         //ingresar las habilidades y los años de experiencia en cada una
         
         //crear hashtable local
-        Hashtable<Habilidad,Integer> habilidades;
-        habilidades = new Hashtable<Habilidad,Integer>();
+        Hashtable<Habilidad, Integer> habilidades;
+        habilidades = new Hashtable<Habilidad, Integer>();
 
         //llenar la hashtable con las habilidades
         String otra;
@@ -241,7 +241,7 @@ public class Empresa {
             //busco que la habilidad exista
             Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
 
-            if(habilidad==null) {
+            if(habilidad == null) {
                 //no existe, la creamos ahora
                 System.out.println("Codigo habilidad: ");
                 int codigoHabilidad = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
@@ -249,7 +249,7 @@ public class Empresa {
                 //VERIFICAR QUE CODIGO NO SEA REPETIDO
                 Habilidad habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
 
-                while (habilidadRepetida==null) {
+                while (habilidadRepetida == null) {
                     System.out.println("Codigo repetido, elija otro: ");
                     codigoHabilidad = Integer.parseInt(scanner.nextLine());
                     habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
@@ -293,18 +293,18 @@ public class Empresa {
 
     //CU-04 AGREGAR o GENERAR NUEVA CONVOCATORIA
     public void agregarConvocatoria() {
-        System.out.println("codigo convocatoria: ");
+        System.out.println("Codigo convocatoria: ");
         int codigoConvocatoria = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
 
         Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
 
-        if(convocatoriaRepetida==null) {
+        if(convocatoriaRepetida == null) {
             System.out.println("Nombre puesto: ");
             String nombrePuesto = scanner.nextLine();
 
             Puesto puestoConvocatoria = this.buscarPuestoVacante(nombrePuesto);
 
-            if(puestoConvocatoria!=null) {
+            if(puestoConvocatoria != null) {
                 System.out.println("Fecha de la convocatoria: ");
                 Fecha fechaConvocatoria = Fecha.nuevaFecha();
 
@@ -313,7 +313,7 @@ public class Empresa {
 
                 //hashtable la obtengo con la funcion pedirHabilidades, es la misma estructura
                 System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
-                Hashtable<Habilidad,Integer>requisitos = this.pedirListaHabilidades();
+                Hashtable<Habilidad, Integer>requisitos = this.pedirListaHabilidades();
 
                 //crear convocatoria 
                 Convocatoria convocatoriaNueva;
