@@ -398,6 +398,30 @@ public class Empresa {
             System.out.println("No existen empleado con ese legajo");
     }
 
+    //CU-05
+    public void elegirEmpleadosConvocatoria() {
+        //se podria agregar una opcion para que el usuario vea las convocatorias de un puesto determinado si quiere
+
+        System.out.println("Codigo convocatoria");
+        int codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria != null) {
+            convocatoria.elegirEmpleadosConvocatoria();
+
+        } else {
+            System.out.println("ERROR: NO existe una convocatoria con ese codigo");
+        }
+    }
+
+    //CU-0X MOSTRAR CONVOCATORIAS ABIERTAS PARA UN PUESTO
+
+
+    //CU-0X MOSTRAR CONVOCATORIAS ABIERTAS PARA TODOS LOS PUESTOS
+
+
+
     private Habilidad buscarHabilidad(int codigo) {
         int i = 0;
 

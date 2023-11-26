@@ -15,8 +15,8 @@ public class Ejecutora {
 			"\n 3- Agregar empleado" +
 			"\n 4- Agregar convocatoria" +
 			"\n 5- Inscribir empleado a convocatoria" +
-			"\n 6-" +
-			"\n 7-");
+			"\n 6- Mostrar convocatorias abiertas de un puesto" +
+			"\n 7- Mostrar convocatorias abiertas para todos los puestos");
 			System.out.println("opcion: ");
             opcion = Integer.parseInt(scanner.nextLine()); //para limpiar en \n y evitar saltos de linea dentro de metodos de empresa
 

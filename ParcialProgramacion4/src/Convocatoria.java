@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import utilidades.Fecha;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Scanner;
 
 public abstract class Convocatoria {
+    Scanner scanner = new Scanner(System.in);
+
     private int codigo;
     private ArrayList<Empleado>postulados;
     private Puesto puesto;
@@ -63,7 +66,6 @@ public abstract class Convocatoria {
                 if(this.empCumpleAnnosConvocatoriaJerarquica(empleadoInscribir)){ //me parece que ya esta puesto en ConvocatoriaJerarquico, no es necesario aca
                     //Cumple con los annos requeridos para el puesto (3)
                     
-                    //FALTA LA CONDICION 4!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                     //condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
                     //dar responsabilidad al empleado que tiene las habilidades
@@ -115,7 +117,7 @@ public abstract class Convocatoria {
     public void mostrar() {
         System.out.println("-----------------");
         System.out.println("Codigo: " + codigo);
-        puesto.mostrarme();
+        puesto.mostrar();
         System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAño());
         System.out.println("Requsitos: ");
 
@@ -129,5 +131,84 @@ public abstract class Convocatoria {
         }
 
         System.out.println("-----------------");
+    }
+
+
+    public void elegirEmpleadosConvocatoria() {
+        if (this.estaAbierta()) {
+            System.out.println("Postulantes: ");
+            this.mostrarPostulados();
+
+            System.out.println("\n----------------");
+            System.out.println("Elegir postulantes: ");
+
+            Empleado empleadoAsignar;
+            String sigo="SI";
+
+            while (quedaCupo() && sigo.equalsIgnoreCase("SI")) { //llamo para ver si puedo seguir inscribiendo postulantes a asignados
+                System.out.println("numero de legajo: ");
+                int legajoEmpleado = Integer.parseInt(scanner.nextLine());
+
+                empleadoAsignar = this.buscarPostulante(legajoEmpleado);
+
+                if (empleadoAsignar != null) {
+                    //SE CONSIDERA QUE LA ASIGNACION SE REGISTRA EN LA FECHA EN LA QUE SE REALIZA
+                    //FECHA DE HOY ES CUANDO ASUME EL NUEVO CARGO
+                    //PORQUE SINO SE DEBEN ELIMINAR EN LOS REGISTROS EL DIA EN QUE EL EMPLEADO CAMBIA DE PUESTO
+
+                    //registro en la convocatoria
+                    asignados.add(empleadoAsignar);
+                    postulados.remove(empleadoAsignar);
+
+                    //registro en el puesto y en el empleado con su nuevo cargo
+                    empleadoAsignar.getPuestoActual().eliminarEmpleado(empleadoAsignar); //elimino en el puesto viejo al empleado
+                    puesto.agregarEmpleado(empleadoAsignar); //agrego al puesto de la convocatoria el nuevo empleado
+
+                    empleadoAsignar.nuevoCargo(puesto); //el empleado cierra el cargo
+
+                    System.out.println("Postulante asignado con exito");
+
+                } else {
+                    System.out.println("ERROR: NO se han encontrado postulantes con ese legajo");
+                }
+
+                System.out.println("Quiere asignar otro empleado? (SI/NO)");
+                sigo = scanner.nextLine();
+            }
+
+            if (!quedaCupo()) {
+                System.out.println("La convocatoria se cerro, ya no hay mas cupos");
+            }
+
+        } else {
+            System.out.println("La convocatoria esta cerrada!");
+        }
+    }
+
+    public boolean estaAbierta() {
+        boolean noPasoFecha = Fecha.hoy().compareTo(fecha) <= 0;
+        return noPasoFecha && this.quedaCupo(); 
+    }
+
+    public void mostrarPostulados() {
+        for(Empleado empleado: postulados) {
+            empleado.mostrar();
+        }
+    }
+
+    public boolean quedaCupo() {
+        return asignados.size() < cantEmpleadosRequeridos;
+    }
+
+    private Empleado buscarPostulante(int legajo) {
+        int i = 0;
+
+        while(i<postulados.size() && !postulados.get(i).hasEmpleado(legajo))
+            i++;
+        
+        if(i<postulados.size())
+            return postulados.get(i);
+        else
+            return null;
     }
 }

@@ -35,12 +35,16 @@ public abstract class Puesto {
         }
     }
 
-    public void mostrarme() {
+    public void mostrar() {
         System.out.println("nombre puesto: "+nombre);
         System.out.println("sueldo puesto: "+sueldo);
     }
 
     public boolean esJerarquico() {
         return this.getClass().getName().equals("PuestoJerarquico");
+    }
+
+    public void eliminarEmpleado(Empleado empleadoEliminar) {
+        empleados.remove(empleadoEliminar);
     }
 }
