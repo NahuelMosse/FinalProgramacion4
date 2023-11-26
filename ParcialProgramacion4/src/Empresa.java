@@ -79,7 +79,7 @@ public class Empresa {
                 puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
             }
 
-            puestos.add(puestoNuevo);
+            this.puestos.add(puestoNuevo);
 
             System.out.println("Puesto vacante añadido con exito !!!");
 
