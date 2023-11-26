@@ -35,7 +35,7 @@ public class Empresa {
 
             Habilidad habilidadNueva = new Habilidad(codigo, nombre, descripcion);
 
-            habilidades.add(habilidadNueva);
+            this.habilidades.add(habilidadNueva);
 
             System.out.println("Habilidad registrada con exito !!!");
 
