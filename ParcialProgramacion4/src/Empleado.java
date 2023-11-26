@@ -65,4 +65,27 @@ public class Empleado {
         //pero si entre le 2021-10-24 pasaron 2 años desde que entro
         return 0;
     }
+
+    public boolean cumpleRequisitos(Hashtable<Habilidad, Integer> requisitos) {
+        //recorrer hashtable requisitos y por cada una fijarse si tiene cada habilidad requerida con los años de experiencia
+        int annosExperiencia;
+        boolean cumpleReq = true;
+        Habilidad requisito;
+        Enumeration<Habilidad> enumReq = requisitos.keys();
+        while (enumReq.hasMoreElements() && cumpleReq) { //cuando detecta que una habilidad ya no se cumple, termina
+            requisito = enumReq.nextElement();
+            annosExperiencia = requisitos.get(requisito);
+
+            if (habilidades.containsKey(requisito)) {
+                //empleado contiene habilidad / requisito, ahora verificar si tienen los años de experiencia necesarios
+                cumpleReq = habilidades.get(requisito) >= requisitos.get(requisito); 
+                //años de experiencia empleado >= años de experiencia requeridos 
+            } else {
+                cumpleReq = false; //empleado no tiene esa habilidad, ya no cumple con la condicion
+            }
+        }
+        //si salio porque recorrio todos los requisitos y todos cumplian con los años de exp requeridos retorna true
+        //si salio porque cumpleReq fue false retorna false
+        return cumpleReq; 
+    }
 }
