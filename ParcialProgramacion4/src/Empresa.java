@@ -294,7 +294,7 @@ public class Empresa {
     //CU-04 AGREGAR o GENERAR NUEVA CONVOCATORIA
     public void agregarConvocatoria() {
         System.out.println("Codigo convocatoria: ");
-        int codigoConvocatoria = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
+        int codigoConvocatoria = Integer.parseInt(scanner.nextLine()); 
 
         Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
 
@@ -309,7 +309,7 @@ public class Empresa {
                 Fecha fechaConvocatoria = Fecha.nuevaFecha();
 
                 System.out.println("Cantidad de empleados requeridos: ");
-                int cantEmpleadosRequeridos = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
+                int cantEmpleadosRequeridos = Integer.parseInt(scanner.nextLine()); 
 
                 //hashtable la obtengo con la funcion pedirHabilidades, es la misma estructura
                 System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
