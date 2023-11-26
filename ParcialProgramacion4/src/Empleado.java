@@ -68,13 +68,11 @@ public class Empleado {
 
     public boolean cumpleRequisitos(Hashtable<Habilidad, Integer> requisitos) {
         //recorrer hashtable requisitos y por cada una fijarse si tiene cada habilidad requerida con los años de experiencia
-        int annosExperiencia;
         boolean cumpleReq = true;
         Habilidad requisito;
         Enumeration<Habilidad> enumReq = requisitos.keys();
         while (enumReq.hasMoreElements() && cumpleReq) { //cuando detecta que una habilidad ya no se cumple, termina
             requisito = enumReq.nextElement();
-            annosExperiencia = requisitos.get(requisito);
 
             if (habilidades.containsKey(requisito)) {
                 //empleado contiene habilidad / requisito, ahora verificar si tienen los años de experiencia necesarios
