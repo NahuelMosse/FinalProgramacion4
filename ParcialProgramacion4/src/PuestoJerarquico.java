@@ -9,10 +9,6 @@ public class PuestoJerarquico extends Puesto{
         super(nombre, sueldo);
     }
 
-    public boolean esJerarquico() {
-        return true;
-    }
-
     public void mostrarme() {
         System.out.println("Puesto jerarquico");
         super.mostrarme();

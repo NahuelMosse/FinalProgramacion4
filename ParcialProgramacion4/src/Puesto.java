@@ -6,8 +6,6 @@ public abstract class Puesto {
     private ArrayList<Convocatoria>convocatorias;
     private ArrayList<Empleado>empleados;
 
-    public abstract boolean esJerarquico();
-
     public Puesto(String nombre, double sueldo) {
         this.nombre = nombre;
         this.sueldo = sueldo;
@@ -40,5 +38,9 @@ public abstract class Puesto {
     public void mostrarme() {
         System.out.println("nombre puesto: "+nombre);
         System.out.println("sueldo puesto: "+sueldo);
+    }
+
+    public boolean esJerarquico() {
+        return this.getClass().getName().equals("PuestoJerarquico");
     }
 }
