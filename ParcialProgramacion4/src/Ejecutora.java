@@ -18,10 +18,10 @@ public class Ejecutora {
         // PuestoJerarquico.setAnnosMinimosParaCambiar();
 
         int opcion = 0;
-        do{
-        	Logger.divider();
-        	System.out.println("Seleccione una de las opciones de la lista");
-        	Logger.divider();
+        do {
+            Logger.divider();
+            System.out.println("Seleccione una de las opciones de la lista");
+            Logger.divider();
         	
             System.out.println("\n[1] Agregar habilidad a lista de habilidades de la empresa");
             System.out.println("[2] Generar puesto vacante");
@@ -33,16 +33,16 @@ public class Ejecutora {
 			
             // Evita que se cuelgue el sistema cuando se ingresa un string
             boolean huboError = false;
-			do {
-				huboError = false;
-				try {
-					System.out.print("\nopcion: ");
-					opcion = Integer.parseInt(scanner.nextLine());
-				} catch (Exception _error) {
-					huboError = true;
-					Logger.logError("Solo estan permitidos caracteres numericos");
-				}
-			} while (huboError);
+	    do {
+	        huboError = false;
+		try {
+		    System.out.print("\nopcion: ");
+		    opcion = Integer.parseInt(scanner.nextLine());
+		} catch (Exception _error) {
+		    huboError = true;
+		    Logger.logError("Solo estan permitidos caracteres numericos");
+		}
+	    } while (huboError);
 
             switch (opcion) {
             case 0:
