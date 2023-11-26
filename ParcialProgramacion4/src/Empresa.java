@@ -39,9 +39,9 @@ public class Empresa {
 
             System.out.println("Habilidad registrada con exito !!!");
 
-        } else 
-            System.out.println("ERROR, ya existe una habilidad con este codigo");
-
+        } else {
+            System.out.println("ERROR: ya existe una habilidad con este codigo");
+        }
     }
 
     //overriding para solo agregar a la lista una habilidad ya definida, se usa en pedirListaHabilidades
