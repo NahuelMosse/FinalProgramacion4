@@ -17,6 +17,7 @@ public class ConvocatoriaJerarquico extends Convocatoria {
         this.annosMinimosEnEmpresa = annosMinimosEnEmpresa;
     }
 
+    //3. Solo si empleadoInscribir se postula a puesto jerarquico, debe cumplir n cantidad de annos en la empresa. Si no es jerarquico no hay condicion
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
         boolean cumpleAnnosMinimos = annosMinimosEnEmpresa <= empleadoInscribir.getAnnosEnEmpresa();
         return super.empleadoPuedeInscribirse(empleadoInscribir) && cumpleAnnosMinimos;
