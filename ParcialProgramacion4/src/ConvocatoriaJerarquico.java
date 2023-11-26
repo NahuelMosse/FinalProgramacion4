@@ -26,8 +26,9 @@ public class ConvocatoriaJerarquico extends Convocatoria {
         
         if(cargoActual.tiempoEnCargo() >= PuestoJerarquico.getAnnosMinimosParaCambiar()){
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
