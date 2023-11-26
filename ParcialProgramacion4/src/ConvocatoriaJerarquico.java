@@ -17,20 +17,6 @@ public class ConvocatoriaJerarquico extends Convocatoria {
         this.annosMinimosEnEmpresa = annosMinimosEnEmpresa;
     }
 
-    public boolean empCumpleAnnosConvocatoriaJerarquica(Empleado empleadoInscribir){
-        return empleadoInscribir.getAnnosEnEmpresa() >= this.annosMinimosEnEmpresa;
-    }
-
-    public boolean empAnnosSuficientesCargoActual(Empleado empleadoInscribir){
-        Cargo cargoActual = empleadoInscribir.getCargoActual();
-        
-        if(cargoActual.tiempoEnCargo() >= PuestoJerarquico.getAnnosMinimosParaCambiar()){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
         boolean cumpleAnnosMinimos = annosMinimosEnEmpresa <= empleadoInscribir.getAnnosEnEmpresa();
         return super.empleadoPuedeInscribirse(empleadoInscribir) && cumpleAnnosMinimos;
