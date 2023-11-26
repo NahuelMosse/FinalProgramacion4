@@ -46,7 +46,7 @@ public class Empresa {
 
     //overriding para solo agregar a la lista una habilidad ya definida, se usa en pedirListaHabilidades
     public void agregarHabilidad(Habilidad habilidadNueva) {
-        habilidades.add(habilidadNueva);
+        this.habilidades.add(habilidadNueva);
         System.out.println("Habilidad registrada en la lista general de la empresa");
     }
 
