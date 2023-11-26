@@ -34,6 +34,7 @@ public class Empleado {
     }
 
     public Puesto getPuestoActual() {
+        /* 
         //el puesto actual es el que tiene fechaFin==null porque no ha terminado 
         //le pregunto a cada cargo si es el actual, si es me lo devuelve, sino me devuelve null
         int i = 0;
@@ -41,15 +42,10 @@ public class Empleado {
             i++;
 
         return this.historialDeCargos.get(i).getPuesto();
-
-        /*Version alternativa:
-        while(historialDeCargos.get(i).getPuestoSiSosActual() == null)
-            i++;
-        
-        return historialDeCargos.get(i).getPuestoSiSosActual()
-        
-        corta cuando es el puesto actual porque no es null, es el puesto en si y eso es lo que retorno
         */
+
+        //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
+        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
 
     //Utilizo el cargo para conocer las fechas para saber si el empleado cumple los requisitos de cantidad de annos en el cargo
