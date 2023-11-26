@@ -76,11 +76,24 @@ public abstract class Convocatoria {
 
     //1. empleadoInscribir no puede estar en lista de postulados o asignados
     public boolean empEstaInscripto(Empleado empleadoInscribir){
+        /* 
         for(Empleado empAsig:asignados){
                 if(empAsig == empleadoInscribir)
                     return true; //El empleado esa inscripto
-            }
+        }
             return false;
+        */
+        //version alternativa, usando while
+        int i = 0;
+        while (i<postulados.size() && (postulados.get(i) != empleadoInscribir)) {
+            i++;
+        }
+
+        if(i<postulados.size()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //2. Si su cargo actual es de un puesto jerarquico, debe estar hace 4 años (VC) en este puesto
