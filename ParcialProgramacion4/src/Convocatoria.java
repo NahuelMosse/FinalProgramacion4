@@ -52,6 +52,8 @@ public abstract class Convocatoria {
             4. en su lista de habilidades debe tener las habilidades y igual o mas años de experiencia en cada una
         */
 
+        boolean puedeInscribirse = false;
+
         //Condicion 1: El empleadoInscribir no puede estar en lista de postulados o asignados
         if(!this.empEstaInscripto(empleadoInscribir)){
 
@@ -62,15 +64,13 @@ public abstract class Convocatoria {
                     
                 //Condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
                 //dar responsabilidad al empleado que tiene las habilidades
-                if (empleadoInscribir.cumpleRequisitos(requisitos))
-                    return true; // puede inscribirse
-                else
-                    return false;
-                   
+                if (empleadoInscribir.cumpleRequisitos(requisitos)) {
+                    puedeInscribirse = true; // puede inscribirse
+                }
             }
         }
 
-        return false; // verificar si esta bien poner el return aca, si no produce errores
+        return puedeInscribirse; 
     }
 
     //1. El empleadoInscribir no puede estar en lista de postulados o asignados
