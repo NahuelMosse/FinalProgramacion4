@@ -22,7 +22,7 @@ public class Empresa {
     //CU-01 AGREGAR HABILIDAD A LISTA DE LA EMPRESA
     public void agregarHabilidad() {
         System.out.println("Codigo habilidad: ");
-        int codigo = scanner.nextInt();
+        int codigo = Integer.parseInt(scanner.nextLine());
 
         Habilidad habilidadRepetida = this.buscarHabilidad(codigo);
 
@@ -249,7 +249,7 @@ public class Empresa {
                 //VERIFICAR QUE CODIGO NO SEA REPETIDO
                 Habilidad habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
 
-                while (habilidadRepetida == null) {
+                while (habilidadRepetida != null) {
                     System.out.println("Codigo repetido, elija otro: ");
                     codigoHabilidad = Integer.parseInt(scanner.nextLine());
                     habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
@@ -372,25 +372,40 @@ public class Empresa {
 
             if(puestoAplicar != null) {
                 //ver convocatorias abiertas que puede aplicar el empleado
-                puestoAplicar.mostrarConvocatoriasQueSePuedaInscribir(empleado);
+                int cantPuedeAplicar = puestoAplicar.mostrarConvocatoriasQueSePuedaInscribir(empleado); 
+                //obtengo a cuantas puede aplicar para saber si tengo que mostrar la opcion de elegir y 
+                //para saber cuantas veces tengo que pedir por codigos para aplicar
 
-                System.out.println("Codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
-                int codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+                System.out.println("se puede inscribir a " + cantPuedeAplicar + " convocatorias");
 
-                Convocatoria convocatoria;
-
-                while (codigoConvocatoria != 0) {
-                    //buscar convocatoria con ese codigo y pedir de inscbirse a empleado
-                    convocatoria = this.buscarConvocatoria(codigoConvocatoria);
-
-                    if(convocatoria != null) {
-                        convocatoria.inscribirEmpleado(empleado);
-                    } else
-                        System.out.println("ERROR: codigo incorrecto, no existe convocatoria con ese codigo que pueda aplicar");
-
+                if (cantPuedeAplicar > 0) {
                     System.out.println("Codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
-                    codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+                    int codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+
+                    Convocatoria convocatoria;
+
+                    int i = 0; //para saber cuantas veces tengo que pedir para inscribir
+
+                    while (codigoConvocatoria != 0 && i < cantPuedeAplicar) {
+                        //buscar convocatoria con ese codigo y pedir de inscbirse a empleado
+                        convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+                        if(convocatoria != null) {
+                            convocatoria.inscribirEmpleado(empleado);
+                            i++; //para saber si tengo que preguntar de nuevo por el codigo o no
+                        } else {
+                            System.out.println("ERROR: codigo incorrecto, no existe convocatoria con ese codigo que pueda aplicar");
+                        }
+
+                        if (i < cantPuedeAplicar) { //para que no vuelva a preguntar si ya no se puede inscribir a otra, sale por la 2da condicion
+                            System.out.println("Codigos de convocatorias que se quiera inscribir (una por vez, 0 para fin): ");
+                            codigoConvocatoria = Integer.parseInt(scanner.nextLine());
+                        }
+                    }
+                } else {
+                    System.out.println("Lo sentimos! No puede aplicar a ninguna convocatoria para este puesto");
                 }
+
             } else
                 System.out.println("ERROR: no existe un puesto con ese nombre");
 

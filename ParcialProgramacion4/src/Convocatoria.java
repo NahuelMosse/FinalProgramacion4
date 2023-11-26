@@ -160,6 +160,8 @@ public abstract class Convocatoria {
 
             if (!quedaCupo()) {
                 System.out.println("La convocatoria se cerro, ya no hay mas cupos");
+            } else {
+                System.out.println("Aun se pueden asignar "+ cantEmpleadosRequeridos + " empleados");
             }
 
         } else {
