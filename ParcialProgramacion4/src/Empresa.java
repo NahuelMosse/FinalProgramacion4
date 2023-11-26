@@ -349,10 +349,12 @@ public class Empresa {
                 //agregar convocatoria al Puesto que se busca
                 puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
 
-            } else
-                System.out.println("ERROR, no existe un puesto con este nombre");
-        } else
-            System.out.println("ERROR, ya existe una convocatoria con este codigo");
+            } else {
+                System.out.println("ERROR: no existe un puesto con este nombre");
+            }
+        } else {
+            System.out.println("ERROR: ya existe una convocatoria con este codigo");
+        }
     }
 
     //CU-05 INSCRIBIR EMPLEADO A CONVOCATORIA
