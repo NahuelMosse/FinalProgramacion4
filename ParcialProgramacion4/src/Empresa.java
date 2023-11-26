@@ -59,7 +59,7 @@ public class Empresa {
         Puesto puestoRepetido = this.buscarPuestoVacante(nombre);
 
         if (puestoRepetido == null) {
-            System.out.println("sueldo: ");
+            System.out.println("Sueldo: ");
             double sueldo = Double.parseDouble(scanner.nextLine()); //para poder leer la siguiente entrada y que no salte porque lee el \n que deja el double
 
             System.out.println("Es un puesto jerarquico? [SI/NO]");
