@@ -111,8 +111,14 @@ public abstract class Convocatoria {
         puesto.mostrarme();
         System.out.println("Fecha: " + fecha.getDia() + "/" + fecha.getMes() + "/" + fecha.getAño());
         System.out.println("Requsitos: ");
-        //FALTA HACER, RECORRER HASHTABLE DE REQUISITOS MOSTRANDO KEY Y VALUE
-
+        //RECORRER HASHTABLE DE REQUISITOS MOSTRANDO KEY Y VALUE
+        Habilidad habilidad;
+        Enumeration<Habilidad> enumReq = requisitos.keys();
+        while (enumReq.hasMoreElements()) {
+            habilidad = enumReq.nextElement();
+            habilidad.mostrar();
+            System.out.println("Años de experiencia requeridos: " + requisitos.get(habilidad));
+        }
 
         System.out.println("-----------------");
     }
