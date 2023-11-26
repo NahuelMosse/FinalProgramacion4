@@ -27,12 +27,15 @@ public abstract class Puesto {
         System.out.println("convocatoria registrada en el puesto "+nombre);
     }
 
-    public void mostrarConvocatoriasQueSePuedaInscribir(Empleado empleado) {
+    public int mostrarConvocatoriasQueSePuedaInscribir(Empleado empleado) {
+        int i = 0;
         for(Convocatoria convocatoria: convocatorias) {
             if(convocatoria.empleadoPuedeInscribirse(empleado)) {
+                i++;
                 convocatoria.mostrar();
             }
         }
+        return i; //retorna la cantidad de convocatorias a la que puede aplicar el empleado para ese puesto
     }
 
     public void mostrar() {
