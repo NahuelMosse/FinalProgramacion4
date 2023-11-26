@@ -348,7 +348,7 @@ public class Empresa {
 
             Puesto puestoAplicar = this.buscarPuestoVacante(nombrePuesto);
 
-            if(puestoAplicar!=null) {
+            if(puestoAplicar != null) {
                 //ver convocatorias abiertas que puede aplicar el empleado
                 puestoAplicar.mostrarConvocatoriasQueSePuedaInscribir(empleado);
 
