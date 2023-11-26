@@ -13,11 +13,4 @@ public class ConvocatoriaNoJerarquico extends Convocatoria {
         super(codigo, puesto, fecha, cantEmpleadosRequeridos, requisitos);
     }
 
-    public boolean empCumpleAnnosConvocatoriaJerarquica(Empleado empleadoInscribir){
-        return true;
-    }
-
-    public boolean empAnnosSuficientesCargoActual(Empleado empleadoInscribir){
-        return true;
-    }
 }

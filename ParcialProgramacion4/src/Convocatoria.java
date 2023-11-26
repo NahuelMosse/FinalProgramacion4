@@ -45,74 +45,56 @@ public abstract class Convocatoria {
     }
 
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
-        //FALTA HACER
-        //ademas de verificar que empleado cumpla con requsitos, los años, etc. TAMBIEN FIJARSE QUE YA NO ESTE ESCRITO
-        //PORQUE SINO PUEDE QUEDAR INSCRIPTO DOS VECES
-    
         /* condiciones para que se pueda inscribir (en esta clase, en cada una y en convocatoriaJerarquica hay mas)
-            1. empleadoInscribir no puede estar en lista de postulados o asignados
-            2. empleadoInscribir SI su cargo actual es de un puesto jerarquico, debe estar hace 4 años (VC) en este puesto
-            3. empleadoInscribir debe cumplir con los requisitos de la convocatoria jerarquica
+            1. El empleadoInscribir no puede estar en lista de postulados o asignados
+            2. Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
+            3. Solo si empleadoInscribir se postula a puesto jerarquico, debe cumplir n cantidad de annos en la empresa. Si no es jerarquico no hay condicion
             4. en su lista de habilidades debe tener las habilidades y igual o mas años de experiencia en cada una
-            
-
-            paso 2 y 3 se gestiona en clase Empleado cuando llamo a empleadoInscribir.puedeInscribirse(requisitos)
         */
+
+        //Condicion 1: El empleadoInscribir no puede estar en lista de postulados o asignados
         if(!this.empEstaInscripto(empleadoInscribir)){
-            //El empleado no esta inscripto (1)
 
+            // Condicion 2: Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
             if(this.empAnnosSuficientesCargoActual(empleadoInscribir)){
-                //Si esta en cargo jerarquico cumple con los años (2)
-                if(this.empCumpleAnnosConvocatoriaJerarquica(empleadoInscribir)){ //me parece que ya esta puesto en ConvocatoriaJerarquico, no es necesario aca
-                    //Cumple con los annos requeridos para el puesto (3)
+
+                //Condicion 3: Se evaulua en "empleadoPuedeInscribirse" dentro de ConvocatoriaJerarquica
                     
-
-                    //condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
-                    //dar responsabilidad al empleado que tiene las habilidades
-                    if (empleadoInscribir.cumpleRequisitos(requisitos)) {
-                        return true; // puede inscribirse
-                    } else {
-                        return false;
-                    }
-
-                }
-                
+                //Condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
+                //dar responsabilidad al empleado que tiene las habilidades
+                if (empleadoInscribir.cumpleRequisitos(requisitos))
+                    return true; // puede inscribirse
+                else
+                    return false;
+                   
             }
         }
 
         return false; // verificar si esta bien poner el return aca, si no produce errores
     }
 
-    //1. empleadoInscribir no puede estar en lista de postulados o asignados
+    //1. El empleadoInscribir no puede estar en lista de postulados o asignados
     public boolean empEstaInscripto(Empleado empleadoInscribir){
-        /* 
-        for(Empleado empAsig:asignados){
-                if(empAsig == empleadoInscribir)
-                    return true; //El empleado esa inscripto
-        }
-            return false;
-        */
-        //version alternativa, usando while
         int i = 0;
         while (i<postulados.size() && (postulados.get(i) != empleadoInscribir)) {
             i++;
         }
 
-        if(i<postulados.size()) {
+        if(i<postulados.size()) 
             return true;
-        } else {
+        else 
             return false;
-        }
     }
 
-    //2. Si su cargo actual es de un puesto jerarquico, debe estar hace 4 años (VC) en este puesto
-    public abstract boolean empAnnosSuficientesCargoActual(Empleado empleadoInscribir);
+    //2. Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
+    public boolean empAnnosSuficientesCargoActual(Empleado empleadoInscribir){
+        Cargo cargoActual = empleadoInscribir.getCargoActual();
 
-    //3. empleadoInscribir debe cumplir con los requisitos de la convocatoria jerarquica
-    public abstract boolean empCumpleAnnosConvocatoriaJerarquica(Empleado empleadoInscribir);
-
-    
-   
+        if(cargoActual.esJerarquico())
+            return cargoActual.tiempoEnCargo() >= PuestoJerarquico.getAnnosMinimosParaCambiar();
+        else   
+            return true;
+    }
 
     public void mostrar() {
         System.out.println("-----------------");
