@@ -342,7 +342,7 @@ public class Empresa {
 
         Empleado empleado = this.buscarEmpleado(legajoEmpleado);
 
-        if(empleado!=null) {
+        if(empleado != null) {
             System.out.println("Nombre del puesto al que quiere inscribirse: ");
             String nombrePuesto = scanner.nextLine();
 
