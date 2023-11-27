@@ -46,6 +46,7 @@ public abstract class Convocatoria {
 
     public boolean empleadoPuedeInscribirse(Empleado empleadoInscribir) {
         /* condiciones para que se pueda inscribir (en esta clase, en cada una y en convocatoriaJerarquica hay mas)
+         	0. La convocatoria debe estar abierta: se considera abierta si no ha pasado la fecha y hay cupo
             1. El empleadoInscribir no puede estar en lista de postulados o asignados
             2. Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
             3. Solo si empleadoInscribir se postula a puesto jerarquico, debe cumplir n cantidad de annos en la empresa. Si no es jerarquico no hay condicion
@@ -54,18 +55,21 @@ public abstract class Convocatoria {
 
         boolean puedeInscribirse = false;
 
-        //Condicion 1: El empleadoInscribir no puede estar en lista de postulados o asignados
-        if(!this.empEstaInscripto(empleadoInscribir)){
+        //Condicion 0: convocatoria abierta
+        if(this.estaAbierta()) {
+        	//Condicion 1: El empleadoInscribir no puede estar en lista de postulados o asignados
+            if(!this.empEstaInscripto(empleadoInscribir)){
 
-            // Condicion 2: Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
-            if(this.empAnnosSuficientesCargoActual(empleadoInscribir)){
+                // Condicion 2: Solo si empleadoInscribir esta en puesto jerarquico, debe estar hace 4 años (VC) en este puesto. Si no es jerarquico no hay condicion
+                if(this.empAnnosSuficientesCargoActual(empleadoInscribir)){
 
-                //Condicion 3: Se evaulua en "empleadoPuedeInscribirse" dentro de ConvocatoriaJerarquica
-                    
-                //Condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
-                //dar responsabilidad al empleado que tiene las habilidades
-                if (empleadoInscribir.cumpleRequisitos(requisitos)) {
-                    puedeInscribirse = true; // puede inscribirse
+                    //Condicion 3: Se evaulua en "empleadoPuedeInscribirse" dentro de ConvocatoriaJerarquica
+                        
+                    //Condicion 4: comparar hashtables de requisitos de la convocatoria y las habilidades del empleado
+                    //dar responsabilidad al empleado que tiene las habilidades
+                    if (empleadoInscribir.cumpleRequisitos(requisitos)) {
+                        puedeInscribirse = true; // puede inscribirse
+                    }
                 }
             }
         }
@@ -127,7 +131,7 @@ public abstract class Convocatoria {
             Empleado empleadoAsignar;
             String sigo="SI";
 
-            while (quedaCupo() && sigo.equalsIgnoreCase("SI")) { //llamo para ver si puedo seguir inscribiendo postulantes a asignados
+            while (quedaCupo() && sigo.equalsIgnoreCase("SI")) { //llamo a quedaCupo para ver si puedo seguir inscribiendo postulantes a asignados
                 System.out.println("numero de legajo: ");
                 int legajoEmpleado = Integer.parseInt(scanner.nextLine());
 
@@ -136,7 +140,6 @@ public abstract class Convocatoria {
                 if (empleadoAsignar != null) {
                     //SE CONSIDERA QUE LA ASIGNACION SE REGISTRA EN LA FECHA EN LA QUE SE REALIZA
                     //FECHA DE HOY ES CUANDO ASUME EL NUEVO CARGO
-                    //PORQUE SINO SE DEBEN ELIMINAR EN LOS REGISTROS EL DIA EN QUE EL EMPLEADO CAMBIA DE PUESTO
 
                     //registro en la convocatoria
                     asignados.add(empleadoAsignar);
@@ -146,7 +149,7 @@ public abstract class Convocatoria {
                     empleadoAsignar.getPuestoActual().eliminarEmpleado(empleadoAsignar); //elimino en el puesto viejo al empleado
                     puesto.agregarEmpleado(empleadoAsignar); //agrego al puesto de la convocatoria el nuevo empleado
 
-                    empleadoAsignar.nuevoCargo(puesto); //el empleado cierra el cargo
+                    empleadoAsignar.nuevoCargo(puesto); //el empleado se encarga de cerrar el cargo
 
                     System.out.println("Postulante asignado con exito");
 
@@ -158,6 +161,7 @@ public abstract class Convocatoria {
                 sigo = scanner.nextLine();
             }
 
+            //termino el while, informo la situacion de la convocatoria, si falta gente o no
             if (!quedaCupo()) {
                 System.out.println("La convocatoria se cerro, ya no hay mas cupos");
             } else {
@@ -170,8 +174,11 @@ public abstract class Convocatoria {
     }
 
     public boolean estaAbierta() {
-        boolean noPasoFecha = Fecha.hoy().compareTo(fecha) <= 0;
-        return noPasoFecha && this.quedaCupo(); 
+        return this.noPasoFecha() && this.quedaCupo(); 
+    }
+    
+    public boolean noPasoFecha() {
+    	return Fecha.hoy().compareTo(fecha) <= 0;
     }
 
     public void mostrarPostulados() {
@@ -179,11 +186,31 @@ public abstract class Convocatoria {
             empleado.mostrar();
         }
     }
+    
+    public boolean empEstaAsignado(Empleado empleado) {
+    	return asignados.contains(empleado);
+    }
+    
+    public void eliminarEmpleado(Empleado empleadoEliminar) {
+    	postulados.remove(empleadoEliminar);
+    	
+    	asignados.remove(empleadoEliminar); //si estuvo asignado se elimina, sino no hace nada
+    }
 
     public boolean quedaCupo() {
         return asignados.size() < cantEmpleadosRequeridos;
     }
-
+    
+    public Puesto getPuesto() {
+    	return puesto;
+    }
+    
+    public void darDeBajaPostulante(Empleado empleado) {
+    	postulados.remove(empleado);
+    }
+    
+    
+    
     private Empleado buscarPostulante(int legajo) {
         int i = 0;
 

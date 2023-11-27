@@ -50,4 +50,10 @@ public abstract class Puesto {
     public void eliminarEmpleado(Empleado empleadoEliminar) {
         empleados.remove(empleadoEliminar);
     }
+    
+    public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
+    	convocatorias.remove(convocatoriaEliminar);
+    }
+    
+    
 }

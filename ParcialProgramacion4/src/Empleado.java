@@ -98,7 +98,7 @@ public class Empleado {
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();
         System.out.println("Habilidades: ");
-        
+        this.mostrarHabilidades();
     }
 
     public void mostrarHabilidades() {
