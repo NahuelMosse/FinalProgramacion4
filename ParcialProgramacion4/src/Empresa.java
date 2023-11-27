@@ -5,6 +5,7 @@ import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Empresa {
+	Scanner scanner = new Scanner(System.in);
     private ArrayList<Empleado> empleados;
     private ArrayList<Puesto> puestos;
     private ArrayList<Convocatoria> convocatorias;
@@ -17,7 +18,7 @@ public class Empresa {
         this.habilidades = new ArrayList<Habilidad>();
     }
 
-    public void crearUnaHabilidad(Scanner scanner) {
+    public void crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
 
     	System.out.print("Nombre: ");
@@ -31,7 +32,7 @@ public class Empresa {
 			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.crearUnaHabilidad(scanner);
+	        	this.crearUnaHabilidad();
 	        }
 		} else {
 			System.out.print("Descripcion: ");
@@ -45,7 +46,7 @@ public class Empresa {
 		}
     }
     
-    public void agregarPuesto(Scanner scanner) {
+    public void agregarPuesto() {
     	Logger.header("Formulario para crear un nuevo puesto de trabajo");
     	
         System.out.print("Nombre: ");
@@ -59,7 +60,7 @@ public class Empresa {
         	boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.agregarPuesto(scanner);
+	        	this.agregarPuesto();
 	        }
         } else {
         	

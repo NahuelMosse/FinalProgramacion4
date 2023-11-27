@@ -2,14 +2,12 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Scanner;
 
-import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Ejecutora {
-	
+	private static Scanner scanner = new Scanner(System.in);
+    private static Empresa empresa = new Empresa();
     public static void main(String [] args) {
-        Scanner scanner = new Scanner(System.in);
-        Empresa empresa = new Empresa();
         
         Logger.divider();
     	System.out.println("Bienvenid@ al sistema de administracion de cambios de puesto");
@@ -20,16 +18,14 @@ public class Ejecutora {
         // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico
         // PuestoJerarquico.setAnnosMinimosParaCambiar();
 
-        Ejecutora.menuPrincipal(empresa, scanner);
-        
-        scanner.close();
+        Ejecutora.menuPrincipal();
         
         Logger.divider();
     	System.out.println("Gracias por usar nuestro sistema :)");
     	Logger.divider();
     }
 	
-    public static void menuPrincipal(Empresa empresa, Scanner scanner) {
+    public static void menuPrincipal() {
     	int opcion = 0;
 		
         do {
@@ -42,20 +38,20 @@ public class Ejecutora {
             System.out.println("[4] Ayuda"); // Comming soon
             System.out.println("[0] Salir");
             
-            opcion = Ejecutora.conseguirOpcionDelMenu(scanner);
+            opcion = Ejecutora.conseguirOpcionDelMenu();
 
             switch (opcion) {
 	        case 0:
 	            // Salir
 	            break;
 	        case 1:
-	            Ejecutora.menuAdmin(empresa, scanner);
+	            Ejecutora.menuAdmin();
 	            break;
 	        case 2:
-	            Ejecutora.menuGeneral(empresa, scanner);
+	            Ejecutora.menuGeneral();
 	            break;
 	        case 3:
-	            Ejecutora.menuUsuario(empresa, scanner);
+	            Ejecutora.menuUsuario();
 	            break;
 	        case 4:
 	            // ayuda
@@ -69,7 +65,7 @@ public class Ejecutora {
         } while(opcion != 0);
     }
 	
-    public static void menuAdmin(Empresa empresa, Scanner scanner) {
+    public static void menuAdmin() {
     	int opcion = 0;
 		
         do {
@@ -85,7 +81,7 @@ public class Ejecutora {
             System.out.println("[7] Borrar habilidad");
             System.out.println("[0] Volver al menu principal");
             
-            opcion = Ejecutora.conseguirOpcionDelMenu(scanner);
+            opcion = Ejecutora.conseguirOpcionDelMenu();
 
             switch (opcion) {
 	        case 0:
@@ -98,13 +94,13 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 3:
-	        	empresa.agregarPuesto(scanner);
+	            empresa.agregarPuesto();   
 	            break;
 	        case 4:
 	            	
 	            break;
 	        case 5:
-	            empresa.crearUnaHabilidad(scanner);
+	            empresa.crearUnaHabilidad();
 	            break;
 	        case 6:
 	            	
@@ -120,7 +116,7 @@ public class Ejecutora {
         } while(opcion != 0);
     }
 	
-    public static void menuGeneral(Empresa empresa, Scanner scanner) {
+    public static void menuGeneral() {
     	int opcion = 0;
 		
         do {
@@ -138,7 +134,7 @@ public class Ejecutora {
             System.out.println("[9] Definir años necesarios en puesto jerarquico para cambiar");
             System.out.println("[0] Volver al menu principal");
             
-            opcion = Ejecutora.conseguirOpcionDelMenu(scanner);
+            opcion = Ejecutora.conseguirOpcionDelMenu();
 
             switch (opcion) {
 	        case 0:
@@ -181,7 +177,7 @@ public class Ejecutora {
         } while(opcion != 0);
     }
 	
-    public static void menuUsuario(Empresa empresa, Scanner scanner) {
+    public static void menuUsuario() {
     	int opcion = 0;
 		
         do {
@@ -196,7 +192,7 @@ public class Ejecutora {
             System.out.println("[6] Quitar habilidad");
             System.out.println("[0] Volver al menu principal");
             
-    	    opcion = Ejecutora.conseguirOpcionDelMenu(scanner);
+    	    opcion = Ejecutora.conseguirOpcionDelMenu();
 
             switch (opcion) {
 	        case 0:
@@ -228,9 +224,21 @@ public class Ejecutora {
         } while(opcion != 0);
     }
 	
-    public static int conseguirOpcionDelMenu(Scanner scanner) {
-		System.out.print("\n");
-		int opcion = InputHelper.scanInt(scanner, "Opcion: ");
+    public static int conseguirOpcionDelMenu() {
+		int opcion = 0;
+		
+	    boolean huboError = false;
+		do {
+		    huboError = false;
+		    // Evita que se cuelgue el sistema cuando se ingresa un string
+		    try {
+			System.out.print("\nOpcion: ");
+			opcion = Integer.parseInt(scanner.nextLine());
+		    } catch (Exception _error) {
+			huboError = true;
+			Logger.logError("Solo estan permitidos caracteres numericos");
+		    }
+		} while (huboError);
 			
 		return opcion;
     }
