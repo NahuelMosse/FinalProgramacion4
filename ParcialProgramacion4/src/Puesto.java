@@ -13,4 +13,12 @@ public abstract class Puesto {
         this.empleados = new ArrayList<Empleado>();
     }
     
+    public boolean hasPuesto(String nombre) {
+        return this.nombre.equalsIgnoreCase(nombre);
+    }
+
+    public void agregarEmpleado(Empleado empleadoNuevo) {
+        empleados.add(empleadoNuevo);
+        System.out.println("empleado nuevo agregado con exito a la lista de "+nombre+" !!!");
+    }
 }

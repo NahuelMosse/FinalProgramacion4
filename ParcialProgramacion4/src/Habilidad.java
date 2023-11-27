@@ -8,4 +8,12 @@ public class Habilidad {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
+    public boolean hasHabilidad(int codigo) {
+        return this.codigo == codigo;
+    }
+
+    public boolean hasHabilidad(String nombre) {
+        return this.nombre.equalsIgnoreCase(nombre);
+    }
 }
