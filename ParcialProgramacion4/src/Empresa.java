@@ -26,6 +26,13 @@ public class Empresa {
 		
 		if (habilidadExistente != null) {
 			Logger.logError("Ya existe una habilidad con este nombre");
+			
+			System.out.print("Desea ingresar otro nombre [Si/No]: ");
+	        String continuar = scanner.nextLine();
+	        
+	        if (continuar.equalsIgnoreCase("si")) {
+	        	this.crearUnaHabilidad(scanner);
+	        }
 		} else {
 			System.out.print("Descripcion: ");
             String descripcion = scanner.nextLine();
@@ -41,7 +48,7 @@ public class Empresa {
     private Habilidad buscarHabilidad(String nombre) {
     	int i = 0;
     	
-    	while (i < habilidades.size() && habilidades.get(i).hasName(nombre)) {
+    	while (i < habilidades.size() && !habilidades.get(i).hasName(nombre)) {
     		i++;
     	}
     	
