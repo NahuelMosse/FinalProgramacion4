@@ -29,5 +29,12 @@ public class Empleado {
         this.fechaDeIngreso = fechaDeIngreso;
     }
 
-    
+    public boolean hasEmpleado(int legajo) {
+        return this.legajo == legajo;
+    }
+
+    public Puesto getPuestoActual() {
+        //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
+        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
+    }
 }
