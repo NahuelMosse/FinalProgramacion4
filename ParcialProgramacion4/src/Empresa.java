@@ -125,7 +125,7 @@ public class Empresa {
                 }
             }
 
-
+            //tal vez el usuario puso que no quiere agregar un puesto, por eso verifico lo mismo
             if(puesto != null) {
                 //fecha de ingreso al cargo es la fecha en la que ingreso a la empresa
 
