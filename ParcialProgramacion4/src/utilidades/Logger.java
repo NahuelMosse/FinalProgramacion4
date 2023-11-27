@@ -8,7 +8,17 @@ public class Logger {
 		Logger.divider();
 	}
 	
+	public static void logSuccess(String stringSuccess) {
+		System.out.println("\n" + stringSuccess + " !!!");
+	}
+	
 	public static void divider() {
 		System.out.println("--------------------------------------------------------------------------------------");
+	}
+	
+	public static void header(String title) {
+		Logger.divider();
+		System.out.println(title);
+		Logger.divider();
 	}
 }
