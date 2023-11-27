@@ -7,7 +7,7 @@ public class Habilidad {
         this.descripcion = descripcion;
     }
     
-    public boolean hasName(String nombre) {
+    public boolean hasNombre(String nombre) {
     	// Buscamos sin espacion para encontrar mas similitudes
     	String nombreHabilidadSinEspacios = this.nombre.replace(" ", "");
     	String nombreABuscarSinEspacios = nombre.replace(" ", ""); 
