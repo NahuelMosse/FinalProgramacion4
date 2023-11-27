@@ -103,7 +103,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 5:
-	            // empresa.crearUnaHabilidad(scanner);
+	            empresa.crearUnaHabilidad(scanner);
 	            break;
 	        case 6:
 	            	
