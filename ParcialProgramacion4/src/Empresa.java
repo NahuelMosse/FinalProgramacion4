@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Empresa {
+    Scanner scanner = new Scanner(System.in);
+
     private ArrayList<Empleado> empleados;
     private ArrayList<Puesto>puestos;
     private ArrayList<Convocatoria>convocatorias;
@@ -12,6 +15,7 @@ public class Empresa {
         this.convocatorias = new ArrayList<Convocatoria>();
         this.habilidades = new ArrayList<Habilidad>();
     }
+
 
     
 }

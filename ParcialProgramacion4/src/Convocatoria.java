@@ -3,7 +3,7 @@ import utilidades.Fecha;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class Convocatoria {
+public abstract class Convocatoria {
     private int codigo;
     private ArrayList<Empleado>postulados;
     private Puesto puesto;
@@ -12,13 +12,20 @@ public class Convocatoria {
     private Hashtable<Habilidad,Integer>requisitos;
     private ArrayList<Empleado>asignados;
 
-    public Convocatoria(int codigo, Puesto puesto, Fecha fecha, int cantEmpleadosRequeridos) {
+    public Convocatoria(
+        int codigo,
+        Puesto puesto,
+        Fecha fecha,
+        int cantEmpleadosRequeridos,
+        Hashtable<Habilidad, Integer> requisitos
+    ) {
         this.codigo = codigo;
         this.postulados = new ArrayList<Empleado>();
         this.puesto = puesto;
         this.fecha = fecha;
         this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
-        this.requisitos = new Hashtable<Habilidad,Integer>();
+        this.requisitos = requisitos;
         this.asignados = new ArrayList<Empleado>();
     }
+
 }
