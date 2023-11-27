@@ -6,8 +6,6 @@ import utilidades.Fecha;
 import utilidades.Logger;
 
 public class Empresa {
-    Scanner scanner = new Scanner(System.in);
-
     private ArrayList<Empleado> empleados;
     private ArrayList<Puesto>puestos;
     private ArrayList<Convocatoria>convocatorias;
@@ -22,7 +20,7 @@ public class Empresa {
 
 
     //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
-    public void agregarEmpleado() {
+    public void agregarEmpleado(Scanner scanner) {
         System.out.println("Numero de legajo: ");
         int legajo = Integer.parseInt(scanner.nextLine());
 
@@ -75,6 +73,7 @@ public class Empresa {
     }
 
     private ArrayList<Cargo> pedirListaCargos(Fecha fechaIngresoEmpresa) {
+        Scanner scanner = new Scanner(System.in);
         // INGRESAR TODOS LOS CARGOS QUE UN EMPLEADO OCUPO HASTA AHORA
 
         System.out.println("\nA continuación ingresara el historial de cargos ocupados por el empleado: ");
@@ -245,6 +244,7 @@ public class Empresa {
 
     //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos
     private Puesto agregarPuesto(String nombre) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("No existe un puesto con ese nombre");
         System.out.println("Quiere agregarlo ahora? (SI/NO)");
         String quiereAgregarlo = scanner.nextLine();
@@ -293,6 +293,7 @@ public class Empresa {
 
     //sirve para CU agregar empleado y CU generar convocatoria
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
+        Scanner scanner = new Scanner(System.in);
         //ingresar las habilidades y los años de experiencia en cada una
         
         //crear hashtable local
