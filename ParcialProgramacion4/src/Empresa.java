@@ -78,9 +78,9 @@ public class Empresa {
 
         System.out.println("\nA continuación ingresara el historial de cargos ocupados por el empleado: ");
         System.out.println("Primero se pedira los cargos ANTIGUOS que ocupo el mismo (Se ingresa SI en caso de que los tenga)");
-        System.out.println("Luego cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a la pregunta 'tiene puestos antiguos'");
+        System.out.println("Luego cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a la pregunta 'tiene puestos antiguos'\n");
 
-        //creo un arraylist local para el historial de cargos para pasarle al constructor de empleado 
+        //creo un arraylist local para el historial de cargos para pasarle al constructor de empleado (es lo que retorno)
         ArrayList<Cargo> historialDeCargos;
         historialDeCargos = new ArrayList<Cargo>();
 
@@ -109,21 +109,7 @@ public class Empresa {
 
             //SI NO EXISTE, SE LE PREGUNTA SI LO QUIERE AGREGAR:
             if (puesto == null) {
-                System.out.println("No existe un puesto con ese nombre");
-                System.out.println("Quiere agregarlo ahora? (SI/NO)");
-                String quiereAgregarlo = scanner.nextLine();
-
-                while (!quiereAgregarlo.equalsIgnoreCase("SI") && !quiereAgregarlo.equalsIgnoreCase("NO")) {
-                    System.out.println("Ingrese una opcion valida, SI o NO");
-                    System.out.println("Quiere agregarlo ahora? (SI/NO)");
-                    quiereAgregarlo = scanner.nextLine();
-                }
-
-                if (quiereAgregarlo.equalsIgnoreCase("SI")) {
-                    //INVOCO A METODO AGREGAR PUESTO
-                    //no es el mismo que el caso de uso, para que no tenga que ingresar de nuevo el nombre del puesto
-                    puesto = this.agregarPuesto(nombrePuesto); //mismo nombre, hago overriding y cambio que retorna
-                }
+                puesto = this.agregarPuesto(nombrePuesto); //Adentro le doy la posibilidad de crearlo o no
             }
 
             //tal vez el usuario puso que no quiere agregar un puesto, por eso verifico lo mismo
@@ -162,6 +148,12 @@ public class Empresa {
 
             Puesto puesto = this.buscarPuesto(nombrePuesto);
 
+            //le doy al usuario la posibilidad de agregar el puesto si no existe
+            if (puesto == null) {
+                puesto = this.agregarPuesto(nombrePuesto); //Adentro le doy la posibilidad de crearlo o no
+            }
+
+
             if(puesto != null) {
                 //fecha de ingreso es la fecha de fin del ultimo puesto
             	//como el ingreso es en orden: 
@@ -199,10 +191,20 @@ public class Empresa {
 
         Puesto puestoActual = this.buscarPuesto(nombrePuestoActual);
 
+        if (puestoActual == null) {
+            //le doy al usuario la posiblidad de agregarlo
+            puestoActual = this.agregarPuesto(nombrePuestoActual);
+        }
+
+
         while (puestoActual == null) { //es un while porque si o si debe tener un puesto actual, sino no seria empleado
+            //si el usuario presiona que no se dirige aqui
+            //se deja el codigo, por si el usuario sabe que el puesto esta pero esta tipenadolo mal
             System.out.println("No existe puesto con ese nombre, intente nuevamente");
             System.out.println("Nombre puesto actual: ");
             nombrePuestoActual = scanner.nextLine();
+
+            puestoActual = this.agregarPuesto(nombrePuestoActual); //se le pregunta si lo quiere agregar
 
             puestoActual = this.buscarPuesto(nombrePuestoActual);
         }
@@ -222,32 +224,49 @@ public class Empresa {
 
 
     private Puesto agregarPuesto(String nombre) {
-        System.out.println("sueldo: ");
-        double sueldo = Double.parseDouble(scanner.nextLine());
-        
-        System.out.println("Es un puesto jerarquico? [SI/NO]");
-        String esJerarquico = scanner.nextLine(); 
+        System.out.println("No existe un puesto con ese nombre");
+        System.out.println("Quiere agregarlo ahora? (SI/NO)");
+        String quiereAgregarlo = scanner.nextLine();
 
-        while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
+        while (!quiereAgregarlo.equalsIgnoreCase("SI") && !quiereAgregarlo.equalsIgnoreCase("NO")) {
             System.out.println("Ingrese una opcion valida, SI o NO");
+            System.out.println("Quiere agregarlo ahora? (SI/NO)");
+            quiereAgregarlo = scanner.nextLine();
+        }
+
+        if (quiereAgregarlo.equalsIgnoreCase("SI")) {
+            //INVOCO A METODO AGREGAR PUESTO
+            //no es el mismo que el caso de uso, para que no tenga que ingresar de nuevo el nombre del puesto
+            
+            System.out.println("sueldo: ");
+            double sueldo = Double.parseDouble(scanner.nextLine());
+            
             System.out.println("Es un puesto jerarquico? [SI/NO]");
-            esJerarquico = scanner.nextLine();
+            String esJerarquico = scanner.nextLine(); 
+
+            while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
+                System.out.println("Ingrese una opcion valida, SI o NO");
+                System.out.println("Es un puesto jerarquico? [SI/NO]");
+                esJerarquico = scanner.nextLine();
+            }
+
+            Puesto puestoNuevo;
+
+            if (esJerarquico.equalsIgnoreCase("SI")) {
+                puestoNuevo = new PuestoJerarquico(nombre, sueldo);
+            } else { 
+                //ya verifique antes, solo puede ser NO, sino no saldria del bucle
+                puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
+            }
+
+            this.puestos.add(puestoNuevo);
+
+            System.out.println("Puesto nuevo añadido con exito !!!");
+
+            return puestoNuevo;
+        } else {
+            return null; //porque no lo quizo agregar
         }
-
-        Puesto puestoNuevo;
-
-        if (esJerarquico.equalsIgnoreCase("SI")) {
-            puestoNuevo = new PuestoJerarquico(nombre, sueldo);
-        } else { 
-            //ya verifique antes, solo puede ser NO, sino no saldria del bucle
-            puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
-        }
-
-        this.puestos.add(puestoNuevo);
-
-        System.out.println("Puesto nuevo añadido con exito !!!");
-
-        return puestoNuevo;
     }
 
 
@@ -307,6 +326,7 @@ public class Empresa {
     
     //AGREGAR HABILIDAD PARA CASO DE USO AGREGAR EMPLEADO
     //overriding para solo agregar a la lista una habilidad ya definida, se usa en pedirListaHabilidades
+    //NO ES EL METODO DEL CASO DE USO AGREGAR HABILIDAD
     public void agregarHabilidad(Habilidad habilidadNueva) {
         this.habilidades.add(habilidadNueva);
         System.out.println("Habilidad registrada en la lista general de la empresa");
