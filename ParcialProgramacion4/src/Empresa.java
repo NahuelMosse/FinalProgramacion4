@@ -97,6 +97,7 @@ public class Empresa {
         System.out.println("RECORDAR: Los puestos antiguos se deben ingresar en orden empezando desde el mas antiguo");
         
         //carga del cargo mas antiguo en la que la fecha de ingreso al cargo es la misma que la de ingreso a la empresa
+        //primero es un 'if' y no un while porque la fecha de inicio del cargo mas antiguo se saca 
         if (tienePuestoAntiguo.equalsIgnoreCase("SI")) {
         	//se repite el codigo porque asi puedo sacar la fecha en la que ingreso a la empresa
         	//para utilizarla como la fecha de inicio del primer cargo
@@ -140,7 +141,7 @@ public class Empresa {
                 System.out.println("Puesto antiguo agregado!!");
 
             } else {
-                System.out.println("No existe un puesto con ese nombre");
+                System.out.println("ERROR: No existe un puesto con ese nombre");
             }
         
         }
@@ -177,7 +178,7 @@ public class Empresa {
                 System.out.println("Puesto antiguo agregado!!");
 
             } else {
-                System.out.println("No existe un puesto con ese nombre, pruebe de nuevo");
+                System.out.println("No existe un puesto con ese nombre");
             }
         
             
