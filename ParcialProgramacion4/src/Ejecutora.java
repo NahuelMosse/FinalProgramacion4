@@ -32,9 +32,7 @@ public class Ejecutora {
     	int opcion = 0;
 		
         do {
-            Logger.divider();
-            System.out.println("Menu Principal");
-            Logger.divider();
+        	Logger.header("Menu Principal");
         	
             System.out.println("\nSeleccione una de las opciones de la lista");
             System.out.println("\n[1] Admin");
@@ -74,16 +72,14 @@ public class Ejecutora {
     	int opcion = 0;
 		
         do {
-            Logger.divider();
-            System.out.println("Menu Admin");
-            Logger.divider();
+        	Logger.header("Menu Admin");
         	
             System.out.println("\nSeleccione una de las opciones de la lista");
             System.out.println("\n[1] Agregar empleado");
             System.out.println("[2] Dar de baja empleado");
             System.out.println("[3] Agregar puesto de trabajo");
             System.out.println("[4] Borrar puesto de trabajo");
-            System.out.println("[5] Agregar habilidad");
+            System.out.println("[5] Crear habilidad");
             System.out.println("[6] Editar habilidad");
             System.out.println("[7] Borrar habilidad");
             System.out.println("[0] Volver al menu principal");
@@ -107,7 +103,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 5:
-	            // empresa.agregarHabilidad();
+	            // empresa.crearUnaHabilidad(scanner);
 	            break;
 	        case 6:
 	            	
@@ -127,9 +123,7 @@ public class Ejecutora {
     	int opcion = 0;
 		
         do {
-            Logger.divider();
-            System.out.println("Menu General");
-            Logger.divider();
+        	Logger.header("Menu General");
         	
             System.out.println("\nSeleccione una de las opciones de la lista");
             System.out.println("\n[1] Crear una nueva convocatoria");
@@ -190,9 +184,7 @@ public class Ejecutora {
     	int opcion = 0;
 		
         do {
-            Logger.divider();
-            System.out.println("Menu Usuario");
-            Logger.divider();
+        	Logger.header("Menu Usuario");
         	
             System.out.println("\nSeleccione una de las opciones de la lista");
             System.out.println("\n[1] Ver datos de empleado");
@@ -243,7 +235,7 @@ public class Ejecutora {
 		    huboError = false;
 		    // Evita que se cuelgue el sistema cuando se ingresa un string
 		    try {
-			System.out.print("\nopcion: ");
+			System.out.print("\nOpcion: ");
 			opcion = Integer.parseInt(scanner.nextLine());
 		    } catch (Exception _error) {
 			huboError = true;
