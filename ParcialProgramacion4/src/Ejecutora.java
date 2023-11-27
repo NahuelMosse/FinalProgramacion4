@@ -17,7 +17,10 @@ public class Ejecutora {
 			"\n 5- Inscribir empleado a convocatoria" +
 			"\n 6- Elegir empleados para convocatoria" +
 			"\n 7- Mostrar convocatorias abiertas de un puesto" +
-            "\n 8- Mostrar convocatorias abiertas para todos los puestos");
+            "\n 8- Mostrar convocatorias abiertas para todos los puestos" +
+			"\n 9- Borrar habilidad por codigo o nombre" +
+            "\n 10- Borrar puesto de trabajo");
+            
 			System.out.println("opcion: ");
             opcion = Integer.parseInt(scanner.nextLine()); //para limpiar en \n y evitar saltos de linea dentro de metodos de empresa
 
@@ -28,7 +31,7 @@ public class Ejecutora {
                 empresa.agregarHabilidad();
                 break;
             case 2:
-                empresa.agregarPuestoVacante();
+                empresa.agregarPuesto();
                 break;
             case 3:
                 empresa.agregarEmpleado();
@@ -43,9 +46,14 @@ public class Ejecutora {
                 empresa.elegirEmpleadosConvocatoria();
                 break;
 
-            case 7:
+            case 9:
+            	empresa.borrarHabilidad();
                 break;
-
+                
+            case 10:
+            	empresa.borrarPuesto();
+            	break;
+            	
             default:
                 System.out.println("Opcion no valida");
                 break;
