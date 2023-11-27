@@ -96,6 +96,7 @@ public class Ejecutora {
 	            break;
 	        case 1:
 	            // empresa.agregarEmpleado();
+				empresa.agregarEmpleado();
 	            break;
 	        case 2:
 	            	
