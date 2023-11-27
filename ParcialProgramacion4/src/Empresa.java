@@ -199,7 +199,7 @@ public class Empresa {
         return historialDeCargos; //para usarlo en el constructor de Empleado
     }
 
-    //sirve para CU agregar empleadado y CU generar convocatoria
+    //sirve para CU agregar empleado y CU generar convocatoria
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
         //ingresar las habilidades y los años de experiencia en cada una
         
