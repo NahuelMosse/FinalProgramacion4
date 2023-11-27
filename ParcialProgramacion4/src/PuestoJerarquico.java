@@ -5,7 +5,7 @@ public class PuestoJerarquico extends Puesto{
 
     private static int annosMinimosParaCambiar;
 
-    public PuestoJerarquico(String nombre, double sueldo) {
+    public PuestoJerarquico(String nombre, float sueldo) {
         super(nombre, sueldo);
     }
 }
