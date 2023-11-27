@@ -29,7 +29,7 @@ public class Ejecutora {
     }
 	
     public static void menuPrincipal(Empresa empresa, Scanner scanner) {
-	int opcion = 0;
+    	int opcion = 0;
 		
         do {
             Logger.divider();
@@ -71,7 +71,7 @@ public class Ejecutora {
     }
 	
     public static void menuAdmin(Empresa empresa, Scanner scanner) {
-	int opcion = 0;
+    	int opcion = 0;
 		
         do {
             Logger.divider();
@@ -124,7 +124,7 @@ public class Ejecutora {
     }
 	
     public static void menuGeneral(Empresa empresa, Scanner scanner) {
-	int opcion = 0;
+    	int opcion = 0;
 		
         do {
             Logger.divider();
@@ -187,7 +187,7 @@ public class Ejecutora {
     }
 	
     public static void menuUsuario(Empresa empresa, Scanner scanner) {
-	int opcion = 0;
+    	int opcion = 0;
 		
         do {
             Logger.divider();
@@ -236,21 +236,21 @@ public class Ejecutora {
     }
 	
     public static int conseguirOpcionDelMenu(Scanner scanner) {
-	int opcion = 0;
-	
-        boolean huboError = false;
-	do {
-	    huboError = false;
-	    // Evita que se cuelgue el sistema cuando se ingresa un string
-	    try {
-		System.out.print("\nopcion: ");
-		opcion = Integer.parseInt(scanner.nextLine());
-	    } catch (Exception _error) {
-		huboError = true;
-		Logger.logError("Solo estan permitidos caracteres numericos");
-	    }
-	} while (huboError);
+		int opcion = 0;
 		
-	return opcion;
+	    boolean huboError = false;
+		do {
+		    huboError = false;
+		    // Evita que se cuelgue el sistema cuando se ingresa un string
+		    try {
+			System.out.print("\nopcion: ");
+			opcion = Integer.parseInt(scanner.nextLine());
+		    } catch (Exception _error) {
+			huboError = true;
+			Logger.logError("Solo estan permitidos caracteres numericos");
+		    }
+		} while (huboError);
+			
+		return opcion;
     }
 }
