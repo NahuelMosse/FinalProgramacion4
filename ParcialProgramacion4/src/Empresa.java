@@ -97,7 +97,8 @@ public class Empresa {
         System.out.println("RECORDAR: Los puestos antiguos se deben ingresar en orden empezando desde el mas antiguo");
         
         //carga del cargo mas antiguo en la que la fecha de ingreso al cargo es la misma que la de ingreso a la empresa
-        //primero es un 'if' y no un while porque la fecha de inicio del cargo mas antiguo se saca 
+        //primero es un 'if' y no un while porque la fecha de inicio del cargo mas antiguo se saca de la fecha de ingreso a la empresa
+        //pero en los proximos cargos antiguos se saca de la fecha de fin del anterior cargo
         if (tienePuestoAntiguo.equalsIgnoreCase("SI")) {
         	//se repite el codigo porque asi puedo sacar la fecha en la que ingreso a la empresa
         	//para utilizarla como la fecha de inicio del primer cargo
@@ -114,7 +115,7 @@ public class Empresa {
 
             //tal vez el usuario puso que no quiere agregar un puesto, por eso verifico lo mismo
             if(puesto != null) {
-                //fecha de ingreso al cargo es la fecha en la que ingreso a la empresa
+                //fecha de ingreso al cargo es la fecha en la que ingreso a la empresa, se ingresa como parametro
 
                 System.out.println("\nFecha final del puesto: ");
                 Fecha fechaFin = Fecha.nuevaFecha();
