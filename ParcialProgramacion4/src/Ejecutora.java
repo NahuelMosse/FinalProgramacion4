@@ -29,7 +29,7 @@ public class Ejecutora {
     }
 	
     public static void menuPrincipal(Empresa empresa, Scanner scanner) {
-		int opcion = 0;
+	int opcion = 0;
 		
         do {
             Logger.divider();
