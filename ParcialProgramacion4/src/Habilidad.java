@@ -7,7 +7,11 @@ public class Habilidad {
         this.descripcion = descripcion;
     }
 
-    public boolean hasHabilidad(String nombre) {
-        return this.nombre.equalsIgnoreCase(nombre);
+    public boolean hasName(String nombre) {
+    	// Buscamos sin espacion para encontrar mas similitudes
+    	String nombreHabilidadSinEspacios = this.nombre.replace(" ", "");
+    	String nombreABuscarSinEspacios = nombre.replace(" ", ""); 
+    	
+        return nombreHabilidadSinEspacios.equalsIgnoreCase(nombreABuscarSinEspacios);
     }
 }

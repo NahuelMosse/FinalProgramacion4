@@ -3,6 +3,7 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 import utilidades.Fecha;
+import utilidades.Logger;
 
 public class Empresa {
     Scanner scanner = new Scanner(System.in);
@@ -104,7 +105,7 @@ public class Empresa {
         	//para utilizarla como la fecha de inicio del primer cargo
         	
             System.out.println("\nRECORDAR: Los puestos antiguos se deben ingresar en orden empezando desde el mas antiguo\n");
-            
+
         	System.out.println("Nombre puesto: ");
             String nombrePuesto = scanner.nextLine();
 
@@ -386,7 +387,7 @@ public class Empresa {
     private Habilidad buscarHabilidad(String nombre) {
         int i = 0;
 
-        while(i<habilidades.size() && !habilidades.get(i).hasHabilidad(nombre))
+        while(i<habilidades.size() && !habilidades.get(i).hasName(nombre))
             i++;
         
         if(i<habilidades.size())
