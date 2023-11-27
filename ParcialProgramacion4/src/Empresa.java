@@ -218,23 +218,10 @@ public class Empresa {
             Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
 
             if(habilidad == null) {
-                //no existe, la creamos ahora
-                System.out.println("Codigo habilidad: ");
-                int codigoHabilidad = Integer.parseInt(scanner.nextLine()); //porque despues va un nextLine
-
-                //VERIFICAR QUE CODIGO NO SEA REPETIDO
-                Habilidad habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
-
-                while (habilidadRepetida != null) {
-                    System.out.println("Codigo repetido, elija otro: ");
-                    codigoHabilidad = Integer.parseInt(scanner.nextLine());
-                    habilidadRepetida = this.buscarHabilidad(codigoHabilidad);
-                }
-
                 System.out.println("Descripcion: ");
                 String descripcion = scanner.nextLine();
 
-                habilidad = new Habilidad(codigoHabilidad, nombreHabilidad, descripcion);
+                habilidad = new Habilidad(nombreHabilidad, descripcion);
 
                 this.agregarHabilidad(habilidad);
             }
@@ -305,18 +292,6 @@ public class Empresa {
         int i = 0;
 
         while(i<habilidades.size() && !habilidades.get(i).hasHabilidad(nombre))
-            i++;
-        
-        if(i<habilidades.size())
-            return habilidades.get(i);
-        else
-            return null;
-    }
-
-    private Habilidad buscarHabilidad(int codigo) {
-        int i = 0;
-
-        while(i<habilidades.size() && !habilidades.get(i).hasHabilidad(codigo))
             i++;
         
         if(i<habilidades.size())
