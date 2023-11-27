@@ -97,13 +97,13 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 3:
-	                
+	            empresa.agregarPuesto();   
 	            break;
 	        case 4:
 	            	
 	            break;
 	        case 5:
-	            empresa.crearUnaHabilidad(scanner);
+	            empresa.crearUnaHabilidad();
 	            break;
 	        case 6:
 	            	

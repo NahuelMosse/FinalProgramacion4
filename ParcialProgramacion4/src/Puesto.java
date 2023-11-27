@@ -13,4 +13,8 @@ public abstract class Puesto {
         this.empleados = new ArrayList<Empleado>();
     }
     
+    public boolean hasPuesto(String nombre) {
+        return this.nombre.equalsIgnoreCase(nombre);
+    }
+    
 }
