@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Ejecutora {
@@ -98,7 +99,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 3:
-	                
+	        	empresa.agregarPuesto(scanner);
 	            break;
 	        case 4:
 	            	
@@ -229,20 +230,8 @@ public class Ejecutora {
     }
 	
     public static int conseguirOpcionDelMenu(Scanner scanner) {
-		int opcion = 0;
-		
-	    boolean huboError = false;
-		do {
-		    huboError = false;
-		    // Evita que se cuelgue el sistema cuando se ingresa un string
-		    try {
-			System.out.print("\nOpcion: ");
-			opcion = Integer.parseInt(scanner.nextLine());
-		    } catch (Exception _error) {
-			huboError = true;
-			Logger.logError("Solo estan permitidos caracteres numericos");
-		    }
-		} while (huboError);
+		System.out.print("\n");
+		int opcion = InputHelper.scanInt(scanner, "Opcion: ");
 			
 		return opcion;
     }
