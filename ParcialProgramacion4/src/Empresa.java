@@ -106,6 +106,26 @@ public class Empresa {
 
             Puesto puesto = this.buscarPuesto(nombrePuesto);
 
+            //SI NO EXISTE, SE LE PREGUNTA SI LO QUIERE AGREGAR:
+            if (puesto == null) {
+                System.out.println("No existe un puesto con ese nombre");
+                System.out.println("Quiere agregarlo ahora? (SI/NO)");
+                String quiereAgregarlo = scanner.nextLine();
+
+                while (!quiereAgregarlo.equalsIgnoreCase("SI") && !quiereAgregarlo.equalsIgnoreCase("NO")) {
+                    System.out.println("Ingrese una opcion valida, SI o NO");
+                    System.out.println("Quiere agregarlo ahora? (SI/NO)");
+                    quiereAgregarlo = scanner.nextLine();
+                }
+
+                if (quiereAgregarlo.equalsIgnoreCase("SI")) {
+                    //INVOCO A METODO AGREGAR PUESTO
+                    //no es el mismo que el caso de uso, para que no tenga que ingresar de nuevo el nombre del puesto
+                    puesto = this.agregarPuesto(nombrePuesto); //mismo nombre, hago overriding y cambio que retorna
+                }
+            }
+
+
             if(puesto != null) {
                 //fecha de ingreso al cargo es la fecha en la que ingreso a la empresa
 
@@ -120,7 +140,7 @@ public class Empresa {
                 System.out.println("Puesto antiguo agregado!!");
 
             } else {
-                System.out.println("No existe un puesto con ese nombre, pruebe de nuevo");
+                System.out.println("No existe un puesto con ese nombre");
             }
         
         }
@@ -199,6 +219,37 @@ public class Empresa {
         return historialDeCargos; //para usarlo en el constructor de Empleado
     }
 
+
+    private Puesto agregarPuesto(String nombre) {
+        System.out.println("sueldo: ");
+        double sueldo = Double.parseDouble(scanner.nextLine());
+        
+        System.out.println("Es un puesto jerarquico? [SI/NO]");
+        String esJerarquico = scanner.nextLine(); 
+
+        while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
+            System.out.println("Ingrese una opcion valida, SI o NO");
+            System.out.println("Es un puesto jerarquico? [SI/NO]");
+            esJerarquico = scanner.nextLine();
+        }
+
+        Puesto puestoNuevo;
+
+        if (esJerarquico.equalsIgnoreCase("SI")) {
+            puestoNuevo = new PuestoJerarquico(nombre, sueldo);
+        } else { 
+            //ya verifique antes, solo puede ser NO, sino no saldria del bucle
+            puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
+        }
+
+        this.puestos.add(puestoNuevo);
+
+        System.out.println("Puesto nuevo añadido con exito !!!");
+
+        return puestoNuevo;
+    }
+
+
     //sirve para CU agregar empleado y CU generar convocatoria
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
         //ingresar las habilidades y los años de experiencia en cada una
@@ -261,6 +312,9 @@ public class Empresa {
     }
 
     
+
+
+
 
 
     //METODOS DE BUSQUEDA
