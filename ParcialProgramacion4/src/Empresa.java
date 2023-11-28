@@ -454,7 +454,7 @@ public class Empresa {
     private Empleado buscarEmpleado(int legajo) {
         int i = 0;
 
-        while(i<empleados.size() && !empleados.get(i).hasEmpleado(legajo))
+        while(i<empleados.size() && !empleados.get(i).hasLegajo(legajo))
             i++;
         
         if(i<empleados.size())
