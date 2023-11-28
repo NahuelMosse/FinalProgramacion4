@@ -109,4 +109,24 @@ public class Empresa {
         return null;
     }
     
+    //CASO DE USO BORRAR PUESTO DE TRABAJO
+    public void borrarPuesto() {
+        System.out.print("Nombre puesto de trabajo: ");
+        String nombrePuesto = scanner.nextLine();
+
+        Puesto puestoBorrar = this.buscarPuesto(nombrePuesto);
+
+        if (puestoBorrar != null) {
+            Logger.header("Informacion puesto a eliminar: ");
+            puestoBorrar.mostrar();
+
+            puestos.remove(puestoBorrar);
+
+            Logger.logSuccess("Puesto de trabajo ELIMINADO");
+
+        } else {
+            Logger.logError("NO existe puesto de trabajo con este nombre");
+        }
+    }
+
 }
