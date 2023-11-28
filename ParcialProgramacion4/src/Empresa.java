@@ -197,8 +197,7 @@ public class Empresa {
 
     //INGRESO CARGOS ANTIGUOS
     private ArrayList<Cargo> pedirListaCargosAntiguos(Fecha fechaIngresoEmpresa) {
-        ArrayList<Cargo> historialDeCargos;
-        historialDeCargos = new ArrayList<Cargo>();
+        ArrayList<Cargo> historialDeCargos = new ArrayList<Cargo>();
         
         Logger.header("Ingreso cargos antiguos");
 
