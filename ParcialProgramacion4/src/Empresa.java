@@ -109,4 +109,53 @@ public class Empresa {
         return null;
     }
     
+
+    //CU- Generar nueva convocatoria
+    public void agregarConvocatoria() {
+        Logger.header("Formulario generar convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoriaRepetida == null) {
+            System.out.print("Nombre puesto: ");
+            String nombrePuesto = scanner.nextLine();
+
+            Puesto puestoConvocatoria = this.buscarPuesto(nombrePuesto);
+
+            if (puestoConvocatoria == null) {
+                //le doy la opcion de crearlo
+                boolean quiereCrearlo = InputHelper.yesOrNoInput(scanner, "No existe puesto con ese nombre, quiere crearlo?");
+                
+                if (quiereCrearlo) {
+                    this.agregarPuesto(nombrePuesto); 
+                }
+            }
+
+            if (puestoConvocatoria != null) {
+                
+                
+
+            } else {
+                //si no encuentra el puesto y elije no crearlo, se cancela la generacion de la convocatoria
+                Logger.logError("No es posible generar la convocatoria sin un puesto, intente nuevamente");
+            }
+        } else {
+            Logger.logError("Ya existe una convocatoria con el codigo " + codigoConvocatoria);
+        }
+    }
+
+
+    private Convocatoria buscarConvocatoria(int codigo) {
+        int i = 0;
+
+        while(i<convocatorias.size() && !convocatorias.get(i).hasCodigo(codigo))
+            i++;
+        
+        if(i<convocatorias.size())
+            return convocatorias.get(i);
+        else
+            return null;
+    }
 }
