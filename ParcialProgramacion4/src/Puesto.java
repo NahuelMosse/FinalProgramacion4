@@ -17,8 +17,19 @@ public abstract class Puesto {
         return this.nombre.equalsIgnoreCase(nombre);
     }
 
+
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
         System.out.println("empleado nuevo agregado con exito a la lista de "+nombre+" !!!");
     } 
 }
+
+    public boolean esJerarquico() {
+        return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
+    }
+
+    public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
+        convocatorias.add(convocatoriaNueva);
+    }
+}
+
