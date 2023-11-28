@@ -43,7 +43,7 @@ public abstract class Convocatoria {
 
     public void mostrarConPostulantesAsignados() {
         this.mostrar();
-        //agrego informacion de cada postulante y asignado
+        //agrego informacion de cada postulante y asignado, si no hay postulantes o asingados, no los recorro y muestro msj informandolo
         if (postulados.size() > 0) {
             
             for(Empleado empleado: postulados) {
@@ -51,7 +51,7 @@ public abstract class Convocatoria {
             }
 
         } else {
-            System.out.println("No hay postulantes!");
+            System.out.println("No hay postulantes");
         }
 
         if (asignados.size() > 0) {

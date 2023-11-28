@@ -41,4 +41,16 @@ public class Empleado {
     public Puesto getPuestoActual() {
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
+
+    public void mostrarHabilidades() {
+        Habilidad habilidad;
+        Enumeration<Habilidad> enumH = habilidades.keys();
+        while (enumH.hasMoreElements()) {
+            habilidad = enumH.nextElement();
+
+            habilidad.mostrar();
+
+            System.out.println("años de experiencia: " + habilidades.get(habilidad));
+        }
+    }
 }
