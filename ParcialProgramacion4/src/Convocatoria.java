@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import utilidades.Fecha;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import utilidades.Logger;
 
 public abstract class Convocatoria {
     private int codigo;
@@ -28,4 +29,56 @@ public abstract class Convocatoria {
         this.asignados = new ArrayList<Empleado>();
     }
 
+    public boolean estaAbierta() {
+        return this.noPasoFecha() && this.quedaCupo();
+    }
+
+    public boolean noPasoFecha() {
+        return Fecha.hoy().compareTo(fecha) <= 0;
+    }
+
+    public boolean quedaCupo() {
+        return asignados.size() < cantEmpleadosRequeridos;
+    }
+
+    public void mostrarConPostulantesAsignados() {
+        this.mostrar();
+        //agrego informacion de cada postulante y asignado
+        if (postulados.size() > 0) {
+            
+            for(Empleado empleado: postulados) {
+                empleado.mostrar();
+            }
+
+        } else {
+            System.out.println("No hay postulantes!");
+        }
+
+        if (asignados.size() > 0) {
+            
+            for(Empleado empleado: asignados) {
+                empleado.mostrar();
+            }
+
+        } else {
+            System.out.println("Aun no hay asignados");
+        }
+    }
+
+    public void mostrarSinPostulantesAsignados() {
+        this.mostrar();
+        //agrego cuantos postulantes y asignados hay
+        System.out.println("Hay " + postulados.size() + " postulantes registrados");
+        System.out.println("Hay " + asignados.size() + " asignados al puesto");
+    }
+
+    public void mostrar() {
+        Logger.header("Convocatoria " + codigo);
+
+        puesto.mostrar();
+
+        System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
+
+        System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
+    }
 }

@@ -109,4 +109,25 @@ public class Empresa {
         return null;
     }
     
+
+    //CU- MOSTRAR CONVOCATORIAS ABIERTAS
+    public void mostrarConvocatoriasAbiertas() {
+        boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver el nombre y legajo de cada postulante y asignado?");
+
+        if (quiereVerPostulantesAsignados) {
+            for(Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.estaAbierta()) {
+                    convocatoria.mostrarConPostulantesAsignados();
+                }
+            }
+        } else {
+            for(Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.estaAbierta()) {
+                    convocatoria.mostrarSinPostulantesAsignados();
+                }
+            }
+        }
+        
+    }
+
 }

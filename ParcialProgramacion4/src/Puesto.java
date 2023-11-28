@@ -16,4 +16,9 @@ public abstract class Puesto {
     public boolean hasNombre(String nombre) {
     	return this.nombre.equalsIgnoreCase(nombre);
     }
+
+    public void mostrar() {
+        System.out.println("Nombre puesto: " + nombre);
+        System.out.println("Sueldo puesto: " + sueldo);
+    }
 }

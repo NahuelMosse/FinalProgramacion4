@@ -29,5 +29,12 @@ public class Empleado {
         this.fechaDeIngreso = fechaDeIngreso;
     }
 
-    
+    public void mostrar() {
+        System.out.println("legajo: " + legajo);
+        System.out.println("Nombre completo: " + nombre + " " + apellido);
+        System.out.println("Puesto actual: ");
+        this.getPuestoActual().mostrar();
+        System.out.println("Habilidades: ");
+        this.mostrarHabilidades();
+    }
 }

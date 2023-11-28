@@ -159,7 +159,7 @@ public class Ejecutora {
 	                
 	            break;
 	        case 5:
-	                
+	            empresa.mostrarConvocatoriasAbiertas();
 	            break;
 	        case 6:
 	            	
