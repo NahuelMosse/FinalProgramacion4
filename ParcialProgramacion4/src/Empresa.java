@@ -131,7 +131,7 @@ public class Empresa {
                 boolean quiereCrearlo = InputHelper.yesOrNoInput(scanner, "No existe puesto con ese nombre, quiere crearlo?");
                 
                 if (quiereCrearlo) {
-                    this.agregarPuesto(nombrePuesto); 
+                    puestoConvocatoria = this.agregarPuesto(nombrePuesto); 
                 }
             }
 
