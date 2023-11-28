@@ -205,7 +205,7 @@ public class Empresa {
         boolean tieneCargoAntiguo = true;
 
         do {
-            System.out.println("Nombre puesto: ");
+            System.out.print("Nombre puesto: ");
             String nombrePuesto = scanner.nextLine();
 
             Puesto puesto = this.buscarPuesto(nombrePuesto);
@@ -274,7 +274,7 @@ public class Empresa {
     private Cargo pedirCargoActual(Fecha fechaIngresoEmpresa, ArrayList<Cargo> historialDeCargos) {
         Logger.header("Ingreso cargo actual");
 
-        System.out.println("Nombre puesto actual: ");
+        System.out.print("Nombre puesto actual: ");
         String nombrePuestoActual = scanner.nextLine();
 
         Puesto puestoActual = this.buscarPuesto(nombrePuestoActual);
@@ -287,7 +287,7 @@ public class Empresa {
                 puestoActual = this.agregarPuesto(nombrePuestoActual);
             } else {
                 //por si el usuario quiere comprobar que lo esta tipeando bien, le pregunto de nuevo por el puesto
-                System.out.println("Nombre puesto actual: ");
+                System.out.print("Nombre puesto actual: ");
                 nombrePuestoActual = scanner.nextLine();
 
                 puestoActual = this.buscarPuesto(nombrePuestoActual);
@@ -346,7 +346,7 @@ public class Empresa {
         boolean otra;
 
         do {
-            System.out.println("Nombre habilidad: ");
+            System.out.print("Nombre habilidad: ");
             String nombreHabilidad = scanner.nextLine();
 
             //busco que la habilidad exista
