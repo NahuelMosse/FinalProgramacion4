@@ -110,8 +110,8 @@ public class Empresa {
         }
         return null;
     }
-    
-
+  
+  
     //CU- Generar nueva convocatoria
     public void agregarConvocatoria() {
         Logger.header("Formulario generar convocatoria");
@@ -195,5 +195,33 @@ public class Empresa {
             return convocatorias.get(i);
         else
             return null;
+    }
+  
+  
+  //CASO DE USO BORRAR PUESTO DE TRABAJO
+    public void borrarPuesto() {
+        System.out.print("Nombre puesto de trabajo: ");
+        String nombrePuesto = scanner.nextLine();
+
+        Puesto puestoBorrar = this.buscarPuesto(nombrePuesto);
+
+        if (puestoBorrar != null) {
+            Logger.header("Informacion puesto a eliminar: ");
+            puestoBorrar.mostrar();
+
+            int cantEmpleados = puestoBorrar.cantEmpleados();
+
+            if (cantEmpleados == 0) {
+                puestos.remove(puestoBorrar);
+
+                Logger.logSuccess("Puesto de trabajo ELIMINADO");
+
+            } else {
+                Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
+            }
+
+        } else {
+            Logger.logError("NO existe puesto de trabajo con este nombre");
+        }
     }
 }
