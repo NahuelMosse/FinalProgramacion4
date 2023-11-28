@@ -155,7 +155,7 @@ public class Ejecutora {
 	                
 	            break;
 	        case 3:
-	            	
+	            empresa.darDeBajaConvocatoria();
 	            break;
 	        case 4:
 	                
