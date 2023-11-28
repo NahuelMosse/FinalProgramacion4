@@ -113,7 +113,7 @@ public class Empresa {
 
     //CU- MOSTRAR CONVOCATORIAS ABIERTAS
     public void mostrarConvocatoriasAbiertas() {
-        boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver el nombre y legajo de cada postulante y asignado?");
+        boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver los datos de cada postulante y asignado?");
 
         if (quiereVerPostulantesAsignados) {
             for(Convocatoria convocatoria: convocatorias) {
