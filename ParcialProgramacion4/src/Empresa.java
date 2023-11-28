@@ -112,7 +112,7 @@ public class Empresa {
     }
     
     //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
-    public void agregarEmpleado(Scanner scanner) {
+    public void agregarEmpleado() {
         Logger.header("Formulario para ingresar empleado: ");
 
         int legajo = InputHelper.scanInt(scanner, "Numero de legajo: ");
@@ -165,7 +165,6 @@ public class Empresa {
     }
 
     private ArrayList<Cargo> pedirListaCargos(Fecha fechaIngresoEmpresa) {
-        Scanner scanner = new Scanner(System.in);
         // INGRESAR TODOS LOS CARGOS QUE UN EMPLEADO OCUPO HASTA AHORA
         Logger.header("Ingreso de cargos: ");
 
@@ -196,8 +195,6 @@ public class Empresa {
 
     //INGRESO CARGOS ANTIGUOS
     private ArrayList<Cargo> pedirListaCargosAntiguos(Fecha fechaIngresoEmpresa) {
-        Scanner scanner = new Scanner(System.in);
-
         ArrayList<Cargo> historialDeCargos;
         historialDeCargos = new ArrayList<Cargo>();
         
@@ -275,8 +272,6 @@ public class Empresa {
     }
 
     private Cargo pedirCargoActual(Fecha fechaIngresoEmpresa, ArrayList<Cargo> historialDeCargos) {
-        Scanner scanner = new Scanner(System.in);
-
         Logger.header("Ingreso cargo actual");
 
         System.out.println("Nombre puesto actual: ");
@@ -318,8 +313,6 @@ public class Empresa {
 
     //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos
     private Puesto agregarPuesto(String nombre) {
-        Scanner scanner = new Scanner(System.in);
-        
         float sueldo = InputHelper.scanFloat(scanner, "Sueldo: ");
         
         boolean esJerarquico = InputHelper.yesOrNoInput(scanner, "Es un puesto jerarquico?");
@@ -342,7 +335,6 @@ public class Empresa {
 
     //sirve para CU agregar empleado y CU generar convocatoria
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
-        Scanner scanner = new Scanner(System.in);
         //ingresar las habilidades y los años de experiencia en cada una
         Logger.header("Ingreso de habilidades y experiencia: ");
         
