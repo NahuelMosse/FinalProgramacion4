@@ -31,4 +31,21 @@ public abstract class Convocatoria {
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
+
+    public Puesto getPuesto() {
+        return this.puesto;
+    }
+
+    public boolean estaAbierta() {
+        return this.noPasoFecha() && this.quedaCupo();
+    }
+
+    public boolean noPasoFecha() {
+        return Fecha.hoy().compareTo(fecha) <= 0;
+    }
+
+    public boolean quedaCupo() {
+        return asignados.size() < cantEmpleadosRequeridos;
+    }
+
 }
