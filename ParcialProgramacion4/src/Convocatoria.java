@@ -80,9 +80,24 @@ public abstract class Convocatoria {
         System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
 
         System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
+
+        System.out.println("Requisitos necesarios: ");
+        this.mostrarRequisitos();
     }
   
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
+    }
+
+    public void mostrarRequisitos() {
+        Habilidad habilidad;
+        Enumeration<Habilidad> enumH = requisitos.keys();
+        while (enumH.hasMoreElements()) {
+            habilidad = enumH.nextElement();
+
+            habilidad.mostrar();
+
+            System.out.println("años de experiencia: " + requisitos.get(habilidad));
+        }
     }
 }
