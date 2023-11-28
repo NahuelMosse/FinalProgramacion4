@@ -445,7 +445,6 @@ public class Empresa {
                     puestoConvocatoria = this.buscarPuesto(nombrePuesto);
                 }
             }
-
             
             System.out.println("Fecha a realizar convocatoria: ");
             Fecha fechaConvocatoria = Fecha.nuevaFecha();
@@ -485,69 +484,6 @@ public class Empresa {
             puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
 
             Logger.logSuccess("Convocatoria registrada en el sistema");
-        }
-
-        if (convocatoriaRepetida == null) {
-            System.out.print("Nombre puesto: ");
-            String nombrePuesto = scanner.nextLine();
-
-            Puesto puestoConvocatoria = this.buscarPuesto(nombrePuesto);
-
-            if (puestoConvocatoria == null) {
-                //le doy la opcion de crearlo
-                boolean quiereCrearlo = InputHelper.yesOrNoInput(scanner, "No existe puesto con ese nombre, quiere crearlo?");
-                
-                if (quiereCrearlo) {
-                    puestoConvocatoria = this.agregarPuesto(nombrePuesto); 
-                }
-            }
-
-            if (puestoConvocatoria != null) {
-                System.out.println("Fecha a realizar convocatoria: ");
-                Fecha fechaConvocatoria = Fecha.nuevaFecha();
-
-                int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
-
-                System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
-                Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
-                
-                Convocatoria convocatoriaNueva;
-
-                if (puestoConvocatoria.esJerarquico()) {
-                    int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
-
-                    convocatoriaNueva = new ConvocatoriaJerarquico(
-                        codigoConvocatoria,
-                        puestoConvocatoria,
-                        fechaConvocatoria,
-                        cantEmpleadosRequeridos,
-                        annosMinimosEnEmpresa,
-                        requisitos
-                    );
-                } else { 
-                    convocatoriaNueva = new ConvocatoriaNoJerarquico(
-                        codigoConvocatoria,
-                        puestoConvocatoria,
-                        fechaConvocatoria,
-                        cantEmpleadosRequeridos,
-                        requisitos
-                    );
-                }
-
-                //agregar a la lista de convocatorias
-                convocatorias.add(convocatoriaNueva);
-
-                //agregar a la lista de convocatorias DEL PUESTO
-                puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
-
-                Logger.logSuccess("Convocatoria registrada en el sistema");
-
-            } else {
-                //si no encuentra el puesto y elije no crearlo, se cancela la generacion de la convocatoria
-                Logger.logError("No es posible generar la convocatoria sin un puesto, intente nuevamente");
-            }
-        } else {
-            Logger.logError("Ya existe una convocatoria con el codigo " + codigoConvocatoria);
         }
     }
 
