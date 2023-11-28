@@ -19,11 +19,20 @@ public abstract class Puesto {
     }
 
 
+
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
         Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
     } 
 
+
+    public void mostrar() {
+        System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
+    }
+
+    public int cantEmpleados() {
+        return empleados.size();
+    }
 
     public boolean esJerarquico() {
         return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
