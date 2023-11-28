@@ -183,42 +183,10 @@ public class Empresa {
         }
         
         //INGRESAR CARGO ACTUAL, SOLO PREGUNTA EL PUESTO
-        System.out.println("\nINGRESO CARGO ACTUAL");
-        System.out.println("Nombre puesto actual: ");
-        String nombrePuestoActual = scanner.nextLine();
-
-        Puesto puestoActual = this.buscarPuesto(nombrePuestoActual);
-
-        while (puestoActual == null) { //es un while porque si o si debe tener un puesto actual, sino no puedo crear empleado
-            //doy la posibilidad de crearlo
-            boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere AGREGARLO?");
-                
-            if (agregarPuesto) {
-                puestoActual = this.agregarPuesto(nombrePuestoActual);
-            } else {
-                //por si el usuario quiere comprobar que lo esta tipeando bien, le pregunto de nuevo por el puesto
-                System.out.println("Nombre puesto actual: ");
-                nombrePuestoActual = scanner.nextLine();
-
-                puestoActual = this.buscarPuesto(nombrePuestoActual);
-            }
-        }
-
-        //la fecha de inicio del puesto actual es:
-        // si tuvo cargos antiguos, es igual a la fecha de fin del ultimo cargo
-        // si no tuvo cargos antiguos, es igual a la fecha en la que entro a la empresa
-        Fecha fechaInicio;
-
-        if (historialDeCargos.size()>0) { //tiene cargos antiguos
-            fechaInicio = historialDeCargos.get(historialDeCargos.size()-1).getFechaFin();   
-        } else { //es la fecha en la que inicio en la empresa
-            fechaInicio = fechaIngresoEmpresa;
-        }
-
-        Cargo nuevoCargo = new Cargo(fechaInicio, null, puestoActual); //mando null a fechaFin para colocarlo cuando abandone cargo
-
+        Cargo cargoActual = this.pedirCargoActual(fechaIngresoEmpresa, historialDeCargos);
+        
         //agrego en arraylist local
-        historialDeCargos.add(nuevoCargo);
+        historialDeCargos.add(cargoActual);
 
         Logger.logSuccess("Cargo actual agregado");    
 
@@ -232,6 +200,8 @@ public class Empresa {
         ArrayList<Cargo> historialDeCargos;
         historialDeCargos = new ArrayList<Cargo>();
         
+        Logger.header("Ingreso cargos antiguos");
+
         System.out.println("\nRECORDAR: Los cargos antiguos se deben ingresar en orden empezando desde el mas antiguo\n");
 
         boolean tieneCargoAntiguo = true;
@@ -301,6 +271,47 @@ public class Empresa {
         } while (tieneCargoAntiguo);
 
         return historialDeCargos;
+    }
+
+    private Cargo pedirCargoActual(Fecha fechaIngresoEmpresa, ArrayList<Cargo> historialDeCargos) {
+        Scanner scanner = new Scanner(System.in);
+
+        Logger.header("Ingreso cargo actual");
+
+        System.out.println("Nombre puesto actual: ");
+        String nombrePuestoActual = scanner.nextLine();
+
+        Puesto puestoActual = this.buscarPuesto(nombrePuestoActual);
+
+        while (puestoActual == null) { //es un while porque si o si debe tener un puesto actual, sino no puedo crear empleado
+            //doy la posibilidad de crearlo
+            boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere AGREGARLO?");
+                
+            if (agregarPuesto) {
+                puestoActual = this.agregarPuesto(nombrePuestoActual);
+            } else {
+                //por si el usuario quiere comprobar que lo esta tipeando bien, le pregunto de nuevo por el puesto
+                System.out.println("Nombre puesto actual: ");
+                nombrePuestoActual = scanner.nextLine();
+
+                puestoActual = this.buscarPuesto(nombrePuestoActual);
+            }
+        }
+
+        //la fecha de inicio del puesto actual es:
+        // si tuvo cargos antiguos, es igual a la fecha de fin del ultimo cargo
+        // si no tuvo cargos antiguos, es igual a la fecha en la que entro a la empresa
+        Fecha fechaInicio;
+
+        if (historialDeCargos.size()>0) { //tiene cargos antiguos
+            fechaInicio = historialDeCargos.get(historialDeCargos.size()-1).getFechaFin();   
+        } else { //es la fecha en la que inicio en la empresa
+            fechaInicio = fechaIngresoEmpresa;
+        }
+
+        Cargo nuevoCargo = new Cargo(fechaInicio, null, puestoActual); //mando null a fechaFin para colocarlo cuando abandone cargo
+
+        return nuevoCargo;
     }
 
 
