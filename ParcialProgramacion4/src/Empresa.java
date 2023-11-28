@@ -423,6 +423,70 @@ public class Empresa {
 
         Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
 
+        if (convocatoriaRepetida != null) {
+            Logger.logError("Ya existe una convocatoria con el codigo " + codigoConvocatoria);
+        } else {
+            System.out.print("Nombre puesto: ");
+            String nombrePuesto = scanner.nextLine();
+
+            Puesto puestoConvocatoria = this.buscarPuesto(nombrePuesto);
+
+            while (puestoConvocatoria == null) {
+                //le doy la opcion de crearlo
+                boolean quiereCrearlo = InputHelper.yesOrNoInput(scanner, "No existe puesto con ese nombre, quiere crearlo?");
+                
+                if (quiereCrearlo) {
+                    puestoConvocatoria = this.agregarPuesto(nombrePuesto); 
+                } else {
+                    //le doy la posiblidad de ingresar el nombre de nuevo, por si cree que tipeo mal
+                    System.out.print("Nombre puesto: ");
+                    nombrePuesto = scanner.nextLine();
+
+                    puestoConvocatoria = this.buscarPuesto(nombrePuesto);
+                }
+            }
+
+            
+            System.out.println("Fecha a realizar convocatoria: ");
+            Fecha fechaConvocatoria = Fecha.nuevaFecha();
+
+            int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+
+            System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
+            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
+            
+            Convocatoria convocatoriaNueva;
+
+            if (puestoConvocatoria.esJerarquico()) {
+                int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
+
+                convocatoriaNueva = new ConvocatoriaJerarquico(
+                    codigoConvocatoria,
+                    puestoConvocatoria,
+                    fechaConvocatoria,
+                    cantEmpleadosRequeridos,
+                    annosMinimosEnEmpresa,
+                    requisitos
+                );
+            } else { 
+                convocatoriaNueva = new ConvocatoriaNoJerarquico(
+                    codigoConvocatoria,
+                    puestoConvocatoria,
+                    fechaConvocatoria,
+                    cantEmpleadosRequeridos,
+                    requisitos
+                );
+            }
+
+            //agregar a la lista de convocatorias
+            convocatorias.add(convocatoriaNueva);
+
+            //agregar a la lista de convocatorias DEL PUESTO
+            puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
+
+            Logger.logSuccess("Convocatoria registrada en el sistema");
+        }
+
         if (convocatoriaRepetida == null) {
             System.out.print("Nombre puesto: ");
             String nombrePuesto = scanner.nextLine();
