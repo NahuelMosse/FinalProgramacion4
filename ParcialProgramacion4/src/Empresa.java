@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Scanner;
 
+import utilidades.Fecha;
 import utilidades.InputHelper;
 import utilidades.Logger;
 
@@ -134,8 +136,44 @@ public class Empresa {
             }
 
             if (puestoConvocatoria != null) {
+                System.out.println("Fecha a realizar convocatoria: ");
+                Fecha fechaConvocatoria = Fecha.nuevaFecha();
+
+                int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+
+                System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
+                Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
                 
-                
+                Convocatoria convocatoriaNueva;
+
+                if (puestoConvocatoria.esJerarquico()) {
+                    int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
+
+                    convocatoriaNueva = new ConvocatoriaJerarquico(
+                        codigoConvocatoria,
+                        puestoConvocatoria,
+                        fechaConvocatoria,
+                        cantEmpleadosRequeridos,
+                        annosMinimosEnEmpresa,
+                        requisitos
+                    );
+                } else { 
+                    convocatoriaNueva = new ConvocatoriaNoJerarquico(
+                        codigoConvocatoria,
+                        puestoConvocatoria,
+                        fechaConvocatoria,
+                        cantEmpleadosRequeridos,
+                        requisitos
+                    );
+                }
+
+                //agregar a la lista de convocatorias
+                convocatorias.add(convocatoriaNueva);
+
+                //agregar a la lista de convocatorias DEL PUESTO
+                puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
+
+                Logger.logSuccess("Convocatoria registrada en el sistema");
 
             } else {
                 //si no encuentra el puesto y elije no crearlo, se cancela la generacion de la convocatoria
