@@ -350,7 +350,7 @@ public class Empresa {
             //no es el mismo que el caso de uso, para que no tenga que ingresar de nuevo el nombre del puesto
             
             System.out.println("sueldo: ");
-            double sueldo = Double.parseDouble(scanner.nextLine());
+            float sueldo = Float.parseFloat(scanner.nextLine());
             
             System.out.println("Es un puesto jerarquico? [SI/NO]");
             String esJerarquico = scanner.nextLine(); 
