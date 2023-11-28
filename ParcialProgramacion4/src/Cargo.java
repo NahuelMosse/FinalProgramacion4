@@ -16,7 +16,6 @@ public class Cargo {
     }
 
     public Fecha getFechaFin() {
-    	return fechaFin;
+    	return this.fechaFin;
     }
-
 }
