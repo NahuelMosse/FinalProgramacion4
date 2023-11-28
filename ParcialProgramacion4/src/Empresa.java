@@ -117,7 +117,7 @@ public class Empresa {
         Empleado empleadoRepetido = this.buscarEmpleado(legajo);
 
         if(empleadoRepetido == null) {
-            System.out.println("Nombre: ");
+            System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
 
             System.out.println("Apellido: ");
