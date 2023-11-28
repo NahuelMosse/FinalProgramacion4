@@ -29,7 +29,7 @@ public class Empleado {
         this.fechaDeIngreso = fechaDeIngreso;
     }
 
-    public boolean hasEmpleado(int legajo) {
+    public boolean hasLegajo(int legajo) {
         return this.legajo == legajo;
     }
 
