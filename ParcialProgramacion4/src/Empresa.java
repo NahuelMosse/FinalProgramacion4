@@ -120,9 +120,16 @@ public class Empresa {
             Logger.header("Informacion puesto a eliminar: ");
             puestoBorrar.mostrar();
 
-            puestos.remove(puestoBorrar);
+            int cantEmpleados = puestoBorrar.cantEmpleados();
 
-            Logger.logSuccess("Puesto de trabajo ELIMINADO");
+            if (cantEmpleados == 0) {
+                puestos.remove(puestoBorrar);
+
+                Logger.logSuccess("Puesto de trabajo ELIMINADO");
+
+            } else {
+                Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
+            }
 
         } else {
             Logger.logError("NO existe puesto de trabajo con este nombre");

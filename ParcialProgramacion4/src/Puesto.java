@@ -20,4 +20,8 @@ public abstract class Puesto {
     public void mostrar() {
         System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
     }
+
+    public int cantEmpleados() {
+        return empleados.size();
+    }
 }
