@@ -81,4 +81,8 @@ public abstract class Convocatoria {
 
         System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
     }
+  
+    public boolean hasCodigo(int codigo) {
+        return this.codigo == codigo;
+    }
 }

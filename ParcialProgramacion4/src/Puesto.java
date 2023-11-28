@@ -17,10 +17,20 @@ public abstract class Puesto {
     	return this.nombre.equalsIgnoreCase(nombre);
     }
 
+
     public void mostrar() {
-        System.out.println("Nombre puesto: " + nombre);
-        System.out.println("Sueldo puesto: " + sueldo);
+        System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
     }
 
-    
+    public int cantEmpleados() {
+        return empleados.size();
+
+    public boolean esJerarquico() {
+        return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
+    }
+
+    public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
+        convocatorias.add(convocatoriaNueva);
+    }
+
 }
