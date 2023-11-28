@@ -1,25 +1,28 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Scanner;
+import java.util.Hashtable;
 
 import utilidades.InputHelper;
 import utilidades.Logger;
 import utilidades.Fecha;
 
 public class Empresa {
+	private Scanner scanner;
     private ArrayList<Empleado> empleados;
     private ArrayList<Puesto> puestos;
     private ArrayList<Convocatoria> convocatorias;
     private ArrayList<Habilidad> habilidades;
 
-    public Empresa() {
+    public Empresa(Scanner scanner) {
+        this.scanner = scanner;
+
         this.empleados = new ArrayList<Empleado>();
         this.puestos = new ArrayList<Puesto>();
         this.convocatorias = new ArrayList<Convocatoria>();
         this.habilidades = new ArrayList<Habilidad>();
     }
 
-    public void crearUnaHabilidad(Scanner scanner) {
+    public void crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
 
     	System.out.print("Nombre: ");
@@ -33,7 +36,7 @@ public class Empresa {
 			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.crearUnaHabilidad(scanner);
+	        	this.crearUnaHabilidad();
 	        }
 		} else {
 			System.out.print("Descripcion: ");
@@ -47,7 +50,7 @@ public class Empresa {
 		}
     }
     
-    public void agregarPuesto(Scanner scanner) {
+    public void agregarPuesto() {
     	Logger.header("Formulario para crear un nuevo puesto de trabajo");
     	
         System.out.print("Nombre: ");
@@ -61,7 +64,7 @@ public class Empresa {
         	boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.agregarPuesto(scanner);
+	        	this.agregarPuesto();
 	        }
         } else {
         	
@@ -96,7 +99,6 @@ public class Empresa {
     	return null;
     }
     
-  
     private Puesto buscarPuesto(String nombre) {
         int i = 0;
 
@@ -108,8 +110,7 @@ public class Empresa {
         }
         return null;
     }
-  
-
+    
     //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
     public void agregarEmpleado(Scanner scanner) {
         Logger.header("Formulario para ingresar empleado: ");
@@ -402,4 +403,5 @@ public class Empresa {
             return empleados.get(i);
         return null;
     }
+
 }
