@@ -31,4 +31,31 @@ public abstract class Convocatoria {
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
+    
+    //1. El empleadoInscribir no puede estar en lista de postulados o asignados
+    public boolean empEstaInscripto(Empleado empleadoInscribir){
+        int i = 0;
+        while (i<postulados.size() && (postulados.get(i) != empleadoInscribir)) {
+            i++;
+        }
+
+        if(i<postulados.size()) 
+            return true;
+        else 
+            return false;
+    }
+    
+    public boolean noPasoFecha() {
+    	return Fecha.hoy().compareTo(fecha) <= 0;
+    }
+    
+    public boolean empEstaAsignado(Empleado empleado) {
+    	return asignados.contains(empleado);
+    }
+    
+    public void eliminarEmpleado(Empleado empleadoEliminar) {
+    	postulados.remove(empleadoEliminar);
+    	
+    	asignados.remove(empleadoEliminar); //si estuvo asignado se elimina, sino no hace nada
+    }
 }

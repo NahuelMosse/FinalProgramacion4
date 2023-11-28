@@ -21,6 +21,66 @@ public class Empresa {
         this.convocatorias = new ArrayList<Convocatoria>();
         this.habilidades = new ArrayList<Habilidad>();
     }
+    
+    //AGREGADO --- DAR DE BAJA EMPLEADO
+    public void darDeBajaEmpleado() {
+    	System.out.println("\nNumero de legajo empleado a eliminar: ");
+    	int legajo = Integer.parseInt(scanner.nextLine());
+    	
+    	Empleado empleadoEliminar = this.buscarEmpleado(legajo);
+    	
+    	if (empleadoEliminar != null) {
+    		System.out.println("\n----------------------------------------");
+        	System.out.println("Información empleado a eliminar: ");
+        	empleadoEliminar.mostrar();
+        	System.out.println("----------------------------------------\n");
+        	
+        	//Se podria elimar de las convocatorias, pero queda como registro historico de quienes se postularon
+        	//independientemente de si ya no son parte de la empresa o no
+        	
+        	//si se debe sacar de las convocatorias todavia abiertas para que no se lo seleccione ya que no existe
+        	for(Convocatoria convocatoria: convocatorias) {
+        		boolean estaInscripto = convocatoria.empEstaInscripto(empleadoEliminar) || convocatoria.empEstaAsignado(empleadoEliminar);
+        		if (estaInscripto && convocatoria.noPasoFecha()) {
+        			//si esta inscripto, tambien puede haber sido seleccionado para el puesto
+        			//si la convocatoria todavia no paso su fecha, significa que NO es historica, por lo que debe 
+        			//eliminar al empleado en la lista asignados ademas de inscriptos, porque parece que ya se eligio a alguien pero esa persona
+        			//ya no forma parte de la empresa
+        			
+        			//se elimina de la convocatoria al empleado en la lista de inscriptos y asignados (SOLO si NO es una convocatoria historica)
+        			//se considera una convocatoria histórica aquella que NO paso la fecha establecida en la misma
+        			convocatoria.eliminarEmpleado(empleadoEliminar); 
+        		}
+        	}
+        	
+        	
+        	//antes de eliminarlo de la lista de empresa, lo eliminamos de la lista de su puesto actual
+        	Puesto puestoEmpleado = empleadoEliminar.getPuestoActual();
+        	puestoEmpleado.eliminarEmpleado(empleadoEliminar);
+        	
+        	//ahora se elimina de la lista de la empresa
+        	empleados.remove(empleadoEliminar);
+        	
+        	//si bien se elimino el empleado de la lista de la empresa, todavia se puede encontrar en convocatorias historicas en la lista de postulados y asignados
+        	
+        	System.out.println("Empleado eliminado con exito !!!");
+    		
+    	} else {
+    		System.out.println("ERROR: No existe empleado con el numero de legajo " + legajo);
+    	}
+    }
+    
+    private Empleado buscarEmpleado(int legajo) {
+        int i = 0;
+
+        while(i<empleados.size() && !empleados.get(i).hasEmpleado(legajo))
+            i++;
+        
+        if(i<empleados.size())
+            return empleados.get(i);
+        else
+            return null;
+    }
 
     public void crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");

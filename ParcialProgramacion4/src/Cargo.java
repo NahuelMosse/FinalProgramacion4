@@ -11,4 +11,8 @@ public class Cargo {
         this.puesto = puesto;
     }
     
+    public Puesto getPuesto() {
+        return this.puesto;
+    }
+    
 }

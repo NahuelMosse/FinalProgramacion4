@@ -95,7 +95,7 @@ public class Ejecutora {
 	            // empresa.agregarEmpleado();
 	            break;
 	        case 2:
-	            	
+	            empresa.darDeBajaEmpleado();
 	            break;
 	        case 3:
 	            empresa.agregarPuesto();   
