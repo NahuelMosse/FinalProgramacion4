@@ -24,6 +24,7 @@ public abstract class Puesto {
 
     public int cantEmpleados() {
         return empleados.size();
+    }
 
     public boolean esJerarquico() {
         return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
