@@ -1,13 +1,15 @@
-import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Scanner;
 
+import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Ejecutora {
-	private static Scanner scanner = new Scanner(System.in);
-    private static Empresa empresa = new Empresa();
-    public static void main(String [] args) {
+	private static Scanner scanner;
+    private static Empresa empresa;
+
+    public static void main(String[] args) {
+		scanner = new Scanner(System.in);
+		empresa = new Empresa(scanner);
         
         Logger.divider();
     	System.out.println("Bienvenid@ al sistema de administracion de cambios de puesto");
@@ -19,6 +21,8 @@ public class Ejecutora {
         // PuestoJerarquico.setAnnosMinimosParaCambiar();
 
         Ejecutora.menuPrincipal();
+
+		scanner.close();
         
         Logger.divider();
     	System.out.println("Gracias por usar nuestro sistema :)");
@@ -225,20 +229,8 @@ public class Ejecutora {
     }
 	
     public static int conseguirOpcionDelMenu() {
-		int opcion = 0;
-		
-	    boolean huboError = false;
-		do {
-		    huboError = false;
-		    // Evita que se cuelgue el sistema cuando se ingresa un string
-		    try {
-			System.out.print("\nOpcion: ");
-			opcion = Integer.parseInt(scanner.nextLine());
-		    } catch (Exception _error) {
-			huboError = true;
-			Logger.logError("Solo estan permitidos caracteres numericos");
-		    }
-		} while (huboError);
+		System.out.print("\n");
+		int opcion = InputHelper.scanInt(scanner, "Opcion: ");
 			
 		return opcion;
     }

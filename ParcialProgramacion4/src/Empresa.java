@@ -5,13 +5,15 @@ import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Empresa {
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner;
     private ArrayList<Empleado> empleados;
     private ArrayList<Puesto> puestos;
     private ArrayList<Convocatoria> convocatorias;
     private ArrayList<Habilidad> habilidades;
 
-    public Empresa() {
+    public Empresa(Scanner scanner) {
+        this.scanner = scanner;
+
         this.empleados = new ArrayList<Empleado>();
         this.puestos = new ArrayList<Puesto>();
         this.convocatorias = new ArrayList<Convocatoria>();
