@@ -212,51 +212,53 @@ public class Empresa {
             Puesto puesto = this.buscarPuesto(nombrePuesto);
 
             //SI NO EXISTE, SE LE PREGUNTA SI LO QUIERE AGREGAR:
-            if (puesto == null) {
+            while (puesto == null) {
                 boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere agregarlo?");
                 
                 if (agregarPuesto) {
                     puesto = this.agregarPuesto(nombrePuesto);
+                } else {
+                    System.out.print("Nombre puesto: ");
+                    nombrePuesto = scanner.nextLine();
+
+                    puesto = this.buscarPuesto(nombrePuesto);
                 }
             }
 
-            if (puesto == null) {
-                Logger.logError("No fue posible registrar el cargo"); //el usuario decidio no crear el puesto
-            } else {
-                //determinar la fecha de inicio en el cargo
-                //si es el primer cargo, es la misma que la fecha de ingreso a la empresa
-                //si no es la fecha de fin del ultimo cargo ingresado
-                Fecha fechaInicio;
+            //determinar la fecha de inicio en el cargo
+            //si es el primer cargo, es la misma que la fecha de ingreso a la empresa
+            //si no es la fecha de fin del ultimo cargo ingresado
+            Fecha fechaInicio;
 
-                if (historialDeCargos.size()>0) { //ya se ingresaron cargos antiguos
-                    fechaInicio = historialDeCargos.get(historialDeCargos.size()-1).getFechaFin();   
-                } else { //es el primer cargo que se ingresa
-                    fechaInicio = fechaIngresoEmpresa;
-                }
-
-                System.out.println("\nFecha en la que finalizo el cargo: ");
-                Fecha fechaFin = Fecha.nuevaFecha();
-
-                //comprobaciones fecha fin sea correcta
-                while (fechaFin.compareTo(fechaInicio)<=0 || fechaFin.compareTo(Fecha.hoy())>0) {
-                    if (fechaFin.compareTo(fechaInicio)<=0) {
-                        Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio: ");
-                        System.out.println("\nFecha en la que finalizo el cargo: ");
-                        fechaFin = Fecha.nuevaFecha();
-                    } else {
-                        Logger.logError("La fecha de fin debe ser anterior al dia de hoy: ");
-                        System.out.println("\nFecha en la que finalizo el cargo: ");
-                        fechaFin = Fecha.nuevaFecha();
-                    }
-                }
-
-                Cargo nuevoCargo = new Cargo(fechaInicio, fechaFin, puesto);
-
-                //agrego en arraylist local
-                historialDeCargos.add(nuevoCargo);
-
-                Logger.logSuccess("Cargo antiguo agregado");
+            if (historialDeCargos.size()>0) { //ya se ingresaron cargos antiguos
+                fechaInicio = historialDeCargos.get(historialDeCargos.size()-1).getFechaFin();   
+            } else { //es el primer cargo que se ingresa
+                fechaInicio = fechaIngresoEmpresa;
             }
+
+            System.out.println("\nFecha en la que finalizo el cargo: ");
+            Fecha fechaFin = Fecha.nuevaFecha();
+
+            //comprobaciones fecha fin sea correcta
+            while (fechaFin.compareTo(fechaInicio)<=0 || fechaFin.compareTo(Fecha.hoy())>0) {
+                if (fechaFin.compareTo(fechaInicio)<=0) {
+                    Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio: ");
+                    System.out.println("\nFecha en la que finalizo el cargo: ");
+                    fechaFin = Fecha.nuevaFecha();
+                } else {
+                    Logger.logError("La fecha de fin debe ser anterior al dia de hoy: ");
+                    System.out.println("\nFecha en la que finalizo el cargo: ");
+                    fechaFin = Fecha.nuevaFecha();
+                }
+            }
+
+            Cargo nuevoCargo = new Cargo(fechaInicio, fechaFin, puesto);
+
+            //agrego en arraylist local
+            historialDeCargos.add(nuevoCargo);
+
+            Logger.logSuccess("Cargo antiguo agregado");
+           
 
             tieneCargoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene MAS cargos ANTIGUOS?");
 
