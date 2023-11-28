@@ -109,10 +109,12 @@ public class Empresa {
         return null;
     }
   
+
   //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
     public void agregarEmpleado(Scanner scanner) {
-        System.out.println("Numero de legajo: ");
-        int legajo = Integer.parseInt(scanner.nextLine());
+        Logger.header("Formulario para ingresar empleado: ");
+
+        int legajo = InputHelper.scanInt(scanner, "Numero de legajo: ");
 
         Empleado empleadoRepetido = this.buscarEmpleado(legajo);
 
@@ -133,7 +135,6 @@ public class Empresa {
             ArrayList<Cargo>historialDeCargos = this.pedirListaCargos(fechaIngreso);
             
             //crear hashtable con las habilidades y años de experiencia
-            System.out.println("Ingreso de habilidades del empleado con sus años de experencia en cada una: ");
             Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades();
 
             //constructor empleado
@@ -155,41 +156,33 @@ public class Empresa {
             //agregar empleado a lista de empresa
             empleados.add(empleadoNuevo);
 
-            System.out.println("Empleado agregado a lista de la empresa!!!");
+            Logger.logSuccess("Empleado agregado a lista de la empresa");
 
         } else {
-            System.out.println("ERROR: ya existe un empleado con ese numero de legajo");
+            Logger.logError("ya existe un empleado con ese numero de legajo");
         }
     }
 
     private ArrayList<Cargo> pedirListaCargos(Fecha fechaIngresoEmpresa) {
         Scanner scanner = new Scanner(System.in);
         // INGRESAR TODOS LOS CARGOS QUE UN EMPLEADO OCUPO HASTA AHORA
+        Logger.header("Ingreso de cargos: ");
 
-        System.out.println("\nA continuación ingresara el historial de cargos ocupados por el empleado: ");
-        System.out.println("Primero se pedira los cargos ANTIGUOS que ocupo el mismo (Se ingresa SI en caso de que los tenga)");
-        System.out.println("Luego cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a la pregunta 'tiene puestos antiguos?')\n");
+        System.out.println("Primero se pediran los cargos ANTIGUOS que ocupo (Se ingresa SI en caso de que los tenga)");
+        System.out.println("Cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a 'tiene puestos antiguos?')\n");
 
         //creo un arraylist local para el historial de cargos para pasarle al constructor de empleado (es lo que retorno)
         ArrayList<Cargo> historialDeCargos;
         historialDeCargos = new ArrayList<Cargo>();
 
         //primero ingreso los cargos antiguos
-        System.out.println("\nTiene puestos ANTIGUOS? (SI/NO)");
-        String tienePuestoAntiguo = scanner.nextLine();
-        
-        while (!tienePuestoAntiguo.equalsIgnoreCase("SI") && !tienePuestoAntiguo.equalsIgnoreCase("NO")) {
-            System.out.println("Ingrese una opcion valida, SI o NO");
-            System.out.println("Tiene puestos antiguos? (SI/NO)");
-            tienePuestoAntiguo = scanner.nextLine();
-        }
-        
+        boolean tienePuestoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene puestos ANTIGUOS?");
         
         
         //carga del cargo mas antiguo en la que la fecha de ingreso al cargo es la misma que la de ingreso a la empresa
         //primero es un 'if' y no un while porque la fecha de inicio del cargo mas antiguo se saca de la fecha de ingreso a la empresa
         //pero en los proximos cargos antiguos se saca de la fecha de fin del anterior cargo
-        if (tienePuestoAntiguo.equalsIgnoreCase("SI")) {
+        if (tienePuestoAntiguo) {
         	//se repite el codigo porque asi puedo sacar la fecha en la que ingreso a la empresa
         	//para utilizarla como la fecha de inicio del primer cargo
         	
@@ -202,10 +195,15 @@ public class Empresa {
 
             //SI NO EXISTE, SE LE PREGUNTA SI LO QUIERE AGREGAR:
             if (puesto == null) {
-                puesto = this.agregarPuesto(nombrePuesto); //Adentro le doy la posibilidad de crearlo o no
+                boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere agregarlo?");
+                
+                if (agregarPuesto) {
+                    puesto = this.agregarPuesto(nombrePuesto);
+                }
+                
             }
 
-            //tal vez el usuario puso que no quiere agregar un puesto, por eso verifico lo mismo
+            //Se deja este if, por si no quiere agregar un nuevo puesto si no existe, y quiere ir directamente a ingresar un puesto actual
             if(puesto != null) {
                 //fecha de ingreso al cargo es la fecha en la que ingreso a la empresa, se ingresa como parametro
 
@@ -217,20 +215,13 @@ public class Empresa {
                 //agrego en arraylist local
                 historialDeCargos.add(nuevoCargo);
 
-                System.out.println("Puesto antiguo agregado!!");
+                Logger.logSuccess("Cargo antiguo agregado");
 
                 
                 //INGRESO DEL RESTO DE PUESTOS ANTIGUOS, utilizo while para ingresar n cargos
-                System.out.println("Ingresar más puestos ANTIGUOS? (SI/NO)");
-                String otro = scanner.nextLine();
-
-                while (!otro.equalsIgnoreCase("SI") && !otro.equalsIgnoreCase("NO")) {
-                    System.out.println("Ingrese una opcion valida, SI o NO");
-                    System.out.println("Tiene puestos antiguos? (SI/NO)");
-                    otro = scanner.nextLine();
-                }
+                tienePuestoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene MAS puestos ANTIGUOS?");
                 
-                while (otro.equalsIgnoreCase("SI")) {
+                while (tienePuestoAntiguo) {
                     System.out.println("Nombre puesto: ");
                     nombrePuesto = scanner.nextLine();
 
@@ -238,9 +229,15 @@ public class Empresa {
 
                     //le doy al usuario la posibilidad de agregar el puesto si no existe
                     if (puesto == null) {
-                        puesto = this.agregarPuesto(nombrePuesto); //Adentro le doy la posibilidad de crearlo o no
-                    }
+                        boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere agregarlo?");
+                        
+                        if (agregarPuesto) {
+                            puesto = this.agregarPuesto(nombrePuesto);
+                        }
+                    
+                    }   
 
+                    //se deja este if por si ingresa que no quiere agregar un nuevo puesto que no existe en la empresa
                     if(puesto != null) {
                         //fecha de ingreso es la fecha de fin del ultimo puesto
                         //como el ingreso es en orden: 
@@ -254,26 +251,19 @@ public class Empresa {
                         //agrego en arraylist local
                         historialDeCargos.add(nuevoCargo);
 
-                        System.out.println("Puesto antiguo agregado!!");
+                        Logger.logSuccess("Puesto antiguo agregado");
 
                     } else {
-                        System.out.println("No existe un puesto con ese nombre");
+                        Logger.logError("No fue posible registrar el cargo");
                     }
                 
                     
-                    System.out.println("Ingresar más puestos ANTIGUOS? (SI/NO)");
-                    otro = scanner.nextLine();
-
-                    while (!otro.equalsIgnoreCase("SI") && !otro.equalsIgnoreCase("NO")) {
-                        System.out.println("Ingrese una opcion valida, SI o NO");
-                        System.out.println("Tiene puestos antiguos? (SI/NO)");
-                        otro = scanner.nextLine();
-                    }
+                    tienePuestoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene MAS puestos ANTIGUOS?");
                 }
 
 
             } else {
-                System.out.println("\nERROR: No existe un puesto con ese nombre\n");
+                Logger.logError("No fue posible registrar el cargo");
                 //CORTO INGRESO DE PUESTOS ANTIGUOS PORQUE YA NO PUEDO TOMAR LA FECHA PORQUE NO PUEDO REGISTRAR CARGOS QUE NO TIENEN PUESTO
             }
         }
@@ -291,21 +281,26 @@ public class Empresa {
 
         if (puestoActual == null) {
             //le doy al usuario la posiblidad de agregarlo
-            puestoActual = this.agregarPuesto(nombrePuestoActual);
+            boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere agregarlo?");
+                
+            if (agregarPuesto) {
+                puestoActual = this.agregarPuesto(nombrePuestoActual);
+            }
         }
 
 
         while (puestoActual == null) { //es un while porque si o si debe tener un puesto actual, sino no seria empleado
-            //si el usuario presiona que NO quiere agregar puesto con nombre ingresado se dirige aqui
-            //se deja el codigo, por si el usuario sabe que el puesto esta pero esta tipenadolo mal
-            System.out.println("\nERROR: Debe ingresar un puesto que exista o crearlo!\n");
-            System.out.println("Nombre puesto actual: ");
-            nombrePuestoActual = scanner.nextLine();
+            //doy la posibilidad de crearlo
+            boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere AGREGARLO?");
+                
+            if (agregarPuesto) {
+                puestoActual = this.agregarPuesto(nombrePuestoActual);
+            } else {
+                //por si el usuario quiere comprobar que lo esta tipeando bien
+                System.out.println("Nombre puesto actual: ");
+                nombrePuestoActual = scanner.nextLine();
 
-            puestoActual = this.buscarPuesto(nombrePuestoActual);
-
-            if (puestoActual == null) {
-                puestoActual = this.agregarPuesto(nombrePuestoActual); //se le pregunta si lo quiere agregar
+                puestoActual = this.buscarPuesto(nombrePuestoActual);
             }
         }
 
@@ -335,49 +330,24 @@ public class Empresa {
     //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos
     private Puesto agregarPuesto(String nombre) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("No existe un puesto con ese nombre");
-        System.out.println("Quiere agregarlo ahora? (SI/NO)");
-        String quiereAgregarlo = scanner.nextLine();
+        
+        float sueldo = InputHelper.scanFloat(scanner, "Sueldo: ");
+        
+        boolean esJerarquico = InputHelper.yesOrNoInput(scanner, "Es un puesto jerarquico?");
 
-        while (!quiereAgregarlo.equalsIgnoreCase("SI") && !quiereAgregarlo.equalsIgnoreCase("NO")) {
-            System.out.println("Ingrese una opcion valida, SI o NO");
-            System.out.println("Quiere agregarlo ahora? (SI/NO)");
-            quiereAgregarlo = scanner.nextLine();
+        Puesto puestoNuevo;
+
+        if (esJerarquico) {
+            puestoNuevo = new PuestoJerarquico(nombre, sueldo);
+        } else { 
+            puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
         }
 
-        if (quiereAgregarlo.equalsIgnoreCase("SI")) {
-            //INVOCO A METODO AGREGAR PUESTO
-            //no es el mismo que el caso de uso, para que no tenga que ingresar de nuevo el nombre del puesto
-            
-            System.out.println("sueldo: ");
-            float sueldo = Float.parseFloat(scanner.nextLine());
-            
-            System.out.println("Es un puesto jerarquico? [SI/NO]");
-            String esJerarquico = scanner.nextLine(); 
+        this.puestos.add(puestoNuevo); //agrego a la lista de la empresa
 
-            while (!esJerarquico.equalsIgnoreCase("SI") && !esJerarquico.equalsIgnoreCase("NO")) {
-                System.out.println("Ingrese una opcion valida, SI o NO");
-                System.out.println("Es un puesto jerarquico? [SI/NO]");
-                esJerarquico = scanner.nextLine();
-            }
+        Logger.logSuccess("Puesto nuevo añadido con exito !!!");
 
-            Puesto puestoNuevo;
-
-            if (esJerarquico.equalsIgnoreCase("SI")) {
-                puestoNuevo = new PuestoJerarquico(nombre, sueldo);
-            } else { 
-                //ya verifique antes, solo puede ser NO, sino no saldria del bucle
-                puestoNuevo = new PuestoNoJerarquico(nombre, sueldo);
-            }
-
-            this.puestos.add(puestoNuevo);
-
-            System.out.println("Puesto nuevo añadido con exito !!!");
-
-            return puestoNuevo;
-        } else {
-            return null; //porque no lo quizo agregar
-        }
+        return puestoNuevo;
     }
 
 
@@ -385,6 +355,7 @@ public class Empresa {
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
         Scanner scanner = new Scanner(System.in);
         //ingresar las habilidades y los años de experiencia en cada una
+        Logger.header("Ingreso de habilidades y experiencia: ");
         
         //crear hashtable local
         Hashtable<Habilidad, Integer> habilidades;
