@@ -37,4 +37,8 @@ public class Empleado {
         System.out.println("Habilidades: ");
         this.mostrarHabilidades();
     }
+
+    public Puesto getPuestoActual() {
+        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
+    }
 }

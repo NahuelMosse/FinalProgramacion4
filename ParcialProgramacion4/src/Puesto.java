@@ -21,4 +21,6 @@ public abstract class Puesto {
         System.out.println("Nombre puesto: " + nombre);
         System.out.println("Sueldo puesto: " + sueldo);
     }
+
+    
 }
