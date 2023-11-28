@@ -101,7 +101,7 @@ public class Ejecutora {
 	            empresa.agregarPuesto();   
 	            break;
 	        case 4:
-	            	
+	            empresa.borrarPuesto();
 	            break;
 	        case 5:
 	            empresa.crearUnaHabilidad();
