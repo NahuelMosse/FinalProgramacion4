@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import utilidades.Logger;
 
 public abstract class Puesto {
     private String nombre;
@@ -20,9 +21,9 @@ public abstract class Puesto {
 
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
-        System.out.println("empleado nuevo agregado con exito a la lista de "+nombre+" !!!");
+        Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
     } 
-}
+
 
     public boolean esJerarquico() {
         return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");

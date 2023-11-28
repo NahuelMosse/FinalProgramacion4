@@ -314,7 +314,7 @@ public class Empresa {
     }
 
 
-    //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos
+    //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos cuando quiere crearalo si no existe
     private Puesto agregarPuesto(String nombre) {
         float sueldo = InputHelper.scanFloat(scanner, "Sueldo: ");
         
