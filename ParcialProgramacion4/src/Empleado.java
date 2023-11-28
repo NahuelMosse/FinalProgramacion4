@@ -48,10 +48,6 @@ public class Empleado {
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
 
-    public Puesto getPuestoActual() {
-        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
-    }
-
     public void mostrarHabilidades() {
         Habilidad habilidad;
         Enumeration<Habilidad> enumH = habilidades.keys();
