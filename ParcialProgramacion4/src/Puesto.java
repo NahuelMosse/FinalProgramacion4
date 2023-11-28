@@ -16,4 +16,12 @@ public abstract class Puesto {
     public boolean hasNombre(String nombre) {
     	return this.nombre.equalsIgnoreCase(nombre);
     }
+
+    public boolean esJerarquico() {
+        return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
+    }
+
+    public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
+        convocatorias.add(convocatoriaNueva);
+    }
 }

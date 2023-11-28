@@ -148,6 +148,8 @@ public class Ejecutora {
 	            // empresa.agregarConvocatoria();
 	            // empresa.agregarPuestoVacante(); // esto deberia ser crear convocatoria
 	            // Revisar como fusionar estos dos en uno
+				//Se fusionan dentro de agregarConvocatoria, se da la posibilidad de crear al usuario un puesto nuevo si no existe
+				empresa.agregarConvocatoria();
 	            break;
 	        case 2:
 	                
