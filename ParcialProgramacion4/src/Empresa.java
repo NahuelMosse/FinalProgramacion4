@@ -122,7 +122,9 @@ public class Empresa {
 
         Empleado empleadoRepetido = this.buscarEmpleado(legajo);
 
-        if(empleadoRepetido == null) {
+        if (empleadoRepetido != null) {
+            Logger.logError("ya existe un empleado con ese numero de legajo");
+        } else {
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
 
@@ -161,10 +163,8 @@ public class Empresa {
             empleados.add(empleadoNuevo);
 
             Logger.logSuccess("Empleado agregado a lista de la empresa");
-
-        } else {
-            Logger.logError("ya existe un empleado con ese numero de legajo");
         }
+    
     }
 
     private ArrayList<Cargo> pedirListaCargos(Fecha fechaIngresoEmpresa) {
@@ -220,7 +220,9 @@ public class Empresa {
                 }
             }
 
-            if (puesto != null) {
+            if (puesto == null) {
+                Logger.logError("No fue posible registrar el cargo"); //el usuario decidio no crear el puesto
+            } else {
                 //determinar la fecha de inicio en el cargo
                 //si es el primer cargo, es la misma que la fecha de ingreso a la empresa
                 //si no es la fecha de fin del ultimo cargo ingresado
@@ -242,16 +244,10 @@ public class Empresa {
                         System.out.println("\nFecha en la que finalizo el cargo: ");
                         fechaFin = Fecha.nuevaFecha();
                     } else {
-                        Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio: ");
+                        Logger.logError("La fecha de fin debe ser anterior al dia de hoy: ");
                         System.out.println("\nFecha en la que finalizo el cargo: ");
                         fechaFin = Fecha.nuevaFecha();
                     }
-                }
-
-                while (fechaFin.compareTo(Fecha.hoy())>0) {
-                    Logger.logError("La fecha de fin debe ser anterior al dia de hoy: ");
-                    System.out.println("\nFecha en la que finalizo el cargo: ");
-                    fechaFin = Fecha.nuevaFecha();
                 }
 
                 Cargo nuevoCargo = new Cargo(fechaInicio, fechaFin, puesto);
@@ -260,9 +256,6 @@ public class Empresa {
                 historialDeCargos.add(nuevoCargo);
 
                 Logger.logSuccess("Cargo antiguo agregado");
-
-            } else {
-                Logger.logError("No fue posible registrar el cargo"); //el usuario decidio no crear el puesto
             }
 
             tieneCargoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene MAS cargos ANTIGUOS?");
@@ -344,7 +337,7 @@ public class Empresa {
         habilidades = new Hashtable<Habilidad, Integer>();
 
         //llenar la hashtable con las habilidades
-        boolean otra;
+        boolean otra = false;
 
         do {
             System.out.print("Nombre habilidad: ");
@@ -363,7 +356,9 @@ public class Empresa {
             }
 
             //ya tengo la habilidad, verifico si ya esta agregada en la hashtable
-            if(!habilidades.containsKey(habilidad)) {
+            if(habilidades.containsKey(habilidad)) {
+                Logger.logError("La habilidad ya esta agregada en la lista");
+            } else {
                 //ya se que no esta, ahora pido los años de experiencia en ella
                 int annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en "+nombreHabilidad+": ");
 
@@ -371,9 +366,6 @@ public class Empresa {
                 habilidades.put(habilidad, annosExperiencia);
 
                 Logger.logSuccess("Habilidad agregada");
-
-            } else {
-                Logger.logError("La habilidad ya esta agregada en la lista");
             }
                 
             otra = InputHelper.yesOrNoInput(scanner, "Agregar otra habilidad:");
