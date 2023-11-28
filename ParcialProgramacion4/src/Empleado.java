@@ -39,7 +39,7 @@ public class Empleado {
     }
     
   //SI MAL NO RECUERDO ESTO RECIBE LA CLASE Y UN ENTERO QUE LO EMPAQUETA EN UN INTEGER/.
-    public void agregarHabilidadEmpleado(Habilidad habilidadExistente,int unaCantidadDeTiempo)
+    public void agregarHabilidad(Habilidad habilidadExistente,int unaCantidadDeTiempo)
     {
         if(habilidades.containsKey(habilidadExistente))  // SI CONTIENE LA POS
 			unaCantidadDeTiempo+=habilidades.get(habilidadExistente); // AL ENC LE PONGO LOS ANIOS???
