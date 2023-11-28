@@ -459,7 +459,6 @@ public class Empresa {
         
         if(i<empleados.size())
             return empleados.get(i);
-        else
-            return null;
+        return null;
     }
 }
