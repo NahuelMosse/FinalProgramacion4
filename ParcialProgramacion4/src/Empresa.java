@@ -449,6 +449,13 @@ public class Empresa {
             System.out.println("Fecha a realizar convocatoria: ");
             Fecha fechaConvocatoria = Fecha.nuevaFecha();
 
+            //verificar si la fecha es igual o despues de hoy
+            while (fechaConvocatoria.compareTo(Fecha.hoy())<0) {
+                Logger.logError("La fecha debe ser posterior o igual al dia de hoy");
+                System.out.println("Fecha a realizar convocatoria: ");
+                fechaConvocatoria = Fecha.nuevaFecha();
+            }
+
             int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
 
             System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
