@@ -504,5 +504,118 @@ public class Empresa {
             Logger.logError("NO existe puesto de trabajo con este nombre");
         }
     }
+    
+    
+    public void agregarHabilidadEmpleado1()
+	{
+		System.out.println("Ingrese el legajo del empleado");
+		int unLegajo = scanner.nextInt();
 
+		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado != null)
+		{
+			System.out.println("Ingrese el nombre de la habilidad:");
+			String nombre = scanner.next();
+			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+			if(habilidadExistente != null) // si la encontre
+			{
+				System.out.println("Ingrese el tiempo de experiencia: ");
+				int unaCantidadDeTiempo = scanner.nextInt();
+				unEmpleado.agregarHabilidadEmpleado(habilidadExistente,unaCantidadDeTiempo);
+			}
+			else 
+			{
+				this.crearUnaHabilidad();
+			}
+		}
+		else
+		{
+			System.out.println("Empleado inexistente.");
+		}
+	}
+
+    public void agregarHabilidadEmpleado()
+	{
+		System.out.println("Ingrese el legajo del empleado:");
+		int unLegajo = scanner.nextInt();
+
+		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado != null)
+		{
+			System.out.println("Ingrese el nombre de la habilidad:");
+			String nombre = scanner.next();
+			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+			if(habilidadExistente != null) // si la encontre
+			{
+				System.out.println("Ingrese el tiempo de experiencia: ");
+				int unaCantidadDeTiempo = scanner.nextInt();
+				unEmpleado.agregarHabilidadEmpleado(habilidadExistente,unaCantidadDeTiempo);
+			}
+			else 
+			{
+				this.crearUnaHabilidad();
+			}
+		}
+		else
+		{
+			System.out.println("Empleado inexistente.");
+		}
+	}
+
+    public void quitarHabilidadEmpleado()
+    {
+        System.out.println("Ingrese el legajo del empleado:");
+		int unLegajo = scanner.nextInt();
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado != null)
+		{
+			System.out.println("Ingrese el nombre de la habilidad:");
+			String nombre = scanner.next();
+			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+			if(habilidadExistente != null) // si la encontre
+			{
+				unEmpleado.eliminarHabilidad(habilidadExistente);
+			}
+			else 
+			{
+				System.out.println("No se encontro Habilidad");
+			}
+		}
+		else
+		{
+			System.out.println("Empleado inexistente.");
+		}
+    }
+
+    public void editarAniosEmpleado()
+    {
+        System.out.println("Ingrese el legajo del empleado:");
+		int unLegajo = scanner.nextInt();
+
+		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado != null)
+		{
+			System.out.println("Ingrese el nombre de la habilidad:");
+			String nombre = scanner.next();
+			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+			if(habilidadExistente != null) // si la encontre
+			{
+				System.out.println("Ingrese el tiempo de experiencia: ");
+				int unaCantidadDeTiempo = scanner.nextInt();
+				unEmpleado.modificarAnios(habilidadExistente,unaCantidadDeTiempo);
+			}
+			else 
+			{
+				System.out.println("Habilidad Inexistente");
+			}
+		}
+		else
+		{
+			System.out.println("Empleado inexistente.");
+		}
+    } 
 }

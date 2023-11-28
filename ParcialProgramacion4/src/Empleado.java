@@ -37,4 +37,41 @@ public class Empleado {
         //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
+    
+  //SI MAL NO RECUERDO ESTO RECIBE LA CLASE Y UN ENTERO QUE LO EMPAQUETA EN UN INTEGER/.
+    public void agregarHabilidadEmpleado(Habilidad habilidadExistente,int unaCantidadDeTiempo)
+    {
+        if(habilidades.containsKey(habilidadExistente))  // SI CONTIENE LA POS
+			unaCantidadDeTiempo+=habilidades.get(habilidadExistente); // AL ENC LE PONGO LOS ANIOS???
+		habilidades.put(habilidadExistente,unaCantidadDeTiempo);
+    }
+
+
+    //METODO PARA ELIMINAR HABILIDAD EXISTENTE DE LA HASH DEL EMPLEADO
+    public void eliminarHabilidad(Habilidad habilidadExistente)
+    {
+		Enumeration<Habilidad> enumH=habilidades.keys(); // me devolvia todo esto
+		while(enumH.hasMoreElements() && ((Hashtable<Habilidad, Integer>) enumH).containsKey(habilidadExistente) ) // mientras haya elemento 
+		{
+			habilidadExistente=enumH.nextElement(); //sigo
+		}
+		habilidades.remove(habilidadExistente); // sin importarme total me trae null si la encontro o no la limpio.
+	}
+
+    
+    public void modificarAnios(Habilidad habilidadExistente,int unaCantidadDeTiempo)
+    {
+        Enumeration<Habilidad> enumH=habilidades.keys(); 
+        while(enumH.hasMoreElements())
+        {
+            if(habilidades.containsKey(habilidadExistente))
+            {
+                unaCantidadDeTiempo+=habilidades.get(habilidadExistente); 
+		        habilidades.put(habilidadExistente,unaCantidadDeTiempo);
+            }
+        }
+    }
+
+	
+    
 }
