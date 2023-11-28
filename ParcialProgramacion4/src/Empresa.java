@@ -330,11 +330,10 @@ public class Empresa {
     //sirve para CU agregar empleado y CU generar convocatoria
     private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
         //ingresar las habilidades y los años de experiencia en cada una
-        Logger.header("Ingreso de habilidades y experiencia: ");
+        Logger.header("Ingreso de habilidades y experiencia");
         
         //crear hashtable local
-        Hashtable<Habilidad, Integer> habilidades;
-        habilidades = new Hashtable<Habilidad, Integer>();
+        Hashtable<Habilidad, Integer> habilidades = new Hashtable<Habilidad, Integer>();
 
         //llenar la hashtable con las habilidades
         boolean otra = false;
