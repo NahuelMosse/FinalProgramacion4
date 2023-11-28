@@ -175,8 +175,7 @@ public class Empresa {
         System.out.println("Cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a 'tiene puestos antiguos?')\n");
 
         //creo un arraylist local para el historial de cargos para pasarle al constructor de empleado (es lo que retorno)
-        ArrayList<Cargo> historialDeCargos;
-        historialDeCargos = new ArrayList<Cargo>();
+        ArrayList<Cargo> historialDeCargos = new ArrayList<Cargo>();
 
         //primero ingreso los cargos antiguos
         boolean tienePuestoAntiguo = InputHelper.yesOrNoInput(scanner, "Tiene puestos ANTIGUOS?");
