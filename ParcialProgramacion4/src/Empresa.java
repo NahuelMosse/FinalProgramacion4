@@ -116,7 +116,7 @@ public class Empresa {
 
     //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
     public void agregarEmpleado() {
-        Logger.header("Formulario para ingresar empleado: ");
+        Logger.header("Formulario para ingresar empleado");
 
         int legajo = InputHelper.scanInt(scanner, "Numero de legajo: ");
 
