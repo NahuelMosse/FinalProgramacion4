@@ -14,4 +14,9 @@ public class Cargo {
     public Puesto getPuesto() {
         return this.puesto;
     }
+
+    public Fecha getFechaFin() {
+    	return fechaFin;
+    }
+
 }
