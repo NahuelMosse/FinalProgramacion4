@@ -340,8 +340,7 @@ public class Empresa {
         Logger.header("Ingreso de habilidades y experiencia");
         
         //crear hashtable local
-        Hashtable<Habilidad, Integer> habilidades;
-        habilidades = new Hashtable<Habilidad, Integer>();
+        Hashtable<Habilidad, Integer> habilidades = new Hashtable<Habilidad, Integer>();
 
         //llenar la hashtable con las habilidades
         boolean otra;
