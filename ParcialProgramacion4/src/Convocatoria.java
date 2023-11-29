@@ -85,6 +85,22 @@ public abstract class Convocatoria {
         return this.codigo == codigo;
     }
 
+    public Puesto getPuesto() {
+        return this.puesto;
+    }
+
+    public boolean estaAbierta() {
+        return this.noPasoFecha() && this.quedaCupo();
+    }
+
+    public boolean noPasoFecha() {
+        return Fecha.hoy().compareTo(this.fecha) <= 0;
+    }
+
+    public boolean quedaCupo() {
+        return this.asignados.size() < cantEmpleadosRequeridos;
+    }
+
     public void mostrarHabilidades() {
         Habilidad habilidad;
         Enumeration<Habilidad> enumH = requisitos.keys();
@@ -95,5 +111,5 @@ public abstract class Convocatoria {
 
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
-    }
+   }
 }

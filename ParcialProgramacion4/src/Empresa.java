@@ -537,4 +537,39 @@ public class Empresa {
         }
     }
 
+
+    //CASO DE USO DAR DE BAJA CONVOCATORIA
+    public void darDeBajaConvocatoria() {
+        Logger.header("Dar de baja convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria a dar de baja: ");
+
+        Convocatoria convocatoriaEliminar = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoriaEliminar == null) {
+            Logger.logError("No existe convocatoria con codigo: " + codigoConvocatoria);
+        } else {
+            boolean eliminar = true;
+
+            if (!convocatoriaEliminar.estaAbierta()) { //si esta cerrada, se lo informo y le pregunto si quiere continuar
+                System.out.println("Alerta: La convocatoria es historica (ya esta cerrada)");
+                eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
+            }
+
+            if (eliminar) {
+                //eliminar convocatoria de la empresa
+                this.convocatorias.remove(convocatoriaEliminar);
+
+                //eliminar convocatoria del puesto
+                Puesto puestoConvocatoria = convocatoriaEliminar.getPuesto();
+
+                puestoConvocatoria.darDeBajaConvocatoria(convocatoriaEliminar);
+
+                Logger.logSuccess("La convocatoria ha sido eliminada");
+            } else {
+                Logger.logSuccess("La convocatoria historica NO ha sido eliminada"); 
+                //la llamo 'historica' porque solo puedo cambiar el estado de 'eliminar' en caso de que sea historica
+            }
+        }
+    }
 }
