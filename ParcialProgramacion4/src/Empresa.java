@@ -586,40 +586,44 @@ public class Empresa {
         if (empleado == null) {
             Logger.logError("No existe un empleado con ese legajo");
         } else {
-            int opcion = 0;
-
-            do {
-                Logger.header("Menu Consultar Convocatorias");
-                System.out.println("1- Ver todas las convocatorias a las que puede aplicar");
-                System.out.println("2- Ver convocatorias de un puesto especifico");
-                System.out.println("3- Ver convocatorias para un rango de salario");
-                System.out.println("0- Volver al menu general");
-
-                opcion = InputHelper.scanInt(scanner, "Opcion: ");
-
-                switch (opcion) {
-                    case 0:
-                        break;
-                    
-                    case 1:
-                        this.mostrarTodasConvocatoriasPuedaAplicar(empleado);
-                        break;
-
-                    case 2:
-                        this.mostrarConvocatoriasPuestoPuedeAplicar(empleado);
-                        break;
-
-                    case 3:
-                        this.mostrarConvocatoriasPuedaAplicarRangoSalario(empleado);
-                        break;
-                
-                    default:
-                        Logger.logError("Opcion no disponible");
-                        break;
-                }
-
-            } while (opcion != 0);
+            this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
         }
+    }
+
+    public void mostrarConvocatoriasPuedaAplicarEmpleado(Empleado empleadoAplicar) {
+        int opcion = 0;
+
+        do {
+            Logger.header("Menu Consultar Convocatorias");
+            System.out.println("1- Ver todas las convocatorias a las que puede aplicar");
+            System.out.println("2- Ver convocatorias de un puesto especifico");
+            System.out.println("3- Ver convocatorias para un rango de salario");
+            System.out.println("0- Volver al menu general");
+
+            opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+            switch (opcion) {
+                case 0:
+                    break;
+                
+                case 1:
+                    this.mostrarTodasConvocatoriasPuedaAplicar(empleadoAplicar);
+                    break;
+
+                case 2:
+                    this.mostrarConvocatoriasPuestoPuedeAplicar(empleadoAplicar);
+                    break;
+
+                case 3:
+                    this.mostrarConvocatoriasPuedaAplicarRangoSalario(empleadoAplicar);
+                    break;
+            
+                default:
+                    Logger.logError("Opcion no disponible");
+                    break;
+            }
+
+        } while (opcion != 0);
     }
     
     private void mostrarTodasConvocatoriasPuedaAplicar(Empleado empleadoAplicar) {
