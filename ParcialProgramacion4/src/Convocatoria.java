@@ -34,7 +34,7 @@ public abstract class Convocatoria {
     }
 
     public boolean noPasoFecha() {
-        return Fecha.hoy().compareTo(fecha) <= 0;
+        return Fecha.hoy().compareTo(this.fecha) <= 0;
     }
 
     public boolean quedaCupo() {
