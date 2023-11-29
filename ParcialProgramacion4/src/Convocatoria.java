@@ -64,7 +64,7 @@ public abstract class Convocatoria {
             System.out.println("Aun no hay asignados");
         }
     }
-    
+
     public void mostrar() {
         Logger.header("Convocatoria " + codigo);
 
@@ -78,14 +78,14 @@ public abstract class Convocatoria {
         System.out.println("Hay " + asignados.size() + " asignados al puesto");
 
         System.out.println("Requisitos necesarios: ");
-        this.mostrarRequisitos();
+        this.mostrarHabilidades();
     }
   
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
 
-    public void mostrarRequisitos() {
+    public void mostrarHabilidades() {
         Habilidad habilidad;
         Enumeration<Habilidad> enumH = requisitos.keys();
         while (enumH.hasMoreElements()) {
