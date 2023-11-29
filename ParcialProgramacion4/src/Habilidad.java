@@ -14,4 +14,8 @@ public class Habilidad {
     	
         return nombreHabilidadSinEspacios.equalsIgnoreCase(nombreABuscarSinEspacios);
     }
+
+	public String getNombre() {
+		return this.nombre;
+	}
 }
