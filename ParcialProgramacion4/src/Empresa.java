@@ -163,11 +163,17 @@ public class Empresa {
             System.out.println("Fecha de ingreso a la empresa: ");
             Fecha fechaIngreso = Fecha.nuevaFecha();
 
+            while (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
+                Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
+                System.out.println("Fecha de ingreso a la empresa: ");
+                fechaIngreso = Fecha.nuevaFecha();
+            }
+
             // INGRESAR TODOS LOS CARGOS QUE EMPLEADO OCUPO HASTA AHORA
             ArrayList<Cargo>historialDeCargos = this.pedirListaCargos(fechaIngreso);
             
             //crear hashtable con las habilidades y años de experiencia
-            Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades();
+            Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades("del empleado");
 
             //constructor empleado
             Empleado empleadoNuevo = new Empleado(
@@ -356,9 +362,9 @@ public class Empresa {
 
 
     //sirve para CU agregar empleado y CU generar convocatoria
-    private Hashtable<Habilidad, Integer> pedirListaHabilidades() {
+    private Hashtable<Habilidad, Integer> pedirListaHabilidades(String header) {
         //ingresar las habilidades y los años de experiencia en cada una
-        Logger.header("Ingreso de habilidades y experiencia");
+        Logger.header("Ingreso de habilidades y experiencia " + header);
         
         //crear hashtable local
         Hashtable<Habilidad, Integer> habilidades = new Hashtable<Habilidad, Integer>();
@@ -459,9 +465,12 @@ public class Empresa {
             }
 
             int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+            while (cantEmpleadosRequeridos <= 0) {
+                Logger.logError("La cantidad de empleados requeridos debe ser mayor que 0");
+                cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+            }
 
-            System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
-            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
+            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades( "necesarios para aplicar a la convocatoria");
             
             Convocatoria convocatoriaNueva;
 
