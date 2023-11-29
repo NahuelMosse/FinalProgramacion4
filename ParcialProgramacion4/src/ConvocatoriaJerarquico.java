@@ -21,4 +21,10 @@ public class ConvocatoriaJerarquico extends Convocatoria {
         boolean cumpleAnnosMin = empleadoAplicar.getAnnosEnEmpresa() >= annosMinimosEnEmpresa;
         return super.puedeAplicar(empleadoAplicar) && cumpleAnnosMin;
    }
+
+   public void mostrar() {
+        super.mostrar();
+
+        System.out.println("Años minimos en la empresa para aplicar: " + annosMinimosEnEmpresa);
+   }
 }

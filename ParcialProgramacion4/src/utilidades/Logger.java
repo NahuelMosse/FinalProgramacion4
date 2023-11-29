@@ -15,6 +15,10 @@ public class Logger {
 	public static void divider() {
 		System.out.println("--------------------------------------------------------------------------------------");
 	}
+
+	public static void subDivider() {
+		System.out.println("*********************************");
+	}
 	
 	public static void header(String title) {
 		Logger.divider();

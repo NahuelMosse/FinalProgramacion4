@@ -27,7 +27,14 @@ public abstract class Puesto {
 
 
     public void mostrar() {
-        System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
+        String tipo;
+        if (this.esJerarquico()) {
+            tipo = "Jerarquico";
+        } else {
+            tipo = "No jerarquico";
+        }
+
+        System.out.println(nombre + " | sueldo: " + sueldo + " | tipo: " + tipo);
     }
 
     public int cantEmpleados() {

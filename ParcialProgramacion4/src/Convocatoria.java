@@ -54,20 +54,25 @@ public abstract class Convocatoria {
     }
 
     public void mostrar() {
-        Logger.header("Convocatoria " + codigo);
+        Logger.divider();
+        
+        System.out.println("Codigo convocatoria: " + codigo);
 
-        System.out.println("Puesto: ");
+        System.out.print("Puesto vacante: ");
         puesto.mostrar();
 
         System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
 
         System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
 
-        System.out.println("Hay " + postulados.size() + " postulantes registrados");
-        System.out.println("Hay " + asignados.size() + " asignados al puesto");
+        System.out.println("\nHay " + postulados.size() + " postulantes registrados");
+        System.out.println("Hay " + asignados.size() + " asignados al puesto\n");
 
+        Logger.subDivider();
         System.out.println("Requisitos necesarios: ");
         this.mostrarHabilidades();
+        Logger.subDivider();
+
     }
   
     public boolean hasCodigo(int codigo) {
@@ -96,9 +101,10 @@ public abstract class Convocatoria {
         while (enumH.hasMoreElements()) {
             habilidad = enumH.nextElement();
 
-            habilidad.mostrar();
+            Logger.subDivider();
 
-            System.out.println("años de experiencia: " + requisitos.get(habilidad));
+            habilidad.mostrar();
+            System.out.println("Años de experiencia: " + requisitos.get(habilidad));
         }
    }
 
