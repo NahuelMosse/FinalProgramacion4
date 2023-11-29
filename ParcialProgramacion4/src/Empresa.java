@@ -573,6 +573,8 @@ public class Empresa {
         }
     }
 
+
+    //CASO DE USO BORRAR HABILIDAD DEL SISTEMA
     public void borrarHabilidad() {
         System.out.print("Nombre habilidad a eliminar: ");
         String nombreHabilidad = scanner.nextLine();
@@ -593,7 +595,7 @@ public class Empresa {
                 Logger.logSuccess("Habilidad " + nombreHabilidad + " eliminada del sistema");
 
             } else {
-                Logger.logWarning("La habilidad esta siendo utilizada en el sistema");
+                Logger.logWarning("La habilidad esta siendo utilizada en el sistema (la tiene un empleado o convocatoria)");
 
                 boolean quiereEliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
 
