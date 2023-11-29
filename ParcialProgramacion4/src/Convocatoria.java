@@ -98,7 +98,7 @@ public abstract class Convocatoria {
     }
 
     public boolean quedaCupo() {
-        return asignados.size() < cantEmpleadosRequeridos;
+        return this.asignados.size() < cantEmpleadosRequeridos;
     }
 
     public void mostrarHabilidades() {
