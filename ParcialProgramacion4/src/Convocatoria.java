@@ -49,7 +49,7 @@ public abstract class Convocatoria {
     	return Fecha.hoy().compareTo(fecha) <= 0;
     }
     
-    public boolean empEstaAsignado(Empleado empleado) {
+    public boolean empleadoEstaAsignado(Empleado empleado) {
     	return asignados.contains(empleado);
     }
     
