@@ -41,5 +41,6 @@ public abstract class Puesto {
     public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
         convocatorias.add(convocatoriaNueva);
     }
+
 }
 
