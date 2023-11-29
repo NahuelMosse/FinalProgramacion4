@@ -609,13 +609,13 @@ public class Empresa {
                         break;
 
                     case 3:
+                        this.mostrarConvocatoriasPuedaAplicarRangoSalario(empleado);
                         break;
                 
                     default:
                         Logger.logError("Opcion no disponible");
                         break;
                 }
-
 
             } while (opcion != 0);
         }
@@ -627,15 +627,18 @@ public class Empresa {
         if (cantPuedeAplicar == 0) {
             Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria");
         } else {
+            Logger.header("Convocatorias disponibles");
             for (Convocatoria convocatoria : convocatorias) {
-                convocatoria.mostrarSiPuedeInscribirse(empleadoAplicar);
+                if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                    convocatoria.mostrar(); //muestra sin los datos de los postulantes y asignados xq esta pensado para que lo vea el empleado
+                }
             }
         }
     }
 
     private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         int i = 0;
-        for (Convocatoria convocatoria : convocatorias) {
+        for (Convocatoria convocatoria: convocatorias) {
             if (convocatoria.puedeAplicar(empleadoAplicar)) {
                 i++;
             }
@@ -654,5 +657,33 @@ public class Empresa {
         } else {
             puestoAplicar.mostrarConvocatoriasPuedeAplicar(empleadoAplicar);
         }
+    }
+
+    private void mostrarConvocatoriasPuedaAplicarRangoSalario(Empleado empleadoAplicar) {
+        float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
+        float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
+
+        int cantPuedeAplicarRango = this.cantConvocatoriasPuedeAplicarRango(empleadoAplicar, salarioMin, salarioMax);
+
+        if (cantPuedeAplicarRango == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango " + salarioMin +" - " + salarioMax);
+        } else {
+            Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
+            for (Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin,salarioMax)) {
+                    convocatoria.mostrar();
+                }
+            }
+        }
+    }
+
+    private int cantConvocatoriasPuedeAplicarRango(Empleado empleadoAplicar, float salarioMin, float salarioMax) {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin,salarioMax)) {
+                i++;
+            }
+        }
+        return i;
     }
 }

@@ -54,15 +54,18 @@ public abstract class Puesto {
         if (cantPuedeAplicar == 0) {
             Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
         } else {
-            for (Convocatoria convocatoria : convocatorias) {
-                convocatoria.mostrarSiPuedeInscribirse(empleadoAplicar);
+            Logger.header("Convocatorias disponibles para " + nombre);
+            for (Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                    convocatoria.mostrar();
+                }
             }
         }
     }
 
     private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         int i = 0;
-        for (Convocatoria convocatoria : convocatorias) {
+        for (Convocatoria convocatoria: convocatorias) {
             if (convocatoria.puedeAplicar(empleadoAplicar)) {
                 i++;
             }
@@ -70,5 +73,11 @@ public abstract class Puesto {
         return i;
     }
 
+
+    public boolean dentroDeRango(float salarioMin, float salarioMax) {
+        boolean superaMin = sueldo >= salarioMin;
+        boolean noSuperaMax = sueldo <= salarioMax;
+        return superaMin && noSuperaMax;
+    }
 }
 
