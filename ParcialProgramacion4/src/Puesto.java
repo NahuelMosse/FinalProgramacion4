@@ -44,7 +44,7 @@ public abstract class Puesto {
 
     
     public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
-        convocatorias.remove(convocatoriaEliminar);
+        this.convocatorias.remove(convocatoriaEliminar);
     }
 }
 
