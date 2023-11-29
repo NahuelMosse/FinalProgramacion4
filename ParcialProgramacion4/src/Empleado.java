@@ -101,4 +101,13 @@ public class Empleado {
     }
 
 
+	public void mostrarCargos() {
+		for(Cargo unCargo:historialDeCargos)
+		{
+			unCargo.mostrarCargo();
+		}
+		
+	}
+
+
 }
