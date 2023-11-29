@@ -30,10 +30,10 @@ public class Empresa {
     	Empleado empleadoEliminar = this.buscarEmpleado(legajo);
     	
     	if (empleadoEliminar != null) {
-    		System.out.println("\n----------------------------------------");
+    		Logger.divider();
         	System.out.println("Información empleado a eliminar: ");
         	empleadoEliminar.mostrar();
-        	System.out.println("----------------------------------------\n");
+        	Logger.divider();
         	
         	//Se podria elimar de las convocatorias, pero queda como registro historico de quienes se postularon
         	//independientemente de si ya no son parte de la empresa o no
