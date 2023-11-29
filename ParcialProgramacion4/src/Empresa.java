@@ -173,6 +173,7 @@ public class Empresa {
             ArrayList<Cargo>historialDeCargos = this.pedirListaCargos(fechaIngreso);
             
             //crear hashtable con las habilidades y años de experiencia
+            Hashtable<Habilidad, Integer>habilidades = this.pedirListaHabilidades("del empleado");
 
             //constructor empleado
             Empleado empleadoNuevo = new Empleado(
@@ -361,7 +362,9 @@ public class Empresa {
 
 
     //sirve para CU agregar empleado y CU generar convocatoria
+    private Hashtable<Habilidad, Integer> pedirListaHabilidades(String header) {
         //ingresar las habilidades y los años de experiencia en cada una
+        Logger.header("Ingreso de habilidades y experiencia " + header);
         
         //crear hashtable local
         Hashtable<Habilidad, Integer> habilidades = new Hashtable<Habilidad, Integer>();
@@ -467,6 +470,7 @@ public class Empresa {
                 cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
             }
 
+            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades( "necesarios para aplicar a la convocatoria");
             
             Convocatoria convocatoriaNueva;
 
