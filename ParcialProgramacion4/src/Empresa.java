@@ -524,7 +524,7 @@ public class Empresa {
 
             if (eliminar) {
                 //eliminar convocatoria de la empresa
-                convocatorias.remove(convocatoriaEliminar);
+                this.convocatorias.remove(convocatoriaEliminar);
 
                 //eliminar convocatoria del puesto
                 Puesto puestoConvocatoria = convocatoriaEliminar.getPuesto();
