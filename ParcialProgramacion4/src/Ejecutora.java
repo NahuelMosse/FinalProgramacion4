@@ -161,7 +161,7 @@ public class Ejecutora {
 	            empresa.mostrarConvocatoriasAbiertas();
 	            break;
 	        case 6:
-	            	
+	            empresa.mostrarConvocatoriasPuedaAplicarEmpleado();
 	            break;
 	        case 7:
 	            // empresa.inscribirEmpleadoConvocatoria();

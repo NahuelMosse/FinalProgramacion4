@@ -100,4 +100,18 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   //DETERMINAR SI ES MEJOR PONER EL IF ACA O EN EL FOR DE EMPRESA
+   public void mostrarSiPuedeInscribirse(Empleado empleadoAplicar) {
+        if (this.puedeAplicar(empleadoAplicar)) {
+            this.mostrar(); //muestra sin los postulantes porque esta pensado para que lo vea un empleado, no un admin
+        }
+   }
+
+   public boolean puedeAplicar(Empleado empleadoAplicar) {
+        return true; //programar logica de control
+   }
+
+
+
 }

@@ -572,4 +572,80 @@ public class Empresa {
             }
         }
     }
+
+
+    //CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
+    public void mostrarConvocatoriasPuedaAplicarEmpleado() {
+        //le muestro al empleado todas las convocatorias que pueda aplicar de todos los puestos
+        Logger.header("Convocatorias disponibles para el empleado");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo empleado: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con ese legajo");
+        } else {
+            int opcion = 0;
+
+            do {
+                Logger.header("Menu Consultar Convocatorias");
+                System.out.println("1- Ver todas las convocatorias a las que puede aplicar");
+                System.out.println("2- Ver convocatorias de un puesto especifico");
+                System.out.println("3- Ver convocatorias para un rango de salario");
+
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+                    
+                    case 1:
+                        this.mostrarTodasConvocatoriasPuedaAplicar(empleado);
+                        break;
+
+                    case 2:
+                        this.mostrarConvocatoriasPuestoPuedeAplicar(empleado);
+                        break;
+
+                    case 3:
+                        break;
+                
+                    default:
+                        Logger.logError("Opcion no disponible");
+                        break;
+                }
+
+
+            } while (opcion != 0);
+        }
+    }
+    
+    private void mostrarTodasConvocatoriasPuedaAplicar(Empleado empleadoAplicar) {
+        int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
+
+        if (cantPuedeAplicar == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria");
+        } else {
+            for (Convocatoria convocatoria : convocatorias) {
+                convocatoria.mostrarSiPuedeInscribirse(empleadoAplicar);
+            }
+        }
+
+        
+    }
+
+    private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    private void mostrarConvocatoriasPuestoPuedeAplicar(Empleado empleadoAplicar) {
+        
+    }
 }
