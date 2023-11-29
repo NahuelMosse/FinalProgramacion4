@@ -30,6 +30,16 @@ public class Empleado {
         this.fechaDeIngreso = fechaDeIngreso;
     }
 
+
+    public void mostrar() {
+        System.out.println("legajo: " + legajo);
+        System.out.println("Nombre completo: " + nombre + " " + apellido);
+        System.out.println("Puesto actual: ");
+        this.getPuestoActual().mostrar();
+        System.out.println("Habilidades: ");
+        this.mostrarHabilidades();
+    }
+  
     public boolean hasLegajo(int legajo) {
         return this.legajo == legajo;
     }
@@ -38,6 +48,7 @@ public class Empleado {
         //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
+
     
   
     public void agregarHabilidad(Habilidad habilidad,int annosExperiencia)
@@ -68,12 +79,25 @@ public class Empleado {
     public void modificarAnios(Habilidad habilidad,int annosExperiencia)
     {
         if (!habilidades.containsKey(habilidad)) {
-            Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
+            Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
         } else {
             habilidades.put(habilidad, annosExperiencia);
         }
     }
 
 	
-    
+
+    public void mostrarHabilidades() {
+        Habilidad habilidad;
+        Enumeration<Habilidad> enumH = habilidades.keys();
+        while (enumH.hasMoreElements()) {
+            habilidad = enumH.nextElement();
+
+            habilidad.mostrar();
+
+            System.out.println("años de experiencia: " + habilidades.get(habilidad));
+        }
+    }
+
+
 }
