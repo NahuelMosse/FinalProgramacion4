@@ -21,6 +21,10 @@ public class PuestoJerarquico extends Puesto{
         scanner.close();
     }
 
+    public static void setAnnosMinimosParaCambiar(int annosMinimos) {
+        PuestoJerarquico.annosMinimosParaCambiar = annosMinimos;
+    }
+
     public static int getAnnosMinimosParaCambiar() {
         if (annosMinimosParaCambiar == 0) {
             PuestoJerarquico.setAnnosMinimosParaCambiar(); //iniciacion tardia

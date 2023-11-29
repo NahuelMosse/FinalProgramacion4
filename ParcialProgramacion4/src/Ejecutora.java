@@ -17,8 +17,8 @@ public class Ejecutora {
     	System.out.println("\nEzequiel Spagnoli - Horacio Balart - Nahuel Mosse - Nicolas Colli - Santiago Nunnez");
     	Logger.divider();
 
-        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico
-        // PuestoJerarquico.setAnnosMinimosParaCambiar();
+        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico, es 4 años excepto que se modifique
+		PuestoJerarquico.setAnnosMinimosParaCambiar(4);
 
         Ejecutora.menuPrincipal();
 
