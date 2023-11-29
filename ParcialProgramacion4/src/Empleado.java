@@ -39,46 +39,38 @@ public class Empleado {
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
     
-  //SI MAL NO RECUERDO ESTO RECIBE LA CLASE Y UN ENTERO QUE LO EMPAQUETA EN UN INTEGER/.
+  
     public void agregarHabilidad(Habilidad habilidad,int annosExperiencia)
     {
-        if(habilidades.containsKey(habilidad))  // SI CONTIENE LA POS
-        	Logger.logError("Ya existe la habilidad no corresponde a este CU");
+    	  if(habilidades.containsKey(habilidad))
+    	  { 
+          	Logger.logError("Ya existe la habilidad no corresponde a este CU");
+          }
 		habilidades.put(habilidad,annosExperiencia);
     }
 
 
-    //METODO PARA ELIMINAR HABILIDAD EXISTENTE DE LA HASH DEL EMPLEADO
+   
     public void eliminarHabilidad(Habilidad habilidad)
     {
-		Enumeration<Habilidad> enumH=habilidades.keys(); // me devolvia todo esto
-		while(enumH.hasMoreElements() && ((Hashtable<Habilidad, Integer>) enumH).containsKey(habilidad) ) // mientras haya elemento 
-		{
-			habilidad=enumH.nextElement(); //sigo
-		}
-		
-		// sin importarme total me trae null si la encontro o no la limpio.
-		if (habilidad == null)
+    	
+		if (habilidades.remove(habilidad) != null)
 		{
 		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.hasNombre(nombre));
 		} 
-		else
+		else //para mi no hace falta este else nawe
 		{
 			habilidades.remove(habilidad);
 		}
 	}
     
     
-    public void modificarAnios(Habilidad habilidadExistente,int unaCantidadDeTiempo)
+    public void modificarAnios(Habilidad habilidad,int annosExperiencia)
     {
-        Enumeration<Habilidad> enumH=habilidades.keys(); 
-        while(enumH.hasMoreElements())
-        {
-            if(habilidades.containsKey(habilidadExistente))
-            {
-                unaCantidadDeTiempo+=habilidades.get(habilidadExistente); 
-		        habilidades.put(habilidadExistente,unaCantidadDeTiempo);
-            }
+        if (!habilidades.containsKey(habilidad)) {
+            Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
+        } else {
+            habilidades.put(habilidad, annosExperiencia);
         }
     }
 

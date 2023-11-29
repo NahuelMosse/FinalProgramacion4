@@ -523,18 +523,16 @@ public class Empresa {
 			String nombre = scanner.nextLine();
 			
 			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-			if(habilidadExistente == null) 
+			if(habilidadExistente != null) 
 			{
-				this.crearUnaHabilidad();
-				System.out.println("Ingrese el tiempo de experiencia: ");
-				int unaCantidadDeTiempo = scanner.nextInt();
+				int unaCantidadDeTiempo = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
 				unEmpleado.agregarHabilidad(habilidadExistente,unaCantidadDeTiempo);		
 			}
 			else 
 			{
-				System.out.println("Ingrese el tiempo de experiencia: ");
-				int unaCantidadDeTiempo = scanner.nextInt();
-				unEmpleado.agregarHabilidad(habilidadExistente,unaCantidadDeTiempo);
+				this.crearUnaHabilidad();
+				int unaCantidadDeTiempo = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+				unEmpleado.agregarHabilidad(habilidadExistente,unaCantidadDeTiempo);	
 			}
 		}	
 	}
@@ -556,7 +554,7 @@ public class Empresa {
 			else
 			{
 				System.out.print("Ingrese el nombre de la habilidad:");
-				String nombre = scanner.next();
+				String nombre = scanner.nextLine();
 				Habilidad habilidadExistente = this.buscarHabilidad(nombre);
 				if(habilidadExistente == null) // si la encontre
 				{
@@ -571,30 +569,28 @@ public class Empresa {
 
     public void editarAnniosEmpleado()
     {
-        System.out.println("Ingrese el legajo del empleado:");
-		int unLegajo = scanner.nextInt();
-
-		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
-
-		if (unEmpleado != null)
+    	Logger.header("Formulario Editar Annios Empleados");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+    	Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+    	if (unEmpleado == null)
 		{
+			Logger.logError("NO existe el empleado");
+		}
+		
 			System.out.println("Ingrese el nombre de la habilidad:");
-			String nombre = scanner.next();
-			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-			if(habilidadExistente != null) // si la encontre
+			String nombre = scanner.nextLine();
+			Habilidad habilidad = this.buscarHabilidad(nombre);
+			if(habilidad == null) // si la encontre
 			{
-				System.out.println("Ingrese el tiempo de experiencia: ");
-				int unaCantidadDeTiempo = scanner.nextInt();
-				unEmpleado.modificarAnios(habilidadExistente,unaCantidadDeTiempo);
+				Logger.logError("NO existe la habilidad");
 			}
 			else 
 			{
-				System.out.println("Habilidad Inexistente");
+				int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+				unEmpleado.modificarAnios(habilidad,annosExperiencia);
 			}
 		}
-		else
-		{
-			System.out.println("Empleado inexistente.");
-		}
+		
     } 
-}
+
