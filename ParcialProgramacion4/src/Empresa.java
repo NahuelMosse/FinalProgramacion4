@@ -591,7 +591,7 @@ public class Empresa {
 
             if (cantPuedeAplicar == 0) {
 
-                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria");
+                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria"); //No es un error, por eso no se utiliza Logger
 
             } else {
                 boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner, "Quiere ver las convocatorias a las que puede aplicar?");
@@ -617,7 +617,7 @@ public class Empresa {
 
                             Logger.logSuccess("El empleado con legajo " + legajoEmpleado + " ha sido añadido exitosamente a la convocatoria con codigo " + codigoConvocatoria);
 
-                            cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias
+                            cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias si no puede
 
                         } else {
                             Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
@@ -627,14 +627,14 @@ public class Empresa {
                         Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
                     }
 
-                    if (cantPuedeAplicar > 0) { //si se inscribio en la ultima, ya no se inscribe
+                    if (cantPuedeAplicar > 0) { //si se inscribio en la ultima posible, ya no pregunta
                         otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
                     } else {
                         otra = false;
                         Logger.logSuccess("No tiene mas convocatorias disponibles para inscribirse");
                     }
 
-                } while (otra && cantPuedeAplicar>0);
+                } while (otra);
 
             }
 
