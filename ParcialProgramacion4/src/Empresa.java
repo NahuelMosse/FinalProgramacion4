@@ -615,6 +615,8 @@ public class Empresa {
 
                             convocatoria.inscribirEmpleado(empleado);
 
+                            Logger.logSuccess("El empleado con legajo " + legajoEmpleado + " ha sido añadido exitosamente a la convocatoria con codigo " + codigoConvocatoria);
+
                             cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias
 
                         } else {
@@ -629,6 +631,7 @@ public class Empresa {
                         otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
                     } else {
                         otra = false;
+                        Logger.logSuccess("No tiene mas convocatorias disponibles para inscribirse");
                     }
 
                 } while (otra && cantPuedeAplicar>0);
