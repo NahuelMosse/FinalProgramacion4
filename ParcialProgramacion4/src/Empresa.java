@@ -572,4 +572,64 @@ public class Empresa {
             }
         }
     }
+
+
+    //CASO DE USO INSCRIBIR EMPLEADO EN CONVOCATORIAS
+    public void inscribirEmpleadoEnConvocatorias() {
+        Logger.header("Formulario para inscribir empleado en convocatorias");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con el legajo " + legajoEmpleado + " en el sistema");
+        } else {
+
+            //determinar si puede inscribirse a alguna convocatoria, si no puede a ninguna, se lo informo
+            int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleado);
+
+            if (cantPuedeAplicar == 0) {
+
+                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria");
+
+            } else {
+                boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner, "Quiere ver las convocatorias a las que puede aplicar?");
+
+                if (quiereVerConvocatorias) {
+                    this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
+                }
+
+                int codigoConvocatoria;
+                Convocatoria convocatoria;
+                boolean otra;
+
+                do {
+                    codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+                    convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+                    if (convocatoria != null) {
+                        
+                        if (convocatoria.puedeAplicar(empleado)) {
+
+                            convocatoria.inscribirEmpleado(empleado);
+                            
+                        } else {
+                            Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
+                        }
+
+                    } else {
+                        Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
+                    }
+
+                    otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
+
+                } while (otra);
+
+            }
+
+            
+        }
+    }
 }
