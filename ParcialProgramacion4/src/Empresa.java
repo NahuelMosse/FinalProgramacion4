@@ -508,6 +508,8 @@ public class Empresa {
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
+        Logger.header("Dar de baja convocatoria");
+
         int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria a dar de baja: ");
 
         Convocatoria convocatoriaEliminar = this.buscarConvocatoria(codigoConvocatoria);
