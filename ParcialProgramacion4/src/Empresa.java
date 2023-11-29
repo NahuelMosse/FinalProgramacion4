@@ -614,7 +614,9 @@ public class Empresa {
                         if (convocatoria.puedeAplicar(empleado)) {
 
                             convocatoria.inscribirEmpleado(empleado);
-                            
+
+                            cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias
+
                         } else {
                             Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
                         }
@@ -623,9 +625,13 @@ public class Empresa {
                         Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
                     }
 
-                    otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
+                    if (cantPuedeAplicar > 0) { //si se inscribio en la ultima, ya no se inscribe
+                        otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
+                    } else {
+                        otra = false;
+                    }
 
-                } while (otra);
+                } while (otra && cantPuedeAplicar>0);
 
             }
 
