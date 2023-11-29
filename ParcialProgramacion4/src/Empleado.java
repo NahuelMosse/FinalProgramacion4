@@ -60,4 +60,12 @@ public class Empleado {
         }
     }
 
+    public boolean tieneHabilidad(Habilidad habilidadBuscada) {
+        return habilidades.containsKey(habilidadBuscada);
+    }
+
+    public void eliminarHabilidad(Habilidad habilidadBuscada) {
+        habilidades.remove(habilidadBuscada);
+    }
+
 }

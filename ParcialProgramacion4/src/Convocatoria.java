@@ -100,4 +100,14 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   public boolean tieneRequisito(Habilidad requisitoBuscado) {
+        return requisitos.containsKey(requisitoBuscado);
+   }
+
+   public void eliminarRequisito(Habilidad requisitoBuscado) {
+        requisitos.remove(requisitoBuscado);
+   }
+
+   
 }

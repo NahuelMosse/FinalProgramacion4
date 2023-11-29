@@ -572,4 +572,77 @@ public class Empresa {
             }
         }
     }
+
+    public void borrarHabilidad() {
+        System.out.print("Nombre habilidad a eliminar: ");
+        String nombreHabilidad = scanner.nextLine();
+
+        Habilidad habilidadEliminar = this.buscarHabilidad(nombreHabilidad);
+
+        if (habilidadEliminar == null) {
+
+            Logger.logError("La habilidad '" + nombreHabilidad + "' no esta registrada en el sistema");
+
+        } else {
+            boolean empleadosTienenHabilidad = this.empleadosTienenHabilidad(habilidadEliminar);
+            boolean convocatoriasTienenRequisito = this.convocatoriasTienenRequisito(habilidadEliminar);
+
+            if (!empleadosTienenHabilidad && !convocatoriasTienenRequisito) {
+                habilidades.remove(habilidadEliminar);
+
+                Logger.logSuccess("Habilidad " + nombreHabilidad + " eliminada del sistema");
+
+            } else {
+                Logger.logWarning("La habilidad esta siendo utilizada en el sistema");
+
+                boolean quiereEliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
+
+                if (!quiereEliminar) {
+                    //decide no elimarla del sistema
+                    Logger.logSuccess("Habilidad " + nombreHabilidad + " NO ha sido eliminada del sistema");
+
+                } else {
+                    //decide eliminarla por compleo del sistema
+                    //eliminar de empleados
+                    if (empleadosTienenHabilidad) {
+                        for (Empleado empleado: empleados) {
+                            empleado.eliminarHabilidad(habilidadEliminar);
+                        }
+                    }
+
+                    //eliminar de convocatorias
+                    if (convocatoriasTienenRequisito) {
+                        for (Convocatoria convocatoria: convocatorias) {
+                            convocatoria.eliminarRequisito(habilidadEliminar);
+                        }
+                    }
+
+                    //elimino de lista de la Empresa
+                    habilidades.remove(habilidadEliminar);
+
+                    Logger.logSuccess("Habilidad " + nombreHabilidad + " eliminada del sistema");
+                }
+            }
+        }
+    }
+
+    public boolean empleadosTienenHabilidad(Habilidad habilidad) {
+        //busco si esta en algun empleado
+        int i = 0;
+        while (i<empleados.size() && !empleados.get(i).tieneHabilidad(habilidad)) {
+            i++;
+        }
+
+        return i<empleados.size();
+    }
+
+    public boolean convocatoriasTienenRequisito(Habilidad habilidad) {
+        //busco si esta en alguna convocatoria
+        int i = 0;
+        while (i<convocatorias.size() && !convocatorias.get(i).tieneRequisito(habilidad)) {
+            i++;
+        }
+
+        return i<convocatorias.size();
+    }
 }
