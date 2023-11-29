@@ -56,6 +56,7 @@ public abstract class Convocatoria {
     public void mostrar() {
         Logger.header("Convocatoria " + codigo);
 
+        System.out.println("Puesto: ");
         puesto.mostrar();
 
         System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
