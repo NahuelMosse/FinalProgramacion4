@@ -18,4 +18,24 @@ public class Cargo {
     public Fecha getFechaFin() {
     	return this.fechaFin;
     }
+    
+    public Fecha getFechaInicio()
+    {
+    	return this.fechaInicio;
+    }
+    
+    public void mostrarCargo()
+    {
+    	if(fechaFin==null)
+    	{
+    		System.out.println("Puesto : |" + this.getPuesto());
+    		System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+    	}
+    	else
+    	{
+    		System.out.println("Puesto : |" + this.getPuesto());
+    		System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+    		System.out.println("Fecha de Fin    : |" + this.getFechaFin());
+    	}
+    }
 }
