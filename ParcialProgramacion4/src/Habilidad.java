@@ -15,9 +15,6 @@ public class Habilidad {
         return nombreHabilidadSinEspacios.equalsIgnoreCase(nombreABuscarSinEspacios);
     }
 
-
-
-	
     public void mostrar() {
         System.out.println("Nombre: " + nombre);
         System.out.println("Descripcion: " + descripcion);
