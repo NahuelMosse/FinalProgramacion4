@@ -64,14 +64,7 @@ public abstract class Convocatoria {
             System.out.println("Aun no hay asignados");
         }
     }
-
-    public void mostrarSinPostulantesAsignados() {
-        this.mostrar();
-        //agrego cuantos postulantes y asignados hay
-        System.out.println("Hay " + postulados.size() + " postulantes registrados");
-        System.out.println("Hay " + asignados.size() + " asignados al puesto");
-    }
-
+    
     public void mostrar() {
         Logger.header("Convocatoria " + codigo);
 
@@ -80,6 +73,9 @@ public abstract class Convocatoria {
         System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
 
         System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
+
+        System.out.println("Hay " + postulados.size() + " postulantes registrados");
+        System.out.println("Hay " + asignados.size() + " asignados al puesto");
 
         System.out.println("Requisitos necesarios: ");
         this.mostrarRequisitos();

@@ -129,7 +129,7 @@ public class Empresa {
         } else {
             for(Convocatoria convocatoria: convocatorias) {
                 if (convocatoria.estaAbierta()) {
-                    convocatoria.mostrarSinPostulantesAsignados();
+                    convocatoria.mostrar();
                 }
             }
         } 
