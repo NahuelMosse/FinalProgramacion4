@@ -779,6 +779,23 @@ public class Empresa {
 			}
         }
 	}
+    
+    //CU VER DATOS EMPELADO
+    public void verHistorialDeCargos() {
+    	Logger.header("Formulario para ingresar empleado - Habilidades");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+        
+        if (unEmpleado == null)
+		{
+			Logger.logError("NO existe el empleado");
+		}
+        {
+        	unEmpleado.mostrarCargos();
+		}
+		
+	}
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
