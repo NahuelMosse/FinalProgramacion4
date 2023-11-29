@@ -28,19 +28,7 @@ public abstract class Convocatoria {
         this.requisitos = requisitos;
         this.asignados = new ArrayList<Empleado>();
     }
-
-    public boolean estaAbierta() {
-        return this.noPasoFecha() && this.quedaCupo();
-    }
-
-    public boolean noPasoFecha() {
-        return Fecha.hoy().compareTo(this.fecha) <= 0;
-    }
-
-    public boolean quedaCupo() {
-        return this.asignados.size() < this.cantEmpleadosRequeridos;
-    }
-
+    
     public void mostrarConPostulantesAsignados() {
         this.mostrar();
         //agrego informacion de cada postulante y asignado, si no hay postulantes o asingados, no los recorro y muestro msj informandolo
