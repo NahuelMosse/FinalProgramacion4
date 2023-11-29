@@ -114,6 +114,32 @@ public class Empresa {
     }
 
 
+    //CU- MOSTRAR CONVOCATORIAS ABIERTAS
+    public void mostrarConvocatoriasAbiertas() {
+        Logger.header("Convocatorias abiertas");
+
+        boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver los datos de cada postulante y asignado?");
+
+        if (quiereVerPostulantesAsignados) {
+            for(Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.estaAbierta()) {
+                    convocatoria.mostrarConPostulantesAsignados();
+                }
+            }
+        } else {
+            for(Convocatoria convocatoria: convocatorias) {
+                if (convocatoria.estaAbierta()) {
+                    convocatoria.mostrar();
+                }
+            }
+        } 
+    }
+
+
+  
+  
+
+
     //CASO DE USO AGREGAR EMPLEADO AL SISTEMA
     public void agregarEmpleado() {
         Logger.header("Formulario para ingresar empleado");
@@ -390,8 +416,7 @@ public class Empresa {
         return null;
     }
 
-
-
+  
     //CU- Generar nueva convocatoria
     public void agregarConvocatoria() {
         Logger.header("Formulario generar convocatoria");
@@ -400,67 +425,74 @@ public class Empresa {
 
         Convocatoria convocatoriaRepetida = this.buscarConvocatoria(codigoConvocatoria);
 
-        if (convocatoriaRepetida == null) {
+        if (convocatoriaRepetida != null) {
+            Logger.logError("Ya existe una convocatoria con el codigo " + codigoConvocatoria);
+        } else {
             System.out.print("Nombre puesto: ");
             String nombrePuesto = scanner.nextLine();
 
             Puesto puestoConvocatoria = this.buscarPuesto(nombrePuesto);
 
-            if (puestoConvocatoria == null) {
+            while (puestoConvocatoria == null) {
                 //le doy la opcion de crearlo
                 boolean quiereCrearlo = InputHelper.yesOrNoInput(scanner, "No existe puesto con ese nombre, quiere crearlo?");
                 
                 if (quiereCrearlo) {
                     puestoConvocatoria = this.agregarPuesto(nombrePuesto); 
+                } else {
+                    //le doy la posiblidad de ingresar el nombre de nuevo, por si cree que tipeo mal
+                    System.out.print("Nombre puesto: ");
+                    nombrePuesto = scanner.nextLine();
+
+                    puestoConvocatoria = this.buscarPuesto(nombrePuesto);
                 }
             }
+            
+            System.out.println("Fecha a realizar convocatoria: ");
+            Fecha fechaConvocatoria = Fecha.nuevaFecha();
 
-            if (puestoConvocatoria != null) {
+            //verificar si la fecha es igual o despues de hoy
+            while (fechaConvocatoria.compareTo(Fecha.hoy())<0) {
+                Logger.logError("La fecha debe ser posterior o igual al dia de hoy");
                 System.out.println("Fecha a realizar convocatoria: ");
-                Fecha fechaConvocatoria = Fecha.nuevaFecha();
-
-                int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
-
-                System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
-                Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
-                
-                Convocatoria convocatoriaNueva;
-
-                if (puestoConvocatoria.esJerarquico()) {
-                    int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
-
-                    convocatoriaNueva = new ConvocatoriaJerarquico(
-                        codigoConvocatoria,
-                        puestoConvocatoria,
-                        fechaConvocatoria,
-                        cantEmpleadosRequeridos,
-                        annosMinimosEnEmpresa,
-                        requisitos
-                    );
-                } else { 
-                    convocatoriaNueva = new ConvocatoriaNoJerarquico(
-                        codigoConvocatoria,
-                        puestoConvocatoria,
-                        fechaConvocatoria,
-                        cantEmpleadosRequeridos,
-                        requisitos
-                    );
-                }
-
-                //agregar a la lista de convocatorias
-                convocatorias.add(convocatoriaNueva);
-
-                //agregar a la lista de convocatorias DEL PUESTO
-                puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
-
-                Logger.logSuccess("Convocatoria registrada en el sistema");
-
-            } else {
-                //si no encuentra el puesto y elije no crearlo, se cancela la generacion de la convocatoria
-                Logger.logError("No es posible generar la convocatoria sin un puesto, intente nuevamente");
+                fechaConvocatoria = Fecha.nuevaFecha();
             }
-        } else {
-            Logger.logError("Ya existe una convocatoria con el codigo " + codigoConvocatoria);
+
+            int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+
+            System.out.println("Requisitos necesarios para aplicar a la convocatoria: ");
+            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades();
+            
+            Convocatoria convocatoriaNueva;
+
+            if (puestoConvocatoria.esJerarquico()) {
+                int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
+
+                convocatoriaNueva = new ConvocatoriaJerarquico(
+                    codigoConvocatoria,
+                    puestoConvocatoria,
+                    fechaConvocatoria,
+                    cantEmpleadosRequeridos,
+                    annosMinimosEnEmpresa,
+                    requisitos
+                );
+            } else { 
+                convocatoriaNueva = new ConvocatoriaNoJerarquico(
+                    codigoConvocatoria,
+                    puestoConvocatoria,
+                    fechaConvocatoria,
+                    cantEmpleadosRequeridos,
+                    requisitos
+                );
+            }
+
+            //agregar a la lista de convocatorias
+            convocatorias.add(convocatoriaNueva);
+
+            //agregar a la lista de convocatorias DEL PUESTO
+            puestoConvocatoria.agregarConvocatoria(convocatoriaNueva);
+
+            Logger.logSuccess("Convocatoria registrada en el sistema");
         }
     }
 
@@ -505,7 +537,7 @@ public class Empresa {
         }
     }
     
-    
+    //CU AGREGAR HABILIDAD EMPLEADO
     public void agregarHabilidadEmpleado()
 	{
     	Logger.header("Formulario Agregar Habilidad de Empleado");
@@ -538,7 +570,7 @@ public class Empresa {
 	}
 		
 
-    
+    //CU QUITAR HABILIDAD EMPLEADO 
     public void quitarHabilidadEmpleado()
     {
     	Logger.header("Formulario Quitar Habilidad de Empleado");
@@ -566,7 +598,8 @@ public class Empresa {
 				}
 		}	
     }
-
+    
+    //CU EDITAR ANNIOS EMPLEADOS
     public void editarAnniosEmpleado()
     {
     	Logger.header("Formulario Editar Annios Empleados");
@@ -592,5 +625,43 @@ public class Empresa {
 			}
 		}
 		
-    } 
+     
+
+
+
+    //CASO DE USO DAR DE BAJA CONVOCATORIA
+    public void darDeBajaConvocatoria() {
+        Logger.header("Dar de baja convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria a dar de baja: ");
+
+        Convocatoria convocatoriaEliminar = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoriaEliminar == null) {
+            Logger.logError("No existe convocatoria con codigo: " + codigoConvocatoria);
+        } else {
+            boolean eliminar = true;
+
+            if (!convocatoriaEliminar.estaAbierta()) { //si esta cerrada, se lo informo y le pregunto si quiere continuar
+                System.out.println("Alerta: La convocatoria es historica (ya esta cerrada)");
+                eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
+            }
+
+            if (eliminar) {
+                //eliminar convocatoria de la empresa
+                this.convocatorias.remove(convocatoriaEliminar);
+
+                //eliminar convocatoria del puesto
+                Puesto puestoConvocatoria = convocatoriaEliminar.getPuesto();
+
+                puestoConvocatoria.darDeBajaConvocatoria(convocatoriaEliminar);
+
+                Logger.logSuccess("La convocatoria ha sido eliminada");
+            } else {
+                Logger.logSuccess("La convocatoria historica NO ha sido eliminada"); 
+                //la llamo 'historica' porque solo puedo cambiar el estado de 'eliminar' en caso de que sea historica
+            }
+        }
+    }
+}
 

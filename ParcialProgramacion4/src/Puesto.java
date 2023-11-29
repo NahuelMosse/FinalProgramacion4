@@ -41,5 +41,10 @@ public abstract class Puesto {
     public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
         convocatorias.add(convocatoriaNueva);
     }
+    
+    public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
+        this.convocatorias.remove(convocatoriaEliminar);
+    }
+
 }
 
