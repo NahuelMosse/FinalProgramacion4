@@ -517,31 +517,28 @@ public class Empresa {
 
         Puesto puestoBorrar = this.buscarPuesto(nombrePuesto);
 
-        if (puestoBorrar != null) {
+        if (puestoBorrar == null) {
+            Logger.logError("NO existe puesto de trabajo con este nombre");
+        } else {
             Logger.header("Informacion puesto a eliminar: ");
             puestoBorrar.mostrar();
 
             int cantEmpleados = puestoBorrar.cantEmpleados();
 
-            if (cantEmpleados == 0) {
+            if (cantEmpleados != 0) {
+                Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
+            } else {
                 //buscar si esta en alguna convocatoria
                 boolean estaEnConvocatorias = puestoEstaEnConvocatorias(puestoBorrar);
 
-                if (!estaEnConvocatorias) {
+                if (estaEnConvocatorias) {
+                    Logger.logError("NO se puede eliminar, porque el puesto de " + nombrePuesto + " esta en convocatorias");
+                } else {
                     puestos.remove(puestoBorrar);
 
-                    Logger.logSuccess("Puesto de trabajo ELIMINADO");
-
-                } else {
-                    Logger.logError("NO se puede eliminar, porque el puesto de " + nombrePuesto + " esta en convocatorias");
+                    Logger.logSuccess("Puesto de trabajo " + nombrePuesto + " ha sido ELIMINADO");
                 }
-
-            } else {
-                Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
             }
-
-        } else {
-            Logger.logError("NO existe puesto de trabajo con este nombre");
         }
     }
 
