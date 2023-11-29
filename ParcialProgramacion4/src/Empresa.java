@@ -623,18 +623,23 @@ public class Empresa {
     }
     
     private void mostrarTodasConvocatoriasPuedaAplicar(Empleado empleadoAplicar) {
-        int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
-
-        if (cantPuedeAplicar == 0) {
-            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria");
+        if (!this.hayConvocatoriasAbiertas()) {
+            Logger.logSuccess("Lo sentimos, NO existen convocatoria abiertas");
         } else {
-            Logger.header("Convocatorias disponibles");
-            for (Convocatoria convocatoria : convocatorias) {
-                if (convocatoria.puedeAplicar(empleadoAplicar)) {
-                    convocatoria.mostrar(); //muestra sin los datos de los postulantes y asignados xq esta pensado para que lo vea el empleado
+            int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
+
+            if (cantPuedeAplicar == 0) {
+                Logger.logSuccess("Lo sentimos, NO puede aplicar a NINGUNA convocatoria");
+            } else {
+                Logger.header("Convocatorias disponibles");
+                for (Convocatoria convocatoria : convocatorias) {
+                    if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                        convocatoria.mostrar(); //muestra sin los datos de los postulantes y asignados xq esta pensado para que lo vea el empleado
+                    }
                 }
             }
         }
+        
     }
 
     private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
@@ -661,18 +666,22 @@ public class Empresa {
     }
 
     private void mostrarConvocatoriasPuedaAplicarRangoSalario(Empleado empleadoAplicar) {
-        float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
-        float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
-
-        int cantPuedeAplicarRango = this.cantConvocatoriasPuedeAplicarRango(empleadoAplicar, salarioMin, salarioMax);
-
-        if (cantPuedeAplicarRango == 0) {
-            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango " + salarioMin +" - " + salarioMax);
+        if (!this.hayConvocatoriasAbiertas()) {
+            Logger.logSuccess("Lo sentimos, NO existen convocatoria abiertas");
         } else {
-            Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
-            for (Convocatoria convocatoria: convocatorias) {
-                if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin,salarioMax)) {
-                    convocatoria.mostrar();
+            float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
+            float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
+
+            int cantPuedeAplicarRango = this.cantConvocatoriasPuedeAplicarRango(empleadoAplicar, salarioMin, salarioMax);
+
+            if (cantPuedeAplicarRango == 0) {
+                Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango " + salarioMin +" - " + salarioMax);
+            } else {
+                Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
+                for (Convocatoria convocatoria: convocatorias) {
+                    if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin,salarioMax)) {
+                        convocatoria.mostrar();
+                    }
                 }
             }
         }
@@ -686,5 +695,15 @@ public class Empresa {
             }
         }
         return i;
+    }
+
+    private boolean hayConvocatoriasAbiertas() {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.estaAbierta()) {
+                i++;
+            }
+        }
+        return i > 0;
     }
 }

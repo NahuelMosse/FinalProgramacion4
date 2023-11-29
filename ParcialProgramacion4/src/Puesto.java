@@ -49,15 +49,19 @@ public abstract class Puesto {
 
     public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         //misma logica que metodos de Empresa, solo que esta en Puesto
-        int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
-
-        if (cantPuedeAplicar == 0) {
-            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
+        if (!this.hayConvocatoriasAbiertas()) {
+            Logger.logSuccess("Lo sentimos, NO existen convocatoria abiertas");
         } else {
-            Logger.header("Convocatorias disponibles para " + nombre);
-            for (Convocatoria convocatoria: convocatorias) {
-                if (convocatoria.puedeAplicar(empleadoAplicar)) {
-                    convocatoria.mostrar();
+            int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
+
+            if (cantPuedeAplicar == 0) {
+                Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
+            } else {
+                Logger.header("Convocatorias disponibles para " + nombre);
+                for (Convocatoria convocatoria: convocatorias) {
+                    if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                        convocatoria.mostrar();
+                    }
                 }
             }
         }
@@ -83,6 +87,16 @@ public abstract class Puesto {
 
     public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
         return true; //comparo en PuestoJerarquico, aca no hay condicion
+    }
+
+    private boolean hayConvocatoriasAbiertas() {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.estaAbierta()) {
+                i++;
+            }
+        }
+        return i > 0;
     }
 }
 
