@@ -79,5 +79,10 @@ public abstract class Puesto {
         boolean noSuperaMax = sueldo <= salarioMax;
         return superaMin && noSuperaMax;
     }
+
+
+    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
+        return true; //comparo en PuestoJerarquico, aca no hay condicion
+    }
 }
 

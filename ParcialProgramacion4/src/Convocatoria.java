@@ -103,7 +103,7 @@ public abstract class Convocatoria {
 
 
    public boolean puedeAplicar(Empleado empleadoAplicar) {
-        return true; //programar logica de control
+        return this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
    }
 
 
