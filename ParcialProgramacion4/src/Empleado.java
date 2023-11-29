@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import utilidades.Fecha;
+import utilidades.Logger;
 
 public class Empleado {
     private int legajo;
@@ -39,25 +40,34 @@ public class Empleado {
     }
     
   //SI MAL NO RECUERDO ESTO RECIBE LA CLASE Y UN ENTERO QUE LO EMPAQUETA EN UN INTEGER/.
-    public void agregarHabilidad(Habilidad habilidadExistente,int unaCantidadDeTiempo)
+    public void agregarHabilidad(Habilidad habilidad,int annosExperiencia)
     {
-        if(habilidades.containsKey(habilidadExistente))  // SI CONTIENE LA POS
-			unaCantidadDeTiempo+=habilidades.get(habilidadExistente); // AL ENC LE PONGO LOS ANIOS???
-		habilidades.put(habilidadExistente,unaCantidadDeTiempo);
+        if(habilidades.containsKey(habilidad))  // SI CONTIENE LA POS
+        	Logger.logError("Ya existe la habilidad no corresponde a este CU");
+		habilidades.put(habilidad,annosExperiencia);
     }
 
 
     //METODO PARA ELIMINAR HABILIDAD EXISTENTE DE LA HASH DEL EMPLEADO
-    public void eliminarHabilidad(Habilidad habilidadExistente)
+    public void eliminarHabilidad(Habilidad habilidad)
     {
 		Enumeration<Habilidad> enumH=habilidades.keys(); // me devolvia todo esto
-		while(enumH.hasMoreElements() && ((Hashtable<Habilidad, Integer>) enumH).containsKey(habilidadExistente) ) // mientras haya elemento 
+		while(enumH.hasMoreElements() && ((Hashtable<Habilidad, Integer>) enumH).containsKey(habilidad) ) // mientras haya elemento 
 		{
-			habilidadExistente=enumH.nextElement(); //sigo
+			habilidad=enumH.nextElement(); //sigo
 		}
-		habilidades.remove(habilidadExistente); // sin importarme total me trae null si la encontro o no la limpio.
+		
+		// sin importarme total me trae null si la encontro o no la limpio.
+		if (habilidad == null)
+		{
+		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.hasNombre(nombre));
+		} 
+		else
+		{
+			habilidades.remove(habilidad);
+		}
 	}
-
+    
     
     public void modificarAnios(Habilidad habilidadExistente,int unaCantidadDeTiempo)
     {
