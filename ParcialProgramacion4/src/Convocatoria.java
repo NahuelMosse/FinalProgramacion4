@@ -110,7 +110,11 @@ public abstract class Convocatoria {
 
 
    public boolean puedeAplicar(Empleado empleadoAplicar) {
-        return this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
+        return (!this.estaInscripto(empleadoAplicar)) && this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
+   }
+
+   public boolean estaInscripto(Empleado empleado) {
+        return postulados.contains(empleado) || asignados.contains(empleado); 
    }
 
 
