@@ -202,8 +202,7 @@ public class Ejecutora {
 	            // Volver al menu principal
 	            break;
 	        case 1:
-	            	
-	            break;
+	        	empresa.verDatosEmpleado();
 	        case 2:
 	                
 	            break;

@@ -626,7 +626,22 @@ public class Empresa {
 		}
 		
      
-
+    //CU VER DATOS EMPLEADO
+    public void verDatosEmpleado()
+    {
+    	Logger.header("Formulario para ingresar empleado");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+        
+        if (unEmpleado == null)
+		{
+			Logger.logError("NO existe el empleado");
+		}
+        {
+        	unEmpleado.mostrar();
+		}
+    }
 
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
