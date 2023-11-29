@@ -217,7 +217,7 @@ public class Ejecutora {
 	        	empresa.agregarHabilidadEmpleado();    
 	            break;
 	        case 5:
-	        	empresa.editarAniosEmpleado();    
+	        	empresa.editarAnniosEmpleado();    
 	            break;
 	        case 6:
 	        	empresa.quitarHabilidadEmpleado();	
