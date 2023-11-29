@@ -46,5 +46,29 @@ public abstract class Puesto {
         this.convocatorias.remove(convocatoriaEliminar);
     }
 
+
+    public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        //misma logica que metodos de Empresa, solo que esta en Puesto
+        int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
+
+        if (cantPuedeAplicar == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
+        } else {
+            for (Convocatoria convocatoria : convocatorias) {
+                convocatoria.mostrarSiPuedeInscribirse(empleadoAplicar);
+            }
+        }
+    }
+
+    private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                i++;
+            }
+        }
+        return i;
+    }
+
 }
 

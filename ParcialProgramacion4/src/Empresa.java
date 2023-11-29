@@ -631,8 +631,6 @@ public class Empresa {
                 convocatoria.mostrarSiPuedeInscribirse(empleadoAplicar);
             }
         }
-
-        
     }
 
     private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
@@ -646,6 +644,15 @@ public class Empresa {
     }
 
     private void mostrarConvocatoriasPuestoPuedeAplicar(Empleado empleadoAplicar) {
-        
+        System.out.print("Nombre del puesto a aplicar: ");
+        String nombrePuesto = scanner.nextLine();
+
+        Puesto puestoAplicar = this.buscarPuesto(nombrePuesto);
+
+        if (puestoAplicar == null) {
+            Logger.logError("No existe un puesto llamado '" + nombrePuesto + "'");
+        } else {
+            puestoAplicar.mostrarConvocatoriasPuedeAplicar(empleadoAplicar);
+        }
     }
 }
