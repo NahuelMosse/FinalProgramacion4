@@ -341,7 +341,7 @@ public class Empresa {
 
     //NO ES EL METODO DEL CASO DE USO AGREGAR PUESTO, ESTE YA RECIBE EL NOMBRE, se usa en pedirListaCargos cuando quiere crearalo si no existe
     private Puesto agregarPuesto(String nombre) {
-        float sueldo = InputHelper.scanFloat(scanner, "Sueldo: ");
+        float sueldo = InputHelper.scanFloat(scanner, "\nSueldo: ");
         
         boolean esJerarquico = InputHelper.yesOrNoInput(scanner, "Es un puesto jerarquico?");
 
@@ -454,7 +454,7 @@ public class Empresa {
                 }
             }
             
-            System.out.println("Fecha a realizar convocatoria: ");
+            System.out.println("\nFecha a realizar convocatoria: ");
             Fecha fechaConvocatoria = Fecha.nuevaFecha();
 
             //verificar si la fecha es igual o despues de hoy
@@ -464,7 +464,7 @@ public class Empresa {
                 fechaConvocatoria = Fecha.nuevaFecha();
             }
 
-            int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
+            int cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "\nCantidad de empleados requeridos: ");
             while (cantEmpleadosRequeridos <= 0) {
                 Logger.logError("La cantidad de empleados requeridos debe ser mayor que 0");
                 cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
@@ -475,7 +475,7 @@ public class Empresa {
             Convocatoria convocatoriaNueva;
 
             if (puestoConvocatoria.esJerarquico()) {
-                int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "Años minimos en la empresa que se requieren para aplicar: ");
+                int annosMinimosEnEmpresa = InputHelper.scanInt(scanner, "\nAños minimos en la empresa que se requieren para aplicar: ");
 
                 convocatoriaNueva = new ConvocatoriaJerarquico(
                     codigoConvocatoria,
