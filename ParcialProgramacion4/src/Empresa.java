@@ -524,9 +524,17 @@ public class Empresa {
             int cantEmpleados = puestoBorrar.cantEmpleados();
 
             if (cantEmpleados == 0) {
-                puestos.remove(puestoBorrar);
+                //buscar si esta en alguna convocatoria
+                boolean estaEnConvocatorias = puestoEstaEnConvocatorias(puestoBorrar);
 
-                Logger.logSuccess("Puesto de trabajo ELIMINADO");
+                if (!estaEnConvocatorias) {
+                    puestos.remove(puestoBorrar);
+
+                    Logger.logSuccess("Puesto de trabajo ELIMINADO");
+
+                } else {
+                    Logger.logError("NO se puede eliminar, porque el puesto de " + nombrePuesto + " esta en convocatorias");
+                }
 
             } else {
                 Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
@@ -535,6 +543,15 @@ public class Empresa {
         } else {
             Logger.logError("NO existe puesto de trabajo con este nombre");
         }
+    }
+
+    private boolean puestoEstaEnConvocatorias(Puesto puesto) {
+        int i = 0;
+        while (i<convocatorias.size() && !convocatorias.get(i).hasPuesto(puesto)) {
+            i++;
+        }
+
+        return i<convocatorias.size(); //si es menor, significa que salio del while porque estaba en una convocatoria 
     }
 
 

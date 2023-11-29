@@ -100,4 +100,8 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   public boolean hasPuesto(Puesto puesto) {
+        return this.puesto.equals(puesto);
+   }
 }
