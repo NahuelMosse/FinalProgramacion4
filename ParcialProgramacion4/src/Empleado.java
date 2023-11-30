@@ -107,7 +107,7 @@ public class Empleado {
         return habilidades.containsKey(habilidadBuscada);
     }
 
-    public void eliminarHabilidad(Habilidad habilidadBuscada) {
+    public void tryEliminarHabilidad(Habilidad habilidadBuscada) {
         habilidades.remove(habilidadBuscada);
     }
 
