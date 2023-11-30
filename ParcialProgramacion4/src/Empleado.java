@@ -56,7 +56,7 @@ public class Empleado {
   
     public void agregarHabilidad(Scanner scanner, Habilidad habilidad) {
         if(habilidades.containsKey(habilidad)) { 
-            Logger.logError("El empleado ya tiene registrada esta habilidad");
+            Logger.logError("El empleado "  + this.nombre + " ya tiene registrada esta habilidad");
         } else {
             int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
 

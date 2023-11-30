@@ -614,7 +614,7 @@ public class Empresa {
             Habilidad habilidadExistente = this.buscarHabilidad(nombre);
 
             if(habilidadExistente == null) {
-                Logger.logError("Habilidad Inexistente");
+                Logger.logError("NO existe la habilidad " + nombre);
             } else {
                 unEmpleado.eliminarHabilidad(habilidadExistente);
             }
@@ -638,7 +638,7 @@ public class Empresa {
 			Habilidad habilidad = this.buscarHabilidad(nombre);
 
 			if(habilidad == null) {
-				Logger.logError("NO existe la habilidad");
+				Logger.logError("NO existe la habilidad " + nombre);
 			} else {
 				unEmpleado.modificarAnnos(scanner, habilidad);
 			}
