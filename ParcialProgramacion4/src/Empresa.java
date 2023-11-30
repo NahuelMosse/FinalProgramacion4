@@ -584,7 +584,7 @@ public class Empresa {
         if (empleado == null) {
             Logger.logError("No existe un empleado con el legajo " + legajoEmpleado);
         } else {
-            empleado.editarInformacion();
+            empleado.editarInformacion(scanner);
         }
     }
 

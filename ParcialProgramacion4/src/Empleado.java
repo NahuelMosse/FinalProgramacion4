@@ -80,10 +80,8 @@ public class Empleado {
         }
     }
 
-    public void editarInformacion() {
-        Scanner scanner = new Scanner(System.in);
-
-        int opcion = 0;
+    public void editarInformacion(Scanner scanner) {
+        int opcion;
 
         do {
             Logger.header("Menu para editar informacion personal");
@@ -129,8 +127,6 @@ public class Empleado {
             }
 
         } while (opcion != 0);
-
-        scanner.close();
     }
 
 }
