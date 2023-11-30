@@ -205,7 +205,7 @@ public class Ejecutora {
 				empresa.verDatosEmpleado();
 	            break;
 	        case 2:
-	                
+	            empresa.verHistorialDeCargos();
 	            break;
 	        case 3:
 	                
