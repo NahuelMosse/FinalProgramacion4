@@ -119,7 +119,7 @@ public abstract class Convocatoria {
         return requisitos.containsKey(requisitoBuscado);
    }
 
-   public void eliminarRequisito(Habilidad requisitoBuscado) {
+   public void tryEliminarRequisito(Habilidad requisitoBuscado) {
         requisitos.remove(requisitoBuscado);
    }
 

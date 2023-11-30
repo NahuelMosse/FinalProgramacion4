@@ -838,14 +838,14 @@ public class Empresa {
                     //eliminar de empleados
                     if (empleadosTienenHabilidad) {
                         for (Empleado empleado: empleados) {
-                            empleado.eliminarHabilidad(habilidadEliminar);
+                            empleado.tryEliminarHabilidad(habilidadEliminar);
                         }
                     }
 
                     //eliminar de convocatorias
                     if (convocatoriasTienenRequisito) {
                         for (Convocatoria convocatoria: convocatorias) {
-                            convocatoria.eliminarRequisito(habilidadEliminar);
+                            convocatoria.tryEliminarRequisito(habilidadEliminar);
                         }
                     }
 
