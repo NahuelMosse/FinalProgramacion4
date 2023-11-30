@@ -956,6 +956,7 @@ public class Empresa {
         }
 
         return i < convocatorias.size();
+    }
 
     //CASO DE USO BORRAR HABILIDAD DEL SISTEMA
     public void borrarHabilidad() {
