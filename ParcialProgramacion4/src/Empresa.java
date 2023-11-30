@@ -512,7 +512,7 @@ public class Empresa {
   
   //CASO DE USO BORRAR PUESTO DE TRABAJO
     public void borrarPuesto() {
-        Logger.header("Formulario para borrar puesto de trabajo");
+        Logger.header("Borrar puesto de trabajo");
 
         System.out.print("Nombre puesto de trabajo: ");
         String nombrePuesto = scanner.nextLine();
