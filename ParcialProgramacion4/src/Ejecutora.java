@@ -211,13 +211,13 @@ public class Ejecutora {
 	                
 	            break;
 	        case 4:
-	                
+	        	empresa.agregarHabilidadEmpleado();    
 	            break;
 	        case 5:
-	                
+	        	empresa.editarAnnosEmpleado();    
 	            break;
 	        case 6:
-	            	
+	        	empresa.quitarHabilidadEmpleado();	
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");

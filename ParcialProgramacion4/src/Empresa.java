@@ -24,7 +24,7 @@ public class Empresa {
         this.habilidades = new ArrayList<Habilidad>();
     }
 
-    public void crearUnaHabilidad() {
+    public Habilidad crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
 
     	System.out.print("Nombre: ");
@@ -38,7 +38,7 @@ public class Empresa {
 			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.crearUnaHabilidad();
+	        	return this.crearUnaHabilidad();
 	        }
 		} else {
 			System.out.print("Descripcion: ");
@@ -49,7 +49,40 @@ public class Empresa {
             this.habilidades.add(habilidadNueva);
 
             Logger.logSuccess("Habilidad registrada con exito");
+
+            return habilidadNueva;
 		}
+
+        return null;
+    }
+
+    public Habilidad crearUnaHabilidad(String nombre) {
+    	Logger.header("Formulario para crear una habilidad");
+
+		Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+		
+		if (habilidadExistente != null) {
+			Logger.logError("Ya existe una habilidad con este nombre");
+			
+			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
+	        
+	        if (continuar) {
+	        	return this.crearUnaHabilidad();
+	        }
+		} else {
+			System.out.print("Descripcion: ");
+            String descripcion = scanner.nextLine();
+
+            Habilidad habilidadNueva = new Habilidad(nombre, descripcion);
+
+            this.habilidades.add(habilidadNueva);
+
+            Logger.logSuccess("Habilidad registrada con exito");
+
+            return habilidadNueva;
+		}
+
+        return null;
     }
     
     public void agregarPuesto() {
@@ -536,7 +569,81 @@ public class Empresa {
             Logger.logError("NO existe puesto de trabajo con este nombre");
         }
     }
+    
+    //CU AGREGAR HABILIDAD EMPLEADO
+    public void agregarHabilidadEmpleado()
+	{
+    	Logger.header("Formulario Agregar Habilidad de Empleado");
+		
+		int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
 
+		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado == null)
+			Logger.logError("No existe el empleado.");
+		else
+		{
+			System.out.print("Ingrese el nombre de la habilidad: ");
+			String nombre = scanner.nextLine();
+			
+			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+
+			if(habilidadExistente == null) {
+				habilidadExistente = this.crearUnaHabilidad(nombre);
+			}
+
+            unEmpleado.agregarHabilidad(scanner, habilidadExistente);
+		}	
+	}
+		
+
+    //CU QUITAR HABILIDAD EMPLEADO 
+    public void quitarHabilidadEmpleado() {
+    	Logger.header("Formulario Quitar Habilidad de Empleado");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
+
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+		if (unEmpleado == null) {
+			Logger.logError("No existe el empleado");
+		} else {
+            System.out.print("Ingrese el nombre de la habilidad: ");
+            String nombre = scanner.nextLine();
+
+            Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+
+            if(habilidadExistente == null) {
+                Logger.logError("NO existe la habilidad " + nombre);
+            } else {
+                unEmpleado.eliminarHabilidad(habilidadExistente);
+            }
+		}
+    }
+    
+    //CU EDITAR ANNOS EMPLEADOS
+    public void editarAnnosEmpleado() {
+    	Logger.header("Formulario Editar Annos Empleados");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
+
+    	Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+        
+    	if (unEmpleado == null) {
+			Logger.logError("NO existe el empleado");
+		} else {
+            System.out.print("Ingrese el nombre de la habilidad: ");
+			String nombre = scanner.nextLine();
+
+			Habilidad habilidad = this.buscarHabilidad(nombre);
+
+			if(habilidad == null) {
+				Logger.logError("NO existe la habilidad " + nombre);
+			} else {
+				unEmpleado.modificarAnnos(scanner, habilidad);
+			}
+        }
+	}
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
@@ -573,3 +680,4 @@ public class Empresa {
         }
     }
 }
+
