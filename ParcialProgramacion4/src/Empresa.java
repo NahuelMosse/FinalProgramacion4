@@ -118,24 +118,36 @@ public class Empresa {
     public void mostrarConvocatoriasAbiertas() {
         Logger.header("Convocatorias abiertas");
 
-        boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver los datos de cada postulante y asignado?");
-
-        if (quiereVerPostulantesAsignados) {
-            for(Convocatoria convocatoria: convocatorias) {
-                if (convocatoria.estaAbierta()) {
-                    convocatoria.mostrarConPostulantesAsignados();
-                }
-            }
+        if (!this.hayConvocatoriasAbiertas()) {
+            Logger.logSuccess("Lo sentimos, por el momento no hay convocatorias abiertas");
         } else {
-            for(Convocatoria convocatoria: convocatorias) {
-                if (convocatoria.estaAbierta()) {
-                    convocatoria.mostrar();
+            boolean quiereVerPostulantesAsignados = InputHelper.yesOrNoInput(scanner, "Quiere ver los datos de cada postulante y asignado?");
+
+            if (quiereVerPostulantesAsignados) {
+                for(Convocatoria convocatoria: convocatorias) {
+                    if (convocatoria.estaAbierta()) {
+                        convocatoria.mostrarConPostulantesAsignados();
+                    }
                 }
-            }
-        } 
+            } else {
+                for(Convocatoria convocatoria: convocatorias) {
+                    if (convocatoria.estaAbierta()) {
+                        convocatoria.mostrar();
+                    }
+                }
+            } 
+        }
     }
 
+    //determino si hay convocatorias estan abiertas, si no hay ninguno se lo informo al usuario en mostrarConvocatoriasAbiertas()
+    public boolean hayConvocatoriasAbiertas() {
+        int i = 0;
+        while (i<convocatorias.size() && !convocatorias.get(i).estaAbierta()) {
+            i++;
+        }
 
+        return i<convocatorias.size();
+    }
   
   
 
