@@ -34,7 +34,7 @@ public abstract class Convocatoria {
         //agrego informacion de cada postulante y asignado, si no hay postulantes o asingados, no los recorro y muestro msj informandolo
         if (postulados.size() > 0) {
 
-            System.out.println("** Postulantes **");
+            System.out.println("\n** Postulantes **");
             for(Empleado empleado: postulados) {
                 empleado.mostrar();
                 Logger.subDivider();
@@ -46,7 +46,7 @@ public abstract class Convocatoria {
 
         if (asignados.size() > 0) {
 
-            System.out.println("** Asignados **");
+            System.out.println("\n** Asignados **");
             for(Empleado empleado: asignados) {
                 empleado.mostrar();
                 Logger.subDivider();
