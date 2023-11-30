@@ -33,10 +33,6 @@ public class Empleado {
         this.fechaDeIngreso = fechaDeIngreso;
     }
     
-    public boolean hasEmpleado(int legajo) {
-        return this.legajo == legajo;
-    }
-    
     public void mostrar() {
         System.out.println("legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
@@ -106,5 +102,13 @@ public class Empleado {
         }
     }
 
+
+    public boolean tieneHabilidad(Habilidad habilidadBuscada) {
+        return habilidades.containsKey(habilidadBuscada);
+    }
+
+    public void eliminarHabilidad(Habilidad habilidadBuscada) {
+        habilidades.remove(habilidadBuscada);
+    }
 
 }

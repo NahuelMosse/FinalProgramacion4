@@ -110,7 +110,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 7:
-	            	
+	            empresa.borrarHabilidad();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
