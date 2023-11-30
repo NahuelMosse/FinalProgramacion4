@@ -56,33 +56,32 @@ public abstract class Puesto {
 
     public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         //misma logica que metodos de Empresa, solo que esta en Puesto
-        if (!this.hayConvocatoriasAbiertas()) {
-            Logger.logSuccess("Lo sentimos, NO existen convocatoria abiertas");
-        } else {
-            int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleadoAplicar);
+        
+        ArrayList<Convocatoria>convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
 
-            if (cantPuedeAplicar == 0) {
-                Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
-            } else {
-                Logger.header("Convocatorias disponibles para " + nombre);
-                for (Convocatoria convocatoria: convocatorias) {
-                    if (convocatoria.puedeAplicar(empleadoAplicar)) {
-                        convocatoria.mostrar();
-                    }
-                }
+        if (convocatoriaPuedeAplicar.size() == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
+        } else {
+            Logger.header("Convocatorias disponibles para " + nombre);
+            for (Convocatoria convocatoria: convocatoriaPuedeAplicar) {
+                convocatoria.mostrar();
             }
         }
+        
     }
 
-    private int cantConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
-        int i = 0;
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
+
         for (Convocatoria convocatoria: convocatorias) {
             if (convocatoria.puedeAplicar(empleadoAplicar)) {
-                i++;
+                convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
-        return i;
-    }
+
+        return convocatoriasPuedeAplicar;
+    } 
+
 
 
     public boolean dentroDeRango(float salarioMin, float salarioMax) {
