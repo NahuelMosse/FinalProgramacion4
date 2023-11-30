@@ -576,7 +576,7 @@ public class Empresa {
 
     //CASO DE USO BORRAR HABILIDAD DEL SISTEMA
     public void borrarHabilidad() {
-        Logger.header("Formulario para borrar habilidad");
+        Logger.header("Borrar habilidad");
 
         System.out.print("Nombre habilidad a eliminar: ");
         String nombreHabilidad = scanner.nextLine();
