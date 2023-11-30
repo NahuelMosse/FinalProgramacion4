@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Scanner;
+
 import utilidades.Fecha;
+import utilidades.InputHelper;
+import utilidades.Logger;
 
 public class Empleado {
     private int legajo;
@@ -41,7 +45,44 @@ public class Empleado {
         System.out.println("Habilidades: ");
         this.mostrarHabilidades();
     }
+  
+    public Puesto getPuestoActual() {
+        //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
+        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
+    }
+  
+    public void agregarHabilidad(Scanner scanner, Habilidad habilidad) {
+        if(habilidades.containsKey(habilidad)) { 
+            Logger.logError("El empleado "  + this.nombre + " ya tiene registrada esta habilidad");
+        } else {
+            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+
+            habilidades.put(habilidad, annosExperiencia);
+
+            Logger.logSuccess("Habilidad agregada al empleado con exito");
+        }
+    }
+   
+    public void eliminarHabilidad(Habilidad habilidad) {
+		if (habilidades.remove(habilidad) == null) {
+		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
+		} else  {
+            Logger.logSuccess("Habilidad eliminada con exito");
+        }
+	  }
     
+    public void modificarAnnos(Scanner scanner, Habilidad habilidad) {
+        if (!habilidades.containsKey(habilidad)) {
+            Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
+        } else {
+            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+
+            habilidades.put(habilidad, annosExperiencia);
+
+            Logger.logSuccess("Experiencia del empleado actualizada con exito");
+        }
+    }
+
     public void mostrarHabilidades() {
         Habilidad habilidad;
         Enumeration<Habilidad> enumH = habilidades.keys();
@@ -54,11 +95,6 @@ public class Empleado {
         }
     }
     
-    public Puesto getPuestoActual() {
-        //Siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
-        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
-    }
-
     public boolean hasLegajo(int legajo) {
         return this.legajo == legajo;
     }
@@ -69,5 +105,6 @@ public class Empleado {
             historialDeCargos.remove(cargo);
         }
     }
+
 
 }
