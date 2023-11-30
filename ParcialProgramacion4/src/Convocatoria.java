@@ -115,6 +115,11 @@ public abstract class Convocatoria {
         }
    }
 
+
+   public boolean hasPuesto(Puesto puesto) {
+        return this.puesto == puesto;
+   }
+  
    public boolean tieneRequisito(Habilidad requisitoBuscado) {
         return requisitos.containsKey(requisitoBuscado);
    }
