@@ -572,4 +572,20 @@ public class Empresa {
             }
         }
     }
+
+
+    //CASO DE USO MOSTRAR HABILIDADES
+    public void mostrarHabilidades() {
+        Logger.header("Habilidades registradas en el sistema");
+
+        if (habilidades.size() == 0) {
+            Logger.logError("No se encuentran habilidades registradas");
+        } else {
+            for (Habilidad habilidad: habilidades) {
+                habilidad.mostrar();
+            }
+        }
+    }
+
+    
 }
