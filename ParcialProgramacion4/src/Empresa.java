@@ -587,5 +587,15 @@ public class Empresa {
         }
     }
 
-    
+    public void mostrarPuestos() {
+        Logger.header("Puestos de trabajo registrados en el sistema");
+
+        if (puestos.size() == 0) {
+            Logger.logError("No se encuentran puestos de trabajo registrados");
+        } else {
+            for (Puesto puesto: puestos) {
+                puesto.mostrar();
+            }
+        }
+    }
 }
