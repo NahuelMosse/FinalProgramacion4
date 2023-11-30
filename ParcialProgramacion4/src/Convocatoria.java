@@ -100,4 +100,34 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   public boolean hasPostulantes() {
+        return postulados.size() > 0;
+   }
+
+   public void darDeBajaPostulante(int legajoPostulante) {
+        Empleado postulante = this.buscarPostulante(legajoPostulante);
+
+        if (postulante == null) {
+            Logger.logError("La convocatoria no tiene un postulante con legajo " + legajoPostulante);
+        } else {
+            postulados.remove(postulante);
+
+            Logger.logSuccess("El postulante con legajo " + legajoPostulante + " se ha dado de baja de la convocatoria con exito");
+        }
+   }
+
+
+   private Empleado buscarPostulante(int legajoPostulante) {
+    int i = 0;
+
+    while(i<postulados.size() && !postulados.get(i).hasLegajo(legajoPostulante))
+        i++;
+    
+    if(i<postulados.size())
+        return postulados.get(i);
+    else
+        return null;
+}
+
 }

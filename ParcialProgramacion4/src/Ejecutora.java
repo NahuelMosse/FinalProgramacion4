@@ -134,7 +134,7 @@ public class Ejecutora {
             System.out.println("[5] Mostrar convocatorias abiertas");
             System.out.println("[6] Mostrar convocatorias a las que pueda aplicar empleado");
             System.out.println("[7] Inscribir empleado a convocatorias");
-            System.out.println("[8] Dar de baja incripto a convocatoria");
+            System.out.println("[8] Dar de baja postulante a convocatoria");
             System.out.println("[9] Definir años necesarios en puesto jerarquico para cambiar");
             System.out.println("[0] Volver al menu principal");
             
@@ -167,7 +167,7 @@ public class Ejecutora {
 	            // empresa.inscribirEmpleadoConvocatoria();
 	            break;
 	        case 8:
-	            	
+	            empresa.darDeBajaPostulanteConvocatoria();
 	            break;
 	        case 9:
 	            	

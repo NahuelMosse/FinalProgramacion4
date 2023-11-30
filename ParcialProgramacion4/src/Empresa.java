@@ -572,4 +572,37 @@ public class Empresa {
             }
         }
     }
+
+    
+    //CASO DE USO DAR DE BAJA INSCRIPTO A CONVOCATORIA
+    public void darDeBajaPostulanteConvocatoria() {
+        Logger.header("Formulario para dar de baja inscripto a convocatoria: ");
+
+        boolean verConvocatoriasAbiertas = InputHelper.yesOrNoInput(scanner, "Quiere ver las convocatorias que se encuentran abiertas?");
+
+        if (verConvocatoriasAbiertas) {
+            this.mostrarConvocatoriasAbiertas();
+        }
+
+        Logger.divider();
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria == null) {
+            Logger.logError("No existe la convocatoria con codigo " + codigoConvocatoria);
+        } else {
+            if (!convocatoria.estaAbierta()) {
+                Logger.logError("La convocatoria esta cerrada");
+            } else {
+                if (!convocatoria.hasPostulantes()) {
+                    Logger.logError("La convocatoria NO tiene postulantes");
+                } else {
+                    int legajoPostulante = InputHelper.scanInt(scanner, "Legajo postulante: ");
+                    
+                    convocatoria.darDeBajaPostulante(legajoPostulante);
+                }
+            }
+        }
+    }
 }
