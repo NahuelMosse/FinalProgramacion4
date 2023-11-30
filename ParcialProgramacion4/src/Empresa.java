@@ -585,15 +585,14 @@ public class Empresa {
         if (convocatoria == null) {
             Logger.logError("NO existe una convocatoria con codigo " + codigoConvocatoria + " en el sistema");
         } else {
-        
-            if (!convocatoria.hasPostulantes()) {
-                Logger.logError("No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo " + codigoConvocatoria);
+            if (!convocatoria.estaAbierta()) {
+                Logger.logError("La convocatoria esta cerrada, NO se puede seleccionar postulantes");
             } else {
-
-                if (!convocatoria.quedaCupo()) {
-                    Logger.logError("No queda cupo para la convocatoria con codigo " + codigoConvocatoria);
+                if (!convocatoria.hasPostulantes()) {
+                    Logger.logError("No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo " + codigoConvocatoria);
                 } else {
                     //se pueden seleccionar postulantes para el puesto vacante
+
                     convocatoria.mostrarConPostulantesAsignados();
 
                     int legajoEmpleado;
@@ -605,25 +604,49 @@ public class Empresa {
 
                         empleadoSeleccionado = this.buscarEmpleado(legajoEmpleado);
 
-                        convocatoria.asignarEmpleado(empleadoSeleccionado);
+                        if (empleadoSeleccionado == null || convocatoria.esPostulante(empleadoSeleccionado)) {
+                            Logger.logError("No existe un postulante con el legajo " + legajoEmpleado);
+                        } else {
+                            convocatoria.asignarEmpleado(empleadoSeleccionado);
+                        }
 
                         //me adelanto a comprobar para saber si pregunto o no, para no preguntar si se que ya no puede inscribir a nadie mas    
                         if (convocatoria.quedaCupo() && convocatoria.hasPostulantes()) { 
-                            agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere agregar otro postulante?");
+                            String pregunta;
+
+                            if (empleadoSeleccionado == null || convocatoria.esPostulante(empleadoSeleccionado)) {
+                                pregunta = "Quiere intentar con otro legajo?"; //xq se q el anterior ingreso no funciono
+                            } else {
+                                pregunta = "Quiere agregar otro postulante?"; //xq se que el anterior funciono y lo agrego
+                            }
+
+                            agregarOtro = InputHelper.yesOrNoInput(scanner, pregunta); //la pregunta depende del caso anterior
+
                         } else {
                             //Determino porque no puedo seguir, para informarle al usuario
                             if (!convocatoria.quedaCupo()) {
+
                                 Logger.logSuccess("Ya no puede seleccionar a mas postulantes porque se quedo sin cupo");
+                            
                             } else { 
-                                Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas para ello");
+
+                                Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas");
+                            
                             }
 
+                            Logger.logSuccess("Convocatoria cerrada");
                         }
 
                     } while (convocatoria.quedaCupo() && convocatoria.hasPostulantes() && agregarOtro);
-                }
 
+
+                    if (convocatoria.quedaCupo()) { //si salio x esto es poque todavia la convocatoria esta abierta
+                        Logger.logSuccess("Aun puede asignar a " + convocatoria.getCantRestante() + " postulantes al puesto de " + convocatoria.getPuesto().getNombre() + " para esta convocatoria");
+                    }
+                }
             }
         }
     }
+
+
 }

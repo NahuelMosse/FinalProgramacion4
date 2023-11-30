@@ -135,7 +135,7 @@ public class Ejecutora {
             System.out.println("[6] Mostrar convocatorias a las que pueda aplicar empleado");
             System.out.println("[7] Inscribir empleado a convocatorias");
             System.out.println("[8] Dar de baja incripto a convocatoria");
-            System.out.println("[9] Elegir postulantes en convocatoria");
+            System.out.println("[9] Elegir postulantes en convocatoria y asignarlos al puesto vacante");
             System.out.println("[0] Volver al menu principal");
             
             opcion = Ejecutora.conseguirOpcionDelMenu();

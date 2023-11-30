@@ -111,23 +111,22 @@ public abstract class Convocatoria {
 
    
    public void asignarEmpleado(Empleado empleadoSeleccionado) {
-        if (this.esPostulante(empleadoSeleccionado)) { //x si ingresa un legajo de otro empleado
-            //si es postulante, ya se que cumple los requisitos xq paso por el proceso de inscripcion
-            postulados.remove(empleadoSeleccionado);
-            asignados.add(empleadoSeleccionado);
+        //como ya se que es postulante, ya se que cumple los requisitos xq paso por el proceso de inscripcion
+        postulados.remove(empleadoSeleccionado);
+        asignados.add(empleadoSeleccionado);
 
-            empleadoSeleccionado.nuevoCargo(puesto);
+        empleadoSeleccionado.nuevoCargo(puesto);
 
-            puesto.agregarEmpleadoPorConvocatoria(empleadoSeleccionado);
+        puesto.agregarEmpleadoPorConvocatoria(empleadoSeleccionado);
 
-            Logger.logSuccess("El empleado con legajo " + empleadoSeleccionado.getLegajo() + " ha sido asignado al puesto de " + puesto.getNombre());
-
-        } else {
-            Logger.logError("El empleado no esta");
-        }
+        Logger.logSuccess("El empleado con legajo " + empleadoSeleccionado.getLegajo() + " ha sido asignado al puesto de " + puesto.getNombre());
    }
 
    public boolean esPostulante(Empleado empleado) {
         return postulados.contains(empleado);
+   }
+
+   public int getCantRestante() {
+        return cantEmpleadosRequeridos - asignados.size();
    }
 }
