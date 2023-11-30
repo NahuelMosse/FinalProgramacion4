@@ -572,4 +572,58 @@ public class Empresa {
             }
         }
     }
+
+
+    //CASO DE USO ELEGIR POSTULANTES DE CONVOCATORIA PARA EL PUESTO VACANTE
+    public void elegirPostulantesConvocatoria() {
+        Logger.header("Formulario para elegir postulantes de convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria == null) {
+            Logger.logError("NO existe una convocatoria con codigo " + codigoConvocatoria + " en el sistema");
+        } else {
+        
+            if (!convocatoria.hasPostulantes()) {
+                Logger.logError("No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo " + codigoConvocatoria);
+            } else {
+
+                if (!convocatoria.quedaCupo()) {
+                    Logger.logError("No queda cupo para la convocatoria con codigo " + codigoConvocatoria);
+                } else {
+                    //se pueden seleccionar postulantes para el puesto vacante
+                    convocatoria.mostrarConPostulantesAsignados();
+
+                    int legajoEmpleado;
+                    Empleado empleadoSeleccionado;
+                    boolean agregarOtro = true;
+
+                    do {
+                        legajoEmpleado = InputHelper.scanInt(scanner, "Legajo postulante seleccionado: ");
+
+                        empleadoSeleccionado = this.buscarEmpleado(legajoEmpleado);
+
+                        convocatoria.asignarEmpleado(empleadoSeleccionado);
+
+                        //me adelanto a comprobar para saber si pregunto o no, para no preguntar si se que ya no puede inscribir a nadie mas    
+                        if (convocatoria.quedaCupo() && convocatoria.hasPostulantes()) { 
+                            agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere agregar otro postulante?");
+                        } else {
+                            //Determino porque no puedo seguir, para informarle al usuario
+                            if (!convocatoria.quedaCupo()) {
+                                Logger.logSuccess("Ya no puede seleccionar a mas postulantes porque se quedo sin cupo");
+                            } else { 
+                                Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas para ello");
+                            }
+
+                        }
+
+                    } while (convocatoria.quedaCupo() && convocatoria.hasPostulantes() && agregarOtro);
+                }
+
+            }
+        }
+    }
 }

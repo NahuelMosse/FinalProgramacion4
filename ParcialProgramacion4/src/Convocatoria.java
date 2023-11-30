@@ -100,4 +100,34 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   public int getCantEmpleadosRequeridos() {
+        return this.cantEmpleadosRequeridos;
+   }
+
+   public boolean hasPostulantes() {
+        return this.postulados.size() > 0;
+   }
+
+   
+   public void asignarEmpleado(Empleado empleadoSeleccionado) {
+        if (this.esPostulante(empleadoSeleccionado)) { //x si ingresa un legajo de otro empleado
+            //si es postulante, ya se que cumple los requisitos xq paso por el proceso de inscripcion
+            postulados.remove(empleadoSeleccionado);
+            asignados.add(empleadoSeleccionado);
+
+            empleadoSeleccionado.nuevoCargo(puesto);
+
+            puesto.agregarEmpleadoPorConvocatoria(empleadoSeleccionado);
+
+            Logger.logSuccess("El empleado con legajo " + empleadoSeleccionado.getLegajo() + " ha sido asignado al puesto de " + puesto.getNombre());
+
+        } else {
+            Logger.logError("El empleado no esta");
+        }
+   }
+
+   public boolean esPostulante(Empleado empleado) {
+        return postulados.contains(empleado);
+   }
 }

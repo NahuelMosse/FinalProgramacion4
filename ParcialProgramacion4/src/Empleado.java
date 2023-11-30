@@ -45,7 +45,7 @@ public class Empleado {
 
     public Puesto getPuestoActual() {
         //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
-        return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
+        return this.getCargoActual().getPuesto();
     }
 
     public void mostrarHabilidades() {
@@ -60,4 +60,20 @@ public class Empleado {
         }
     }
 
+    public int getLegajo() {
+        return legajo;
+    }
+
+    public void nuevoCargo(Puesto nuevoPuesto) {
+        Cargo cargoActual = this.getCargoActual();
+        cargoActual.cerrarCargo();
+
+        //crear nuevo cargo
+        Cargo cargoNuevo = new Cargo(Fecha.hoy(), null, nuevoPuesto); //null xq no finalizo, cuando finaliza se establece fechaFin
+        historialDeCargos.add(cargoNuevo);
+    }
+
+    public Cargo getCargoActual() {
+        return this.historialDeCargos.get(historialDeCargos.size() - 1); //el ultimo cargo agregado
+    }
 }
