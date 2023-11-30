@@ -616,7 +616,7 @@ public class Empresa {
                         if (convocatoria.quedaCupo() && convocatoria.hasPostulantes()) { 
                             String pregunta;
 
-                            if (empleadoSeleccionado == null || convocatoria.esPostulante(empleadoSeleccionado)) {
+                            if (empleadoSeleccionado == null || !convocatoria.esPostulante(empleadoSeleccionado)) {
                                 pregunta = "Quiere intentar con otro legajo?"; //xq se q el anterior ingreso no funciono
                             } else {
                                 pregunta = "Quiere agregar otro postulante?"; //xq se que el anterior funciono y lo agrego
