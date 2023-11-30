@@ -18,13 +18,10 @@ public abstract class Puesto {
         return this.nombre.equalsIgnoreCase(nombre);
     }
 
-
-
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
         Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
     } 
-
 
     public void mostrar() {
         System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
@@ -42,9 +39,12 @@ public abstract class Puesto {
         convocatorias.add(convocatoriaNueva);
     }
     
+    public void eliminarEmpleado(Empleado empleadoEliminar) {
+        empleados.remove(empleadoEliminar);
+    }
+
     public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
         this.convocatorias.remove(convocatoriaEliminar);
     }
-
 }
 

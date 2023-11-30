@@ -72,6 +72,20 @@ public abstract class Convocatoria {
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
+   
+    public boolean empleadoEstaPostulado(Empleado empleado){
+        return postulados.contains(empleado);
+    }
+    
+    public boolean empleadoEstaAsignado(Empleado empleado) {
+    	return asignados.contains(empleado);
+    }
+    
+    public boolean eliminarEmpleado(Empleado empleadoEliminar) {
+        boolean fuePostulado = postulados.remove(empleadoEliminar);
+        boolean fueAsignado = asignados.remove(empleadoEliminar);
+        return fuePostulado || fueAsignado;
+    }
 
     public Puesto getPuesto() {
         return this.puesto;
@@ -100,4 +114,5 @@ public abstract class Convocatoria {
             System.out.println("años de experiencia: " + requisitos.get(habilidad));
         }
    }
+  
 }

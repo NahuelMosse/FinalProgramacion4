@@ -18,4 +18,5 @@ public class Cargo {
     public Fecha getFechaFin() {
     	return this.fechaFin;
     }
+
 }

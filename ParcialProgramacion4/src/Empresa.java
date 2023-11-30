@@ -23,6 +23,116 @@ public class Empresa {
         this.convocatorias = new ArrayList<Convocatoria>();
         this.habilidades = new ArrayList<Habilidad>();
     }
+    
+    //CASO DE USO DAR DE BAJA EMPLEADO
+    public void darDeBajaEmpleado() {
+        Logger.header("Formulario para dar de baja empleado");
+
+    	int legajo = InputHelper.scanInt(scanner, "Numero de legajo empleado a dar de baja: ");
+    	
+    	Empleado empleadoEliminar = this.buscarEmpleado(legajo);
+    	
+        if (empleadoEliminar == null) {
+            System.out.println("ERROR: No existe empleado con el numero de legajo " + legajo);
+        } else {
+            Logger.divider();
+        	System.out.println("Información empleado a eliminar: ");
+        	empleadoEliminar.mostrar();
+        	Logger.divider();
+        	
+            //determinar si el empleado esta ASIGNADO en alguna convocatoria historica
+            boolean eliminarEmpleado = true;
+            boolean estaAsignadoEnHistorica = this.empleadoAsignadoEnConvocatoriaHistoria(empleadoEliminar);
+
+            if (estaAsignadoEnHistorica) {
+                Logger.logWarning("El empleado con legajo " + legajo + "esta registrado en convocatorias historicas, NO es recomendable eliminarlo");
+            }
+
+            int cantInscripciones = this.cantInscripcionesEmpleadoConvocatoriasAbiertas(empleadoEliminar);
+                
+            if (cantInscripciones > 0) {
+                Logger.logWarning("El empleado esta inscripto en " + cantInscripciones + " convocatorias abiertas");
+            } 
+
+            int cantAsignaciones = this.cantAsignacionesEmpleadoConvocatoriasAbiertas(empleadoEliminar);
+            if (cantAsignaciones > 0) {
+                Logger.logWarning("El empleado esta asignado en " + cantAsignaciones + " convocatorias abiertas");
+            }
+
+            //si sucede alguna de las 3 ultimas situaciones pregunto para confirmar
+            if (estaAsignadoEnHistorica || cantInscripciones > 0 || cantAsignaciones > 0) {
+                eliminarEmpleado = InputHelper.yesOrNoInput(scanner, "Quiere eliminarlo de todas formas?");
+            }
+            
+
+            if (eliminarEmpleado) {
+                //antes de eliminarlo de la lista de empresa, lo eliminamos de la lista de su puesto actual
+                Puesto puestoEmpleado = empleadoEliminar.getPuestoActual();
+                puestoEmpleado.eliminarEmpleado(empleadoEliminar);
+                
+                //eliminar de convocatorias
+                int cantConvocatorias = this.eliminarEmpleadoDeConvocatorias(empleadoEliminar);
+
+                if (cantConvocatorias > 0) {
+                    Logger.logSuccess("El empleado con legajo " + legajo + " ha sido eliminado de " + cantConvocatorias);
+                } else {
+                    Logger.logSuccess("El empleado con legajo " + legajo + " NO ha sido eliminado de convocatorias porque no esta inscripto o asignado en ninguna");
+                }
+
+                //eliminar cargos
+                empleadoEliminar.eliminarCargos();
+
+                //ahora se elimina de la lista de la empresa
+                empleados.remove(empleadoEliminar);
+
+                Logger.logSuccess("Empleado eliminado con exito");
+            } else {
+                Logger.logError("Empleado NO ha sido eliminado");
+            }
+        }
+    }
+
+    private boolean empleadoAsignadoEnConvocatoriaHistoria(Empleado empleado) {
+        int i = 0;
+        while (i < convocatorias.size() && (convocatorias.get(i).estaAbierta() || !convocatorias.get(i).empleadoEstaAsignado(empleado))) { //While para que si ya esta signado corte
+            i++;
+        }
+
+        return i < convocatorias.size();
+    }
+
+    private int cantInscripcionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
+        int i = 0;
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaPostulado(empleado)) {
+                i++;
+            }
+        }
+
+        return i;
+    }
+
+    private int cantAsignacionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
+        int i = 0;
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaAsignado(empleado)) {
+                i++;
+            }
+        }
+
+        return i;
+    }
+
+    private int eliminarEmpleadoDeConvocatorias(Empleado empleado) {
+        int i = 0;
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.eliminarEmpleado(empleado)) {
+                i++;
+            }
+        }
+        return i;
+    }
+
 
     public Habilidad crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
