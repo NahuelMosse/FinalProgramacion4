@@ -588,7 +588,7 @@ public class Empresa {
         } else {
             int opcion;
 
-            System.out.println("Menu para editar habilidad");
+            System.out.println("\nMenu para editar habilidad");
             do {
                 System.out.println("1- Editar nombre");
                 System.out.println("2- Editar descripcion");
@@ -618,7 +618,10 @@ public class Empresa {
                         break;
                     
                     case 3:
+                        Logger.divider();
+                        System.out.println("Habilidad a editar: ");
                         habilidad.mostrar();
+                        Logger.divider();
                         break;
 
                     default:
