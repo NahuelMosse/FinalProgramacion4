@@ -671,24 +671,38 @@ public class Empresa {
 
         Puesto puestoBorrar = this.buscarPuesto(nombrePuesto);
 
-        if (puestoBorrar != null) {
+        if (puestoBorrar == null) {
+            Logger.logError("NO existe  el puesto de trabajo " + nombrePuesto);
+        } else {
             Logger.header("Informacion puesto a eliminar: ");
             puestoBorrar.mostrar();
 
             int cantEmpleados = puestoBorrar.cantEmpleados();
 
-            if (cantEmpleados == 0) {
-                puestos.remove(puestoBorrar);
-
-                Logger.logSuccess("Puesto de trabajo ELIMINADO");
-
-            } else {
+            if (cantEmpleados != 0) {
                 Logger.logError("NO se puede eliminar, porque "+ cantEmpleados + " empleados tienen este puesto");
-            }
+            } else {
+                //buscar si esta en alguna convocatoria
+                boolean estaEnConvocatorias = puestoEstaEnConvocatorias(puestoBorrar);
 
-        } else {
-            Logger.logError("NO existe puesto de trabajo con este nombre");
+                if (estaEnConvocatorias) {
+                    Logger.logError("NO se puede eliminar, porque el puesto de " + nombrePuesto + " esta en convocatorias");
+                } else {
+                    puestos.remove(puestoBorrar);
+
+                    Logger.logSuccess("Puesto de trabajo " + nombrePuesto + " ha sido ELIMINADO");
+                }
+            }
         }
+    }
+
+    private boolean puestoEstaEnConvocatorias(Puesto puesto) {
+        int i = 0;
+        while (i<convocatorias.size() && !convocatorias.get(i).hasPuesto(puesto)) {
+            i++;
+        }
+
+        return i<convocatorias.size(); //si es menor, significa que salio del while porque estaba en una convocatoria 
     }
     
     //CU AGREGAR HABILIDAD EMPLEADO
