@@ -788,7 +788,7 @@ public class Empresa {
     //CU VER DATOS EMPLEADO
     public void verDatosEmpleado()
     {
-    	Logger.header("Formulario para ingresar empleado");
+    	Logger.header("Mostrar empleado");
     	
     	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
