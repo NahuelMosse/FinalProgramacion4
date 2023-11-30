@@ -619,35 +619,30 @@ public class Empresa {
 		}	
     }
     
-    //CU EDITAR ANNIOS EMPLEADOS
-    public void editarAnniosEmpleado()
-    {
-    	Logger.header("Formulario Editar Annios Empleados");
+    //CU EDITAR ANNOS EMPLEADOS
+    public void editarAnnosEmpleado() {
+    	Logger.header("Formulario Editar Annos Empleados");
     	
     	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+
     	Empleado unEmpleado = this.buscarEmpleado(unLegajo);
-    	if (unEmpleado == null)
-		{
+        
+    	if (unEmpleado == null) {
 			Logger.logError("NO existe el empleado");
-		}
-		
-			System.out.println("Ingrese el nombre de la habilidad:");
+		} else {
+            System.out.print("Ingrese el nombre de la habilidad:");
 			String nombre = scanner.nextLine();
+
 			Habilidad habilidad = this.buscarHabilidad(nombre);
-			if(habilidad == null) // si la encontre
-			{
+
+			if(habilidad == null) {
 				Logger.logError("NO existe la habilidad");
-			}
-			else 
-			{
+			} else {
 				int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
-				unEmpleado.modificarAnios(habilidad,annosExperiencia);
+				unEmpleado.modificarAnnos(habilidad,annosExperiencia);
 			}
-		}
-		
-     
-
-
+        }
+	}
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {

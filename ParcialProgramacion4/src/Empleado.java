@@ -56,7 +56,7 @@ public class Empleado {
         if(habilidades.containsKey(habilidad)) { 
             Logger.logError("Ya existe la habilidad no corresponde a este CU");
         }
-        
+
 		habilidades.put(habilidad,annosExperiencia);
 
         Logger.logSuccess("Habilidad agregada al empleado con exito");
@@ -78,12 +78,13 @@ public class Empleado {
 	}
     
     
-    public void modificarAnios(Habilidad habilidad,int annosExperiencia)
-    {
+    public void modificarAnnos(Habilidad habilidad,int annosExperiencia) {
         if (!habilidades.containsKey(habilidad)) {
             Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
         } else {
             habilidades.put(habilidad, annosExperiencia);
+
+            Logger.logSuccess("Experiencia del empleado actualizada con exito");
         }
     }
 
