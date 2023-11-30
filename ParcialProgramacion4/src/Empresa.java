@@ -638,7 +638,7 @@ public class Empresa {
         
         ArrayList<Convocatoria>convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
 
-        if (convocatoriaPuedeAplicar.size() > 0) {
+        if (convocatoriaPuedeAplicar.size() == 0) {
             Logger.logSuccess("Lo sentimos, NO puede aplicar a NINGUNA convocatoria");
         } else {
             Logger.header("Convocatorias disponibles");
