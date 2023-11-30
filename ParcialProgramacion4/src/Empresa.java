@@ -591,32 +591,27 @@ public class Empresa {
 		
 
     //CU QUITAR HABILIDAD EMPLEADO 
-    public void quitarHabilidadEmpleado()
-    {
+    public void quitarHabilidadEmpleado() {
     	Logger.header("Formulario Quitar Habilidad de Empleado");
     	
-    	
     	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
 
-		if (unEmpleado == null)
-		{
-			Logger.logError("No Existe Empleado");
+		if (unEmpleado == null) {
+			Logger.logError("No existe Empleado");
+		} else {
+            System.out.print("Ingrese el nombre de la habilidad:");
+            String nombre = scanner.nextLine();
+
+            Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+            
+            if(habilidadExistente == null) {
+                Logger.logError("Habilidad Inexistente");
+            } else {
+                unEmpleado.eliminarHabilidad(habilidadExistente);
+            }
 		}
-			else
-			{
-				System.out.print("Ingrese el nombre de la habilidad:");
-				String nombre = scanner.nextLine();
-				Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-				if(habilidadExistente == null) // si la encontre
-				{
-					Logger.logError("Habilidad Inexistente");
-				}
-				else 
-				{
-					unEmpleado.eliminarHabilidad(habilidadExistente);
-				}
-		}	
     }
     
     //CU EDITAR ANNOS EMPLEADOS

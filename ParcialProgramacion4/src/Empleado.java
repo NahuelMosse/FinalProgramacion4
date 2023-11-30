@@ -61,22 +61,12 @@ public class Empleado {
 
         Logger.logSuccess("Habilidad agregada al empleado con exito");
     }
-
-
    
-    public void eliminarHabilidad(Habilidad habilidad)
-    {
-    	
-		if (habilidades.remove(habilidad) != null)
-		{
-		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.hasNombre(nombre));
-		} 
-		else //para mi no hace falta este else nawe
-		{
-			habilidades.remove(habilidad);
+    public void eliminarHabilidad(Habilidad habilidad) {
+		if (habilidades.remove(habilidad) != null) {
+		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
 		}
 	}
-    
     
     public void modificarAnnos(Habilidad habilidad,int annosExperiencia) {
         if (!habilidades.containsKey(habilidad)) {
@@ -87,8 +77,6 @@ public class Empleado {
             Logger.logSuccess("Experiencia del empleado actualizada con exito");
         }
     }
-
-	
 
     public void mostrarHabilidades() {
         Habilidad habilidad;
