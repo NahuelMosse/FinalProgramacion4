@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import utilidades.Logger;
 
 public abstract class Puesto {
     private String nombre;
@@ -12,11 +13,15 @@ public abstract class Puesto {
         this.convocatorias = new ArrayList<Convocatoria>();
         this.empleados = new ArrayList<Empleado>();
     }
-    
+  
     public boolean hasNombre(String nombre) {
-    	return this.nombre.equalsIgnoreCase(nombre);
+        return this.nombre.equalsIgnoreCase(nombre);
     }
 
+    public void agregarEmpleado(Empleado empleadoNuevo) {
+        empleados.add(empleadoNuevo);
+        Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
+    } 
 
     public void mostrar() {
         System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
@@ -25,7 +30,7 @@ public abstract class Puesto {
     public int cantEmpleados() {
         return empleados.size();
     }
-    
+
     public boolean esJerarquico() {
         return this.getClass().getName().equalsIgnoreCase("PuestoJerarquico");
     }
@@ -37,4 +42,9 @@ public abstract class Puesto {
     public void eliminarEmpleado(Empleado empleadoEliminar) {
         empleados.remove(empleadoEliminar);
     }
+
+    public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
+        this.convocatorias.remove(convocatoriaEliminar);
+    }
 }
+
