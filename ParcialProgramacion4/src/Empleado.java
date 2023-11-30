@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Scanner;
+
 import utilidades.Fecha;
+import utilidades.InputHelper;
 import utilidades.Logger;
 
 public class Empleado {
@@ -51,27 +54,32 @@ public class Empleado {
 
     
   
-    public void agregarHabilidad(Habilidad habilidad,int annosExperiencia)
-    {
+    public void agregarHabilidad(Scanner scanner, Habilidad habilidad) {
         if(habilidades.containsKey(habilidad)) { 
-            Logger.logError("Ya existe la habilidad no corresponde a este CU");
+            Logger.logError("El empleado ya tiene registrada esta habilidad");
+        } else {
+            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+
+            habilidades.put(habilidad, annosExperiencia);
+
+            Logger.logSuccess("Habilidad agregada al empleado con exito");
         }
-
-		habilidades.put(habilidad,annosExperiencia);
-
-        Logger.logSuccess("Habilidad agregada al empleado con exito");
     }
    
     public void eliminarHabilidad(Habilidad habilidad) {
-		if (habilidades.remove(habilidad) != null) {
+		if (habilidades.remove(habilidad) == null) {
 		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
-		}
+		} else  {
+            Logger.logSuccess("Habilidad eliminada con exito");
+        }
 	}
     
-    public void modificarAnnos(Habilidad habilidad,int annosExperiencia) {
+    public void modificarAnnos(Scanner scanner, Habilidad habilidad) {
         if (!habilidades.containsKey(habilidad)) {
             Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
         } else {
+            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+
             habilidades.put(habilidad, annosExperiencia);
 
             Logger.logSuccess("Experiencia del empleado actualizada con exito");

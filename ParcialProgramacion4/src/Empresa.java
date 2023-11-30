@@ -24,7 +24,7 @@ public class Empresa {
         this.habilidades = new ArrayList<Habilidad>();
     }
 
-    public void crearUnaHabilidad() {
+    public Habilidad crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
 
     	System.out.print("Nombre: ");
@@ -38,7 +38,7 @@ public class Empresa {
 			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.crearUnaHabilidad();
+	        	return this.crearUnaHabilidad();
 	        }
 		} else {
 			System.out.print("Descripcion: ");
@@ -49,10 +49,14 @@ public class Empresa {
             this.habilidades.add(habilidadNueva);
 
             Logger.logSuccess("Habilidad registrada con exito");
+
+            return habilidadNueva;
 		}
+
+        return null;
     }
 
-    public void crearUnaHabilidad(String nombre) {
+    public Habilidad crearUnaHabilidad(String nombre) {
     	Logger.header("Formulario para crear una habilidad");
 
 		Habilidad habilidadExistente = this.buscarHabilidad(nombre);
@@ -63,7 +67,7 @@ public class Empresa {
 			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 	        
 	        if (continuar) {
-	        	this.crearUnaHabilidad();
+	        	return this.crearUnaHabilidad();
 	        }
 		} else {
 			System.out.print("Descripcion: ");
@@ -74,7 +78,11 @@ public class Empresa {
             this.habilidades.add(habilidadNueva);
 
             Logger.logSuccess("Habilidad registrada con exito");
+
+            return habilidadNueva;
 		}
+
+        return null;
     }
     
     public void agregarPuesto() {
@@ -567,7 +575,7 @@ public class Empresa {
 	{
     	Logger.header("Formulario Agregar Habilidad de Empleado");
 		
-		int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+		int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
 
 		Empleado unEmpleado = this.buscarEmpleado(unLegajo);
 
@@ -581,11 +589,10 @@ public class Empresa {
 			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
 
 			if(habilidadExistente == null) {
-				this.crearUnaHabilidad(nombre);
+				habilidadExistente = this.crearUnaHabilidad(nombre);
 			}
 
-            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
-            unEmpleado.agregarHabilidad(habilidadExistente, annosExperiencia);
+            unEmpleado.agregarHabilidad(scanner, habilidadExistente);
 		}	
 	}
 		
@@ -594,18 +601,18 @@ public class Empresa {
     public void quitarHabilidadEmpleado() {
     	Logger.header("Formulario Quitar Habilidad de Empleado");
     	
-    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
 
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
 
 		if (unEmpleado == null) {
-			Logger.logError("No existe Empleado");
+			Logger.logError("No existe el empleado");
 		} else {
-            System.out.print("Ingrese el nombre de la habilidad:");
+            System.out.print("Ingrese el nombre de la habilidad: ");
             String nombre = scanner.nextLine();
 
             Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-            
+
             if(habilidadExistente == null) {
                 Logger.logError("Habilidad Inexistente");
             } else {
@@ -618,14 +625,14 @@ public class Empresa {
     public void editarAnnosEmpleado() {
     	Logger.header("Formulario Editar Annos Empleados");
     	
-    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
 
     	Empleado unEmpleado = this.buscarEmpleado(unLegajo);
         
     	if (unEmpleado == null) {
 			Logger.logError("NO existe el empleado");
 		} else {
-            System.out.print("Ingrese el nombre de la habilidad:");
+            System.out.print("Ingrese el nombre de la habilidad: ");
 			String nombre = scanner.nextLine();
 
 			Habilidad habilidad = this.buscarHabilidad(nombre);
@@ -633,8 +640,7 @@ public class Empresa {
 			if(habilidad == null) {
 				Logger.logError("NO existe la habilidad");
 			} else {
-				int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
-				unEmpleado.modificarAnnos(habilidad,annosExperiencia);
+				unEmpleado.modificarAnnos(scanner, habilidad);
 			}
         }
 	}
