@@ -17,8 +17,8 @@ public class Ejecutora {
     	System.out.println("\nEzequiel Spagnoli - Horacio Balart - Nahuel Mosse - Nicolas Colli - Santiago Nunnez");
     	Logger.divider();
 
-        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico
-        // PuestoJerarquico.setAnnosMinimosParaCambiar();
+        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico, es 4 años excepto que se modifique
+		PuestoJerarquico.setAnnosMinimosParaCambiar(4);
 
         Ejecutora.menuPrincipal();
 
@@ -95,7 +95,7 @@ public class Ejecutora {
 	            empresa.agregarEmpleado();
 	            break;
 	        case 2:
-	            	
+	            empresa.darDeBajaEmpleado();
 	            break;
 	        case 3:
 	            empresa.agregarPuesto();   
@@ -110,7 +110,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 7:
-	            	
+	            empresa.borrarHabilidad();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -161,7 +161,7 @@ public class Ejecutora {
 	            empresa.mostrarConvocatoriasAbiertas();
 	            break;
 	        case 6:
-	            	
+	            empresa.mostrarConvocatoriasPuedaAplicarEmpleado();
 	            break;
 	        case 7:
 	            // empresa.inscribirEmpleadoConvocatoria();
@@ -213,7 +213,7 @@ public class Ejecutora {
 	        	empresa.agregarHabilidadEmpleado();    
 	            break;
 	        case 5:
-	        	empresa.editarAnniosEmpleado();    
+	        	empresa.editarAnnosEmpleado();    
 	            break;
 	        case 6:
 	        	empresa.quitarHabilidadEmpleado();	
