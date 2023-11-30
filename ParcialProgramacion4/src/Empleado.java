@@ -31,7 +31,7 @@ public class Empleado {
 
 
     public void mostrar() {
-        System.out.println("legajo: " + legajo);
+        System.out.println("Legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();

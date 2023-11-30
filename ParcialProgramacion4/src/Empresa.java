@@ -599,12 +599,14 @@ public class Empresa {
                     Empleado empleadoSeleccionado;
                     boolean agregarOtro = true;
 
+                    System.out.println("\n Elegir postulantes: ");
+
                     do {
                         legajoEmpleado = InputHelper.scanInt(scanner, "Legajo postulante seleccionado: ");
 
                         empleadoSeleccionado = this.buscarEmpleado(legajoEmpleado);
 
-                        if (empleadoSeleccionado == null || convocatoria.esPostulante(empleadoSeleccionado)) {
+                        if (empleadoSeleccionado == null || !convocatoria.esPostulante(empleadoSeleccionado)) {
                             Logger.logError("No existe un postulante con el legajo " + legajoEmpleado);
                         } else {
                             convocatoria.asignarEmpleado(empleadoSeleccionado);
