@@ -64,5 +64,10 @@ public class Empleado {
     }
 
 
+    public void eliminarCargos() {
+        for (Cargo cargo: historialDeCargos) {
+            historialDeCargos.remove(cargo);
+        }
+    }
 
 }

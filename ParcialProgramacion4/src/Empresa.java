@@ -79,6 +79,9 @@ public class Empresa {
                     Logger.logSuccess("El empleado con legajo " + legajo + " NO ha sido eliminado de convocatorias porque no esta inscripto o asignado en ninguna");
                 }
 
+                //eliminar cargos
+                empleadoEliminar.eliminarCargos();
+
                 //ahora se elimina de la lista de la empresa
                 empleados.remove(empleadoEliminar);
 
