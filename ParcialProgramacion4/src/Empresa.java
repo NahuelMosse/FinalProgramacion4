@@ -595,10 +595,10 @@ public class Empresa {
 
         do {
             Logger.header("Menu Consultar Convocatorias");
-            System.out.println("1- Ver todas las convocatorias a las que puede aplicar");
-            System.out.println("2- Ver convocatorias de un puesto especifico");
-            System.out.println("3- Ver convocatorias para un rango de salario");
-            System.out.println("0- Volver");
+            System.out.println("[1] Ver todas las convocatorias a las que puede aplicar");
+            System.out.println("[2] Ver convocatorias de un puesto especifico");
+            System.out.println("[3] Ver convocatorias para un rango de salario");
+            System.out.println("[0] Volver");
 
             opcion = InputHelper.scanInt(scanner, "Opcion: ");
 
