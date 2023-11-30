@@ -14,10 +14,15 @@ public class Habilidad {
     	
         return nombreHabilidadSinEspacios.equalsIgnoreCase(nombreABuscarSinEspacios);
     }
-
+	
     public void mostrar() {
         System.out.println("Nombre: " + nombre);
-        System.out.println("Descripcion: " + descripcion);
+        System.out.println("Descripcion: ");
+        System.out.println(descripcion);
+    }
+
+    public String getNombre() {
+        return this.nombre;
     }
 
 }
