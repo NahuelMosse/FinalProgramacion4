@@ -518,7 +518,7 @@ public class Empresa {
         Puesto puestoBorrar = this.buscarPuesto(nombrePuesto);
 
         if (puestoBorrar == null) {
-            Logger.logError("NO existe puesto de trabajo con este nombre");
+            Logger.logError("NO existe  el puesto de trabajo " + nombrePuesto);
         } else {
             Logger.header("Informacion puesto a eliminar: ");
             puestoBorrar.mostrar();
