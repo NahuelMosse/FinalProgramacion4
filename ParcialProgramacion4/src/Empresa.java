@@ -886,7 +886,7 @@ public class Empresa {
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
 
         if (unEmpleado == null) {
-            Logger.logError("NO existe el empleado");
+            Logger.logError("NO existe el empleado con legajo " + unEmpleado);
         } else {
             Logger.divider();
             unEmpleado.mostrar();
