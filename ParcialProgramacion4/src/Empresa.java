@@ -627,25 +627,15 @@ public class Empresa {
                         } else {
                             //Determino porque no puedo seguir, para informarle al usuario
                             if (!convocatoria.quedaCupo()) {
-
                                 Logger.logSuccess("Ya no puede seleccionar a mas postulantes porque se quedo sin cupo");
-                            
+                                Logger.logSuccess("Convocatoria cerrada");
                             } else { 
-
                                 Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas");
-                            
+                                Logger.logSuccess("Aun puede asignar a " + convocatoria.getCantRestante() + " postulantes al puesto de " + convocatoria.getPuesto().getNombre() + " para esta convocatoria");
                             }
-                            
                         }
-
+                        
                     } while (convocatoria.quedaCupo() && convocatoria.hasPostulantes() && agregarOtro);
-
-
-                    if (convocatoria.quedaCupo()) { //si salio x esto es poque todavia la convocatoria esta abierta
-                        Logger.logSuccess("Aun puede asignar a " + convocatoria.getCantRestante() + " postulantes al puesto de " + convocatoria.getPuesto().getNombre() + " para esta convocatoria");
-                    } else {
-                        Logger.logSuccess("Convocatoria cerrada porque se quedo sin cupo");
-                    }
                 }
             }
         }
