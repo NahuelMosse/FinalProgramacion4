@@ -95,7 +95,7 @@ public class Ejecutora {
 	            empresa.agregarEmpleado();
 	            break;
 	        case 2:
-	            	
+	            empresa.darDeBajaEmpleado();
 	            break;
 	        case 3:
 	            empresa.agregarPuesto();   
@@ -110,7 +110,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 7:
-	            	
+	            empresa.borrarHabilidad();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -211,13 +211,13 @@ public class Ejecutora {
 	                
 	            break;
 	        case 4:
-	                
+	        	empresa.agregarHabilidadEmpleado();    
 	            break;
 	        case 5:
-	                
+	        	empresa.editarAnnosEmpleado();    
 	            break;
 	        case 6:
-	            	
+	        	empresa.quitarHabilidadEmpleado();	
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
