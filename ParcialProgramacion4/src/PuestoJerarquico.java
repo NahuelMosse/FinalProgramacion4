@@ -17,7 +17,7 @@ public class PuestoJerarquico extends Puesto{
     //variables de clase
     public static void setAnnosMinimosParaCambiar(){
         Scanner scanner = new Scanner(System.in);
-        PuestoJerarquico.annosMinimosParaCambiar = InputHelper.scanInt(scanner, "Ingrese la cantidad minima de annios requerida para cambiar a un puesto Jerarquico:");
+        PuestoJerarquico.annosMinimosParaCambiar = InputHelper.scanInt(scanner, "Ingrese la cantidad minima de años requerida para cambiar a un puesto Jerarquico:");
         scanner.close();
     }
 
