@@ -1033,5 +1033,21 @@ public class Empresa {
 
         return i<convocatorias.size();
     }
+
+    //CU VER DATOS EMPLEADO
+    public void verDatosEmpleado() {
+        Logger.header("Mostrar empleado");
+
+        int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+
+        if (unEmpleado == null) {
+            Logger.logError("NO existe el empleado con legajo " + unEmpleado);
+        } else {
+            Logger.divider();
+            unEmpleado.mostrar();
+            Logger.divider();
+        }
+    }
 }
 
