@@ -609,36 +609,37 @@ public class Empresa {
 
                     convocatoria = this.buscarConvocatoria(codigoConvocatoria);
 
-                    if (convocatoria != null) {
+                    if (convocatoria == null) {
+
+                        Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
+
+                    } else {
+
+                        if (!convocatoria.puedeAplicar(empleado)) {
+
+                            Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
                         
-                        if (convocatoria.puedeAplicar(empleado)) {
+                        } else {
 
                             convocatoria.inscribirEmpleado(empleado);
 
                             Logger.logSuccess("El empleado con legajo " + legajoEmpleado + " ha sido añadido exitosamente a la convocatoria con codigo " + codigoConvocatoria);
 
                             cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias si no puede
-
-                        } else {
-                            Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
                         }
-
-                    } else {
-                        Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
                     }
 
-                    if (cantPuedeAplicar > 0) { //si se inscribio en la ultima posible, ya no pregunta
-                        otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
-                    } else {
+                    if (cantPuedeAplicar == 0) { //si se inscribio en la ultima posible, ya no pregunta
                         otra = false;
                         Logger.logSuccess("No tiene mas convocatorias disponibles para inscribirse");
+                    } else {
+                        otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
                     }
 
                 } while (otra);
 
             }
 
-            
         }
     }
 }
