@@ -816,6 +816,148 @@ public class Empresa {
     }
 
 
+    //CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
+    public void mostrarConvocatoriasPuedaAplicarEmpleado() {
+        //le muestro al empleado todas las convocatorias que pueda aplicar de todos los puestos
+        Logger.header("Convocatorias disponibles para el empleado");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo empleado: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con ese legajo");
+        } else {
+            this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
+        }
+    }
+
+    public void mostrarConvocatoriasPuedaAplicarEmpleado(Empleado empleadoAplicar) {
+        if (!this.hayConvocatoriasAbiertas()) {
+            
+            Logger.logSuccess("Lo sentimos, NO existen convocatoria abiertas");
+
+        } else {
+            int opcion = 0;
+
+            do {
+                Logger.header("Menu Consultar Convocatorias");
+                System.out.println("[1] Ver todas las convocatorias a las que puede aplicar");
+                System.out.println("[2] Ver convocatorias de un puesto especifico");
+                System.out.println("[3] Ver convocatorias para un rango de salario");
+                System.out.println("[0] Volver");
+
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+                    
+                    case 1:
+                        this.mostrarTodasConvocatoriasPuedaAplicar(empleadoAplicar);
+                        break;
+
+                    case 2:
+                        this.mostrarConvocatoriasPuestoPuedeAplicar(empleadoAplicar);
+                        break;
+
+                    case 3:
+                        this.mostrarConvocatoriasPuedaAplicarRangoSalario(empleadoAplicar);
+                        break;
+                
+                    default:
+                        Logger.logError("Opcion no disponible");
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+
+        
+    }
+    
+    private void mostrarTodasConvocatoriasPuedaAplicar(Empleado empleadoAplicar) {
+        
+        ArrayList<Convocatoria>convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
+
+        if (convocatoriaPuedeAplicar.size() == 0) {
+            Logger.logSuccess("Lo sentimos, NO puede aplicar a NINGUNA convocatoria");
+        } else {
+            Logger.header("Convocatorias disponibles");
+            for (Convocatoria convocatoria : convocatoriaPuedeAplicar) {
+                convocatoria.mostrar(); //muestra sin los datos de los postulantes y asignados xq esta pensado para que lo vea el empleado
+            }
+        }
+        
+    }
+
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
+
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                convocatoriasPuedeAplicar.add(convocatoria);
+            }
+        }
+
+        return convocatoriasPuedeAplicar;
+    } 
+
+
+    private void mostrarConvocatoriasPuestoPuedeAplicar(Empleado empleadoAplicar) {
+        System.out.print("Nombre del puesto a aplicar: ");
+        String nombrePuesto = scanner.nextLine();
+
+        Puesto puestoAplicar = this.buscarPuesto(nombrePuesto);
+
+        if (puestoAplicar == null) {
+            Logger.logError("No existe un puesto llamado '" + nombrePuesto + "'");
+        } else {
+            puestoAplicar.mostrarConvocatoriasPuedeAplicar(empleadoAplicar);
+        }
+    }
+
+    private void mostrarConvocatoriasPuedaAplicarRangoSalario(Empleado empleadoAplicar) {
+        
+        float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
+        float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
+
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = convocatoriasPuedeAplicarRango(empleadoAplicar, salarioMin, salarioMax);
+
+        if (convocatoriasPuedeAplicar.size() == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango " + salarioMin +" - " + salarioMax);
+        } else {
+            Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
+            for (Convocatoria convocatoria: convocatoriasPuedeAplicar) {
+                convocatoria.mostrar();
+            }
+        }
+        
+    }
+
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicarRango(Empleado empleadoAplicar, float salarioMin, float salarioMax) {
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
+
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin,salarioMax)) {
+                convocatoriasPuedeAplicar.add(convocatoria);
+            }
+        }
+
+        return convocatoriasPuedeAplicar;
+    } 
+
+
+    private boolean hayConvocatoriasAbiertas() {
+        int i = 0;
+
+        while (i<convocatorias.size() && !convocatorias.get(i).estaAbierta()) {
+            i++;
+        }
+
+        return i < convocatorias.size();
+    }
+
     //CASO DE USO BORRAR HABILIDAD DEL SISTEMA
     public void borrarHabilidad() {
         Logger.header("Borrar habilidad");
