@@ -95,7 +95,7 @@ public class Empresa {
         int i = 0;
         while (i<convocatorias.size() && !estaAsignadoEnHistorica) { //While para que si ya esta signado corte
             convocatoria = convocatorias.get(i);
-            if (!convocatoria.estaAbierta() && convocatoria.estaInscripto(empleado)) {
+            if (!convocatoria.estaAbierta() && convocatoria.empleadoEstaAsignado(empleado)) {
                 estaAsignadoEnHistorica = true;
             }
             
@@ -108,7 +108,7 @@ public class Empresa {
     private int cantInscripcionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
         int i = 0;
         for (Convocatoria convocatoria: convocatorias) {
-            if (convocatoria.estaAbierta() && convocatoria.estaInscripto(empleado)) {
+            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaPostulado(empleado)) {
                 i++;
             }
         }
@@ -119,7 +119,7 @@ public class Empresa {
     private int cantAsignacionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
         int i = 0;
         for (Convocatoria convocatoria: convocatorias) {
-            if (convocatoria.estaAbierta() && convocatoria.estaAsignado(empleado)) {
+            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaAsignado(empleado)) {
                 i++;
             }
         }

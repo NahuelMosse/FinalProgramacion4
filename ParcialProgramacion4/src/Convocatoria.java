@@ -33,16 +33,8 @@ public abstract class Convocatoria {
     }
     
     //1. El empleadoInscribir no puede estar en lista de postulados o asignados
-    public boolean empEstaInscripto(Empleado empleadoInscribir){
-        int i = 0;
-        while (i<postulados.size() && (postulados.get(i) != empleadoInscribir)) {
-            i++;
-        }
-
-        if(i<postulados.size()) 
-            return true;
-        else 
-            return false;
+    public boolean empleadoEstaPostulado(Empleado empleado){
+        return postulados.contains(empleado);
     }
     
     public boolean noPasoFecha() {
