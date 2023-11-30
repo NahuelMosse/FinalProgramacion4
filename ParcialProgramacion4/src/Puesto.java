@@ -24,7 +24,14 @@ public abstract class Puesto {
     } 
 
     public void mostrar() {
-        System.out.println("Nombre: "+ nombre + " | sueldo: " + sueldo);
+        String tipo;
+        if (this.esJerarquico()) {
+            tipo = "Jerarquico";
+        } else {
+            tipo = "No jerarquico";
+        }
+
+        System.out.println(nombre + " | sueldo: " + sueldo + " | tipo: " + tipo);
     }
 
     public int cantEmpleados() {
@@ -46,5 +53,55 @@ public abstract class Puesto {
     public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
         this.convocatorias.remove(convocatoriaEliminar);
     }
+
+    public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        //misma logica que metodos de Empresa, solo que esta en Puesto
+        
+        ArrayList<Convocatoria>convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
+
+        if (convocatoriaPuedeAplicar.size() == 0) {
+            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
+        } else {
+            Logger.header("Convocatorias disponibles para " + nombre);
+            for (Convocatoria convocatoria: convocatoriaPuedeAplicar) {
+                convocatoria.mostrar();
+            }
+        }
+        
+    }
+
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
+
+        for (Convocatoria convocatoria: convocatorias) {
+            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+                convocatoriasPuedeAplicar.add(convocatoria);
+            }
+        }
+
+        return convocatoriasPuedeAplicar;
+    } 
+
+
+
+    public boolean dentroDeRango(float salarioMin, float salarioMax) {
+        return (sueldo >= salarioMin) && (sueldo <= salarioMax);
+    }
+
+
+    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
+        return true; //comparo en PuestoJerarquico, aca no hay condicion
+    }
+
+    private boolean hayConvocatoriasAbiertas() {
+        int i = 0;
+        for (Convocatoria convocatoria : convocatorias) {
+            if (convocatoria.estaAbierta()) {
+                i++;
+            }
+        }
+        return i > 0;
+    }
+
 }
 
