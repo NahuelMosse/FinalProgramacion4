@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Scanner;
+
 import utilidades.Fecha;
+import utilidades.InputHelper;
+import utilidades.Logger;
 
 public class Empleado {
     private int legajo;
@@ -33,10 +37,26 @@ public class Empleado {
     public void mostrar() {
         System.out.println("legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
+        System.out.println("Edad: " + this.calcularEdad());
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();
         System.out.println("Habilidades: ");
         this.mostrarHabilidades();
+    }
+
+    public int calcularEdad() {
+        Fecha hoy = Fecha.hoy();
+        int edad = hoy.getAño() - fechaNacimiento.getAño();
+
+        if (hoy.getMes() < fechaNacimiento.getMes()) {
+            edad--;
+        } else {
+            if (hoy.getMes() == fechaNacimiento.getMes() && hoy.getDia() < fechaNacimiento.getDia()) {
+                edad--; 
+            }
+        }
+
+        return edad;
     }
   
     public boolean hasLegajo(int legajo) {
@@ -58,6 +78,54 @@ public class Empleado {
 
             System.out.println("años de experiencia: " + habilidades.get(habilidad));
         }
+    }
+
+    public void editarInformacion() {
+        Scanner scanner = new Scanner(System.in);
+
+        int opcion = 0;
+
+        do {
+            System.out.println("1- Editar nombre");
+            System.out.println("2- Editar apellido");
+            System.out.println("3- Editar fecha de nacimiento");
+            System.out.println("4- Ver informacion personal");
+
+            opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Nombre anterior: " + nombre);
+                    System.out.print("Nuevo nombre: ");
+                    nombre = scanner.nextLine();
+                    Logger.logSuccess("Nombre actualizado");
+                    break;
+
+                case 2:
+                    System.out.println("Apellido anterior: " + apellido);
+                    System.out.print("Nuevo apellido: ");
+                    apellido = scanner.nextLine();
+                    Logger.logSuccess("Apellido actualizado");
+                    break;
+
+                case 3:
+                    System.out.println("Fecha de nacimiento: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
+                    System.out.println("Nueva fecha: ");
+                    fechaNacimiento = Fecha.nuevaFecha();
+                    Logger.logSuccess("Fecha de nacimiento actualizada");
+                    break;
+
+                case 4:
+                    this.mostrar();
+                    break;
+
+                default:
+                    break;
+            }
+
+        } while (opcion != 0);
+
+        scanner.close();
     }
 
 }

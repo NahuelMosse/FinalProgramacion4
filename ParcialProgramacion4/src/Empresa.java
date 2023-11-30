@@ -572,4 +572,21 @@ public class Empresa {
             }
         }
     }
+
+
+    public void editarInformacionEmpleado() {
+        Logger.header("Formulario para editar informacion personal del empleado");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con el legajo " + legajoEmpleado);
+        } else {
+            empleado.editarInformacion();
+        }
+    }
+
+
 }
