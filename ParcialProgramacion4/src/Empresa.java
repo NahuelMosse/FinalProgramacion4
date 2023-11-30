@@ -51,6 +51,31 @@ public class Empresa {
             Logger.logSuccess("Habilidad registrada con exito");
 		}
     }
+
+    public void crearUnaHabilidad(String nombre) {
+    	Logger.header("Formulario para crear una habilidad");
+
+		Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+		
+		if (habilidadExistente != null) {
+			Logger.logError("Ya existe una habilidad con este nombre");
+			
+			boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
+	        
+	        if (continuar) {
+	        	this.crearUnaHabilidad();
+	        }
+		} else {
+			System.out.print("Descripcion: ");
+            String descripcion = scanner.nextLine();
+
+            Habilidad habilidadNueva = new Habilidad(nombre, descripcion);
+
+            this.habilidades.add(habilidadNueva);
+
+            Logger.logSuccess("Habilidad registrada con exito");
+		}
+    }
     
     public void agregarPuesto() {
     	Logger.header("Formulario para crear un nuevo puesto de trabajo");
@@ -541,7 +566,6 @@ public class Empresa {
     public void agregarHabilidadEmpleado()
 	{
     	Logger.header("Formulario Agregar Habilidad de Empleado");
-    	
 		
 		int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
 
@@ -555,17 +579,13 @@ public class Empresa {
 			String nombre = scanner.nextLine();
 			
 			Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-			if(habilidadExistente != null) 
-			{
-				int unaCantidadDeTiempo = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
-				unEmpleado.agregarHabilidad(habilidadExistente,unaCantidadDeTiempo);		
+
+			if(habilidadExistente == null) {
+				this.crearUnaHabilidad(nombre);
 			}
-			else 
-			{
-				this.crearUnaHabilidad();
-				int unaCantidadDeTiempo = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
-				unEmpleado.agregarHabilidad(habilidadExistente,unaCantidadDeTiempo);	
-			}
+
+            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+            unEmpleado.agregarHabilidad(habilidadExistente, annosExperiencia);
 		}	
 	}
 		

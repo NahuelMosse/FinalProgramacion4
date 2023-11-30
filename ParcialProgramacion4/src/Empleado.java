@@ -53,11 +53,13 @@ public class Empleado {
   
     public void agregarHabilidad(Habilidad habilidad,int annosExperiencia)
     {
-    	  if(habilidades.containsKey(habilidad))
-    	  { 
-          	Logger.logError("Ya existe la habilidad no corresponde a este CU");
-          }
+        if(habilidades.containsKey(habilidad)) { 
+            Logger.logError("Ya existe la habilidad no corresponde a este CU");
+        }
+        
 		habilidades.put(habilidad,annosExperiencia);
+
+        Logger.logSuccess("Habilidad agregada al empleado con exito");
     }
 
 
