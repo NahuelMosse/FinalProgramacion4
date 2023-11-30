@@ -11,12 +11,6 @@ public class Logger {
 	public static void logSuccess(String stringSuccess) {
 		System.out.println("\n" + stringSuccess + " !!!");
 	}
-
-	public static void logWarning(String stringWarning) {
-		Logger.divider();
-		System.out.println("ALERTA: " + stringWarning);
-		Logger.divider();
-	}
 	
 	public static void divider() {
 		System.out.println("--------------------------------------------------------------------------------------");
