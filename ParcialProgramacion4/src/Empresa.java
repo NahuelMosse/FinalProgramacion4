@@ -32,8 +32,10 @@ public class Empresa {
     	
     	Empleado empleadoEliminar = this.buscarEmpleado(legajo);
     	
-    	if (empleadoEliminar != null) {
-    		Logger.divider();
+        if (empleadoEliminar == null) {
+            System.out.println("ERROR: No existe empleado con el numero de legajo " + legajo);
+        } else {
+            Logger.divider();
         	System.out.println("Información empleado a eliminar: ");
         	empleadoEliminar.mostrar();
         	Logger.divider();
@@ -74,7 +76,7 @@ public class Empresa {
                 if (cantConvocatorias > 0) {
                     Logger.logSuccess("El empleado con legajo " + legajo + " ha sido eliminado de " + cantConvocatorias);
                 } else {
-                    Logger.logSuccess("El empleado con legajo " + legajo + " NO ha sido eliminado de convocatorias xq no esta inscripto o asignado en ninguna");
+                    Logger.logSuccess("El empleado con legajo " + legajo + " NO ha sido eliminado de convocatorias porque no esta inscripto o asignado en ninguna");
                 }
 
                 //ahora se elimina de la lista de la empresa
@@ -84,27 +86,16 @@ public class Empresa {
             } else {
                 Logger.logError("Empleado NO ha sido eliminado");
             }
-    		
-    	} else {
-    		System.out.println("ERROR: No existe empleado con el numero de legajo " + legajo);
-    	}
+        }
     }
 
     private boolean empleadoAsignadoEnConvocatoriaHistoria(Empleado empleado) {
-        boolean estaAsignadoEnHistorica = false;
-        Convocatoria convocatoria;
-
         int i = 0;
-        while (i<convocatorias.size() && !estaAsignadoEnHistorica) { //While para que si ya esta signado corte
-            convocatoria = convocatorias.get(i);
-            if (!convocatoria.estaAbierta() && convocatoria.empleadoEstaAsignado(empleado)) {
-                estaAsignadoEnHistorica = true;
-            }
-            
+        while (i < convocatorias.size() && (convocatorias.get(i).estaAbierta() || !convocatorias.get(i).empleadoEstaAsignado(empleado))) { //While para que si ya esta signado corte
             i++;
         }
 
-        return i<convocatorias.size();
+        return i < convocatorias.size();
     }
 
     private int cantInscripcionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
