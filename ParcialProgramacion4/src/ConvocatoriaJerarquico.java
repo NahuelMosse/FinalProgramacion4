@@ -18,8 +18,8 @@ public class ConvocatoriaJerarquico extends Convocatoria {
     }
 
     public boolean puedeAplicar(Empleado empleadoAplicar) {
-        boolean cumpleAnnosMin = empleadoAplicar.getAnnosEnEmpresa() >= annosMinimosEnEmpresa;
-        return super.puedeAplicar(empleadoAplicar) && cumpleAnnosMin;
+        //si es para un puesto jerarquico, el empleado debe estar como minimo hace n años en la empresa
+        return super.puedeAplicar(empleadoAplicar) && (empleadoAplicar.getAnnosEnEmpresa() >= annosMinimosEnEmpresa); 
    }
 
    public void mostrar() {

@@ -63,13 +63,10 @@ public class Empleado {
 
     public boolean puedeAplicar(Hashtable<Habilidad,Integer> requisitos) {
         //si esta en un puesto jerarquico, determino si cumple con annos minimos en ese puesto
+        //comparo requisitos (lo q pide puesto) con habilidades (lo q tiene el empleado) 
         Cargo cargoActual = this.getCargoActual();
-        boolean jerarquicoCumpleAnnosMinimos = cargoActual.jerarquicoCumpleAnnosMinimos();
-
-        //comparo requisitos con habilidades
-        boolean cumpleRequisitos = this.cumpleRequisitos(requisitos);
-
-        return jerarquicoCumpleAnnosMinimos && cumpleRequisitos;
+        
+        return cargoActual.jerarquicoCumpleAnnosMinimos() && this.cumpleRequisitos(requisitos);
     }
 
     public Cargo getCargoActual() {

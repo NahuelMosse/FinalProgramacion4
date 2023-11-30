@@ -86,9 +86,7 @@ public abstract class Puesto {
 
 
     public boolean dentroDeRango(float salarioMin, float salarioMax) {
-        boolean superaMin = sueldo >= salarioMin;
-        boolean noSuperaMax = sueldo <= salarioMax;
-        return superaMin && noSuperaMax;
+        return (sueldo >= salarioMin) && (sueldo <= salarioMax);
     }
 
 
