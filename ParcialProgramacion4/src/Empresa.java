@@ -888,7 +888,9 @@ public class Empresa {
         if (unEmpleado == null) {
             Logger.logError("NO existe el empleado");
         } else {
+            Logger.divider();
             unEmpleado.mostrar();
+            Logger.divider();
         }
     }
 }
