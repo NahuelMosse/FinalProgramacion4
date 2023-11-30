@@ -83,8 +83,8 @@ public class Ejecutora {
             System.out.println("[5] Crear habilidad");
             System.out.println("[6] Editar habilidad");
             System.out.println("[7] Borrar habilidad");
-			System.out.println("[8] Ver habilidades");
-			System.out.println("[9] Ver puestos de trabajo");
+			System.out.println("[8] Mostrar habilidades");
+			System.out.println("[9] Mostrar puestos de trabajo");
             System.out.println("[0] Volver al menu principal");
             
             opcion = Ejecutora.conseguirOpcionDelMenu();
