@@ -53,9 +53,7 @@ public abstract class Convocatoria {
     	return asignados.contains(empleado);
     }
     
-    public void eliminarEmpleado(Empleado empleadoEliminar) {
-    	postulados.remove(empleadoEliminar);
-    	
-    	asignados.remove(empleadoEliminar); //si estuvo asignado se elimina, sino no hace nada
+    public boolean eliminarEmpleado(Empleado empleadoEliminar) {
+        return postulados.remove(empleadoEliminar) || asignados.remove(empleadoEliminar);
     }
 }
