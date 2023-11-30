@@ -572,4 +572,61 @@ public class Empresa {
             }
         }
     }
+
+
+    //CASO DE USO EDITAR HABILIDAD MENU GENERAL (para todo el sistema)
+    public void editarHabilidad() {
+        Logger.header("Formulario para editar habilidad");
+
+        System.out.print("Nombre habilidad: "); 
+        String nombreHabilidad = scanner.nextLine();
+
+        Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
+
+        if (habilidad == null) {
+            Logger.logError("No existe una habilidad llamada " + nombreHabilidad);
+        } else {
+            int opcion;
+
+            System.out.println("Menu para editar habilidad");
+            do {
+                System.out.println("1- Editar nombre");
+                System.out.println("2- Editar descripcion");
+                System.out.println("3- Ver habilidad");
+                System.out.println("0- Volver al menu Admin");
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+                
+                    case 1:
+                        System.out.println("Nombre antiguo: " + habilidad.getNombre());
+                        System.out.print("Nuevo nombre: ");
+                        String nuevoNombre = scanner.nextLine();
+                        habilidad.setNombre(nuevoNombre);
+                        Logger.logSuccess("Nombre editado correctamente");
+                        break;
+
+                    case 2:
+                        System.out.println("Descripcion antigua: ");
+                        System.out.println(habilidad.getDescripcion());
+                        System.out.print("Nueva descripcion: ");
+                        String nuevaDescripcion = scanner.nextLine();
+                        habilidad.setDescripcion(nuevaDescripcion);
+                        Logger.logSuccess("Descripcion editada correctamente");
+                        break;
+                    
+                    case 3:
+                        habilidad.mostrar();
+                        break;
+
+                    default:
+                        Logger.logError("Opcion no valida");
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+    }
 }
