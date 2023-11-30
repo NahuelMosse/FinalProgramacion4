@@ -664,6 +664,8 @@ public class Empresa {
   
   //CASO DE USO BORRAR PUESTO DE TRABAJO
     public void borrarPuesto() {
+        Logger.header("Borrar puesto de trabajo");
+
         System.out.print("Nombre puesto de trabajo: ");
         String nombrePuesto = scanner.nextLine();
 
@@ -766,7 +768,7 @@ public class Empresa {
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
-        Logger.header("Dar de baja convocatoria");
+        Logger.header("Dar de baja una convocatoria");
 
         int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria a dar de baja: ");
 
