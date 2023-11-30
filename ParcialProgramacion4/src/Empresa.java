@@ -46,13 +46,13 @@ public class Empresa {
                 Logger.logWarning("El empleado con legajo " + legajo + "esta registrado en convocatorias historicas, NO es recomendable eliminarlo");
             }
 
-            int cantInscripciones = this.cantInscripcionesEmpleadoConvocatoriasAbiertas();
+            int cantInscripciones = this.cantInscripcionesEmpleadoConvocatoriasAbiertas(empleadoEliminar);
                 
             if (cantInscripciones > 0) {
                 Logger.logWarning("El empleado esta inscripto en " + cantInscripciones + " convocatorias abiertas");
             } 
 
-            int cantAsignaciones = this.cantAsignacionesEmpleadoConvocatoriasAbiertas();
+            int cantAsignaciones = this.cantAsignacionesEmpleadoConvocatoriasAbiertas(empleadoEliminar);
             if (cantAsignaciones > 0) {
                 Logger.logWarning("El empleado esta asignado en " + cantAsignaciones + " convocatorias abiertas");
             }
@@ -139,20 +139,6 @@ public class Empresa {
         return i;
     }
 
-
-
-
-    private Empleado buscarEmpleado(int legajo) {
-        int i = 0;
-
-        while(i<empleados.size() && !empleados.get(i).hasEmpleado(legajo))
-            i++;
-        
-        if(i<empleados.size())
-            return empleados.get(i);
-        else
-            return null;
-    }
 
     public void crearUnaHabilidad() {
     	Logger.header("Formulario para crear una habilidad");
