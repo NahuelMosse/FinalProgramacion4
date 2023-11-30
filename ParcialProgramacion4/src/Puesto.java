@@ -18,13 +18,10 @@ public abstract class Puesto {
         return this.nombre.equalsIgnoreCase(nombre);
     }
 
-
-
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
         Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
     } 
-
 
     public void mostrar() {
         String tipo;
@@ -49,10 +46,13 @@ public abstract class Puesto {
         convocatorias.add(convocatoriaNueva);
     }
     
+    public void eliminarEmpleado(Empleado empleadoEliminar) {
+        empleados.remove(empleadoEliminar);
+    }
+
     public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
         this.convocatorias.remove(convocatoriaEliminar);
     }
-
 
     public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         //misma logica que metodos de Empresa, solo que esta en Puesto
@@ -102,5 +102,6 @@ public abstract class Puesto {
         }
         return i > 0;
     }
+
 }
 

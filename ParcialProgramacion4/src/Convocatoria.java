@@ -78,6 +78,20 @@ public abstract class Convocatoria {
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
     }
+   
+    public boolean empleadoEstaPostulado(Empleado empleado){
+        return postulados.contains(empleado);
+    }
+    
+    public boolean empleadoEstaAsignado(Empleado empleado) {
+    	return asignados.contains(empleado);
+    }
+    
+    public boolean eliminarEmpleado(Empleado empleadoEliminar) {
+        boolean fuePostulado = postulados.remove(empleadoEliminar);
+        boolean fueAsignado = asignados.remove(empleadoEliminar);
+        return fuePostulado || fueAsignado;
+    }
 
     public Puesto getPuesto() {
         return this.puesto;
@@ -108,7 +122,6 @@ public abstract class Convocatoria {
         }
    }
 
-
    public boolean puedeAplicar(Empleado empleadoAplicar) {
         return (!this.estaInscripto(empleadoAplicar)) && this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
    }
@@ -120,6 +133,19 @@ public abstract class Convocatoria {
 
    public boolean dentroDeRango(float salarioMin, float salarioMax) {
         return puesto.dentroDeRango(salarioMin, salarioMax);
+   }
+  
+   public boolean hasPuesto(Puesto puesto) {
+        return this.puesto == puesto;
+   }
+  
+   public boolean tieneRequisito(Habilidad requisitoBuscado) {
+        return requisitos.containsKey(requisitoBuscado);
+   }
+
+   public void tryEliminarRequisito(Habilidad requisitoBuscado) {
+        requisitos.remove(requisitoBuscado);
+
    }
 
 }
