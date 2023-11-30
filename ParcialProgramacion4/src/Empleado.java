@@ -86,14 +86,18 @@ public class Empleado {
         int opcion = 0;
 
         do {
+            Logger.header("Menu para editar informacion personal");
             System.out.println("1- Editar nombre");
             System.out.println("2- Editar apellido");
             System.out.println("3- Editar fecha de nacimiento");
             System.out.println("4- Ver informacion personal");
+            System.out.println("0- Volver al menu del Usuario");
 
             opcion = InputHelper.scanInt(scanner, "Opcion: ");
 
             switch (opcion) {
+                case 0:
+                    break;
                 case 1:
                     System.out.println("Nombre anterior: " + nombre);
                     System.out.print("Nuevo nombre: ");
@@ -109,13 +113,14 @@ public class Empleado {
                     break;
 
                 case 3:
-                    System.out.println("Fecha de nacimiento: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
+                    System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
                     System.out.println("Nueva fecha: ");
                     fechaNacimiento = Fecha.nuevaFecha();
                     Logger.logSuccess("Fecha de nacimiento actualizada");
                     break;
 
                 case 4:
+                    System.out.println("\nInformacion empleado");
                     this.mostrar();
                     break;
 
