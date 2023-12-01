@@ -104,16 +104,5 @@ public abstract class Puesto {
         return true; //comparo en PuestoJerarquico, aca no hay condicion
     }
 
-    private boolean hayConvocatoriasAbiertas() {
-        int i = 0;
-        for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.estaAbierta()) {
-                i++;
-            }
-        }
-        return i > 0;
-    }
-
-
 }
 

@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
-import java.util.Hashtable;
 
 import utilidades.Fecha;
 import utilidades.InputHelper;
 import utilidades.Logger;
-import utilidades.Fecha;
 
 public class Empresa {
 	private Scanner scanner;
