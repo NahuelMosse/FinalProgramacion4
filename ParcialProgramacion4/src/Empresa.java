@@ -844,7 +844,7 @@ public class Empresa {
 
     //CASO DE USO DAR DE BAJA INSCRIPTO A CONVOCATORIA
     public void darDeBajaPostulanteConvocatoria() {
-        Logger.header("Formulario para dar de baja inscripto a convocatoria: ");
+        Logger.header("Dar de baja inscripto a convocatoria: ");
 
         boolean verConvocatoriasAbiertas = InputHelper.yesOrNoInput(scanner, "Quiere ver las convocatorias que se encuentran abiertas?");
 
