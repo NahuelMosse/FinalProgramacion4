@@ -98,4 +98,13 @@ public abstract class Puesto {
         return true; // comparo en PuestoJerarquico, aca no hay condicion
     }
 
+
+    public void mostrarConvocatorias() {
+        for (Convocatoria convocatoria: convocatorias) {
+            convocatoria.mostrar();
+        }
+    }
+
+    
+
 }
