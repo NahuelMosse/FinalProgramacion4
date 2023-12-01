@@ -779,6 +779,21 @@ public class Empresa {
 			}
         }
 	}
+    
+    //CU VER DATOS EMPELADO
+    public void verHistorialDeCargos() {
+    	Logger.header("Historial de cargos");
+    	
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
+        Empleado unEmpleado = this.buscarEmpleado(unLegajo);
+        
+        if (unEmpleado == null) {
+			Logger.logError("NO existe el empleado con legajo " + unLegajo);
+		} else {
+        	unEmpleado.mostrarCargos();
+		}
+		
+	}
 
     //CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
@@ -1025,6 +1040,70 @@ public class Empresa {
 
         return i < convocatorias.size();
     }
+
+
+    //CASO DE USO INSCRIBIR EMPLEADO A CONVOCATORIAS
+    public void inscribirEmpleadoEnConvocatorias() {
+        Logger.header("Formulario para inscribir empleado en convocatorias");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con el legajo " + legajoEmpleado + " en el sistema");
+        } else {
+            //determinar si puede inscribirse a alguna convocatoria, si no puede a ninguna, se lo informo
+            int cantPuedeAplicar = this.convocatoriasPuedeAplicar(empleado).size();
+
+            if (cantPuedeAplicar == 0) {
+                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria"); //No es un error, por eso no se utiliza Logger
+            } else {
+                boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner, "Quiere ver las convocatorias a las que puede aplicar?");
+                if (quiereVerConvocatorias) {
+                    this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
+                }
+                int codigoConvocatoria;
+                Convocatoria convocatoria;
+                boolean otra;
+                do {
+                    codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+                    convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+                    if (convocatoria == null) {
+
+                        Logger.logError("No existe una convocatoria con codigo " + codigoConvocatoria);
+
+                    } else {
+
+                        if (!convocatoria.puedeAplicar(empleado)) {
+
+                            Logger.logError("El empleado con legajo " + legajoEmpleado + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
+
+                        } else {
+
+                            convocatoria.inscribirEmpleado(empleado);
+
+                            Logger.logSuccess("El empleado con legajo " + legajoEmpleado + " ha sido añadido exitosamente a la convocatoria con codigo " + codigoConvocatoria);
+
+                            cantPuedeAplicar--; //se usa para no darle la posibilidad de inscribirse a mas convocatorias si no puede
+                        }
+                    }
+
+                    if (cantPuedeAplicar == 0) { //si se inscribio en la ultima posible, ya no pregunta
+                        otra = false;
+                        Logger.logSuccess("No tiene mas convocatorias disponibles para inscribirse");
+                    } else {
+                        otra = InputHelper.yesOrNoInput(scanner, "Quiere inscribirse a otra convocatoria?");
+                    }
+
+                } while (otra);
+
+            }
+
+        }
+    }
+
 
     //CASO DE USO BORRAR HABILIDAD DEL SISTEMA
     public void borrarHabilidad() {

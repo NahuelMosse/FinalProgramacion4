@@ -182,4 +182,8 @@ public abstract class Convocatoria {
 
    }
 
+   public void inscribirEmpleado(Empleado empleado) {
+    //ya verifique si podria inscribirse o no en empresa, solo lo agrego a postulados
+    postulados.add(empleado);
+}
 }

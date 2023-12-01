@@ -173,4 +173,13 @@ public class Empleado {
     public Cargo getCargoActual() {
         return this.historialDeCargos.get(historialDeCargos.size() - 1); //el ultimo cargo agregado
     }
+
+	public void mostrarCargos() {
+		for(Cargo unCargo: historialDeCargos)
+		{
+			unCargo.mostrarCargo();
+		}
+		
+	}
+
 }

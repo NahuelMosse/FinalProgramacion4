@@ -48,4 +48,17 @@ public class Cargo {
        return annosEnCargo;
     }
 
+    
+    public Fecha getFechaInicio() {
+    	return this.fechaInicio;
+    }
+    
+    public void mostrarCargo() {
+        System.out.println("Puesto:");
+        this.puesto.mostrar();
+    	System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+    	if(fechaFin != null) {
+    		System.out.println("Fecha de Fin    : |" + this.getFechaFin());
+    	}
+    }
 }
