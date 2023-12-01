@@ -84,50 +84,7 @@ public class Empleado {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     public void editarInformacion(Scanner scanner) {
         int opcion;
