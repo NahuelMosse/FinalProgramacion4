@@ -1,4 +1,5 @@
 import utilidades.Fecha;
+import java.util.Scanner;
 
 public class Cargo {
     private Fecha fechaInicio;
@@ -23,9 +24,9 @@ public class Cargo {
         fechaFin = Fecha.hoy();
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos() {
+    public boolean jerarquicoCumpleAnnosMinimos(Scanner scanner) {
         int annosEnCargo = this.getAnnosEnCargo();
-        return puesto.jerarquicoCumpleAnnosMinimos(annosEnCargo);
+        return puesto.jerarquicoCumpleAnnosMinimos(annosEnCargo, scanner);
     }
 
     public int getAnnosEnCargo() {

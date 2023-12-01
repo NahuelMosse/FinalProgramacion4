@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import utilidades.Logger;
 
 public abstract class Puesto {
@@ -62,10 +64,10 @@ public abstract class Puesto {
         return nombre;
     }
 
-    public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+    public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar, Scanner scanner) {
         // misma logica que metodos de Empresa, solo que esta en Puesto
 
-        ArrayList<Convocatoria> convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
+        ArrayList<Convocatoria> convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar, scanner);
 
         if (convocatoriaPuedeAplicar.size() == 0) {
             Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
@@ -78,11 +80,11 @@ public abstract class Puesto {
 
     }
 
-    private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar) {
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar, Scanner scanner) {
         ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
 
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+            if (convocatoria.puedeAplicar(empleadoAplicar, scanner)) {
                 convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
@@ -94,7 +96,7 @@ public abstract class Puesto {
         return (sueldo >= salarioMin) && (sueldo <= salarioMax);
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
+    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto, Scanner scanner) {
         return true; // comparo en PuestoJerarquico, aca no hay condicion
     }
 
