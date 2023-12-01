@@ -821,7 +821,7 @@ public class Empresa {
             boolean eliminar = true;
 
             if (!convocatoriaEliminar.estaAbierta()) { //si esta cerrada, se lo informo y le pregunto si quiere continuar
-                System.out.println("Alerta: La convocatoria es historica (ya esta cerrada)");
+                Logger.logWarning("Dar de baja una convocatoria");
                 eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
             }
 
