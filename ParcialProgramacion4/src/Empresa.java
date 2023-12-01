@@ -844,6 +844,8 @@ public class Empresa {
 
    
     public void editarInformacionEmpleado() {
+        Logger.header("Formulario para editar informacion personal del empleado");
+
         int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
 
         Empleado empleado = this.buscarEmpleado(legajoEmpleado);
@@ -1051,20 +1053,14 @@ public class Empresa {
     } 
 
 
-    private boolean hayConvocatoriasAbiertas() {
-        int i = 0;
-
-        while (i<convocatorias.size() && !convocatorias.get(i).estaAbierta()) {
-            i++;
-        }
-
-        return i < convocatorias.size();
-    }
-
 
     //CASO DE USO INSCRIBIR EMPLEADO A CONVOCATORIAS
     public void inscribirEmpleadoEnConvocatorias() {
         Logger.header("Formulario para inscribir empleado en convocatorias");
+
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
       
         if (empleado == null) {
             Logger.logError("No existe un empleado con el legajo " + legajoEmpleado + " en el sistema");
