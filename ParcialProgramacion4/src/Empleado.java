@@ -128,17 +128,17 @@ public class Empleado {
 
 
 
-    
+
     public void editarInformacion(Scanner scanner) {
         int opcion;
 
         do {
             Logger.header("Menu para editar informacion personal");
-            System.out.println("1- Editar nombre");
-            System.out.println("2- Editar apellido");
-            System.out.println("3- Editar fecha de nacimiento");
-            System.out.println("4- Ver informacion personal");
-            System.out.println("0- Volver al menu del Usuario");
+            System.out.println("[1] Editar nombre");
+            System.out.println("[2] Editar apellido");
+            System.out.println("[3] Editar fecha de nacimiento");
+            System.out.println("[4] Ver informacion personal");
+            System.out.println("[0] Volver al menu del Usuario");
 
             opcion = InputHelper.scanInt(scanner, "Opcion: ");
 
