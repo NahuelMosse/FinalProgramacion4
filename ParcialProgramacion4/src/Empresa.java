@@ -342,7 +342,11 @@ public class Empresa {
             ArrayList<Cargo> historialDeCargos = this.pedirListaCargos(fechaIngreso);
 
             // crear hashtable con las habilidades y años de experiencia
-            Hashtable<Habilidad, Integer> habilidades = this.pedirListaHabilidades("del empleado");
+            Hashtable<Habilidad, Integer> habilidades = new Hashtable<>();
+
+            if (InputHelper.yesOrNoInput(scanner, "\nTiene habilidades para ingresar?")) {
+                habilidades = this.pedirListaHabilidades("del empleado");
+            }
 
             // constructor empleado
             Empleado empleadoNuevo = new Empleado(
