@@ -19,6 +19,13 @@ public class Cargo {
     	return this.fechaFin;
     }
 
+    
+    public void cerrarCargo() {
+        fechaFin = Fecha.hoy();
+    }
+
+
+
     public boolean jerarquicoCumpleAnnosMinimos() {
         int annosEnCargo = this.getAnnosEnCargo();
         return puesto.jerarquicoCumpleAnnosMinimos(annosEnCargo);

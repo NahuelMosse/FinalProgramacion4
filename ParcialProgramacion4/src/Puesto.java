@@ -20,8 +20,14 @@ public abstract class Puesto {
 
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
-        Logger.logSuccess("Empleado nuevo agregado con exito a la lista de "+nombre);
+        Logger.logSuccess("Empleado nuevo agregado con exito a la lista de " + nombre);
     } 
+
+
+    public void agregarEmpleadoPorConvocatoria(Empleado empleadoNuevo) {
+        empleados.add(empleadoNuevo); //solo cambia con metodo agregarEmpleado que no muestro mensaje
+    }
+
 
     public void mostrar() {
         String tipo;
@@ -52,6 +58,11 @@ public abstract class Puesto {
 
     public void darDeBajaConvocatoria(Convocatoria convocatoriaEliminar) {
         this.convocatorias.remove(convocatoriaEliminar);
+    }
+
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
@@ -102,6 +113,7 @@ public abstract class Puesto {
         }
         return i > 0;
     }
+
 
 }
 

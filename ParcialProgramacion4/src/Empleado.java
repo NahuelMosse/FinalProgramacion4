@@ -34,7 +34,7 @@ public class Empleado {
     }
     
     public void mostrar() {
-        System.out.println("legajo: " + legajo);
+        System.out.println("Legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();
@@ -109,11 +109,7 @@ public class Empleado {
         
         return cargoActual.jerarquicoCumpleAnnosMinimos() && this.cumpleRequisitos(requisitos);
     }
-
-    public Cargo getCargoActual() {
-        return this.historialDeCargos.get(historialDeCargos.size() - 1);
-    }
-
+    
     public boolean cumpleRequisitos(Hashtable<Habilidad,Integer> requisitos) {
         //recorro la hashtable de requisitos y me fijo si tiene la habilidad el empleado y los años minimos
         boolean cumpleReq = true; //si no tiene algun requisito o años necesarios, no sigue recorriendo
@@ -161,6 +157,23 @@ public class Empleado {
         habilidades.remove(habilidadBuscada);
     }
 
+    public int getLegajo() {
+        return legajo;
+    }
+
+    public void nuevoCargo(Puesto nuevoPuesto) {
+        Cargo cargoActual = this.getCargoActual();
+        cargoActual.cerrarCargo();
+
+        //crear nuevo cargo
+        Cargo cargoNuevo = new Cargo(Fecha.hoy(), null, nuevoPuesto); //null xq no finalizo, cuando finaliza se establece fechaFin
+        historialDeCargos.add(cargoNuevo);
+    }
+
+    public Cargo getCargoActual() {
+        return this.historialDeCargos.get(historialDeCargos.size() - 1); //el ultimo cargo agregado
+    }
+
 	public void mostrarCargos() {
 		for(Cargo unCargo: historialDeCargos)
 		{
@@ -168,6 +181,5 @@ public class Empleado {
 		}
 		
 	}
-
 
 }
