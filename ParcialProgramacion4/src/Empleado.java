@@ -109,11 +109,7 @@ public class Empleado {
         
         return cargoActual.jerarquicoCumpleAnnosMinimos() && this.cumpleRequisitos(requisitos);
     }
-
-    public Cargo getCargoActual() {
-        return this.historialDeCargos.get(historialDeCargos.size() - 1);
-    }
-
+    
     public boolean cumpleRequisitos(Hashtable<Habilidad,Integer> requisitos) {
         //recorro la hashtable de requisitos y me fijo si tiene la habilidad el empleado y los años minimos
         boolean cumpleReq = true; //si no tiene algun requisito o años necesarios, no sigue recorriendo
