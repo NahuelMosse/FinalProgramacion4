@@ -8,7 +8,7 @@ public class PuestoJerarquico extends Puesto {
         super(nombre, sueldo);
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto, Scanner scanner) {
+    public boolean puedeCambiarDePuesto(int annosEnPuesto, Scanner scanner) {
         return annosEnPuesto >= PuestoJerarquico.getAnnosMinimosParaCambiar(scanner);
     }
 

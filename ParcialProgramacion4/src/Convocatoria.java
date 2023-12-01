@@ -32,11 +32,14 @@ public abstract class Convocatoria {
         this.asignados = new ArrayList<Empleado>();
     }
 
-    public void mostrarConPostulantesAsignados() {
+    public void mostrarConPostulantesYAsignados() {
         this.mostrar();
-        // agrego informacion de cada postulante y asignado, si no hay postulantes o
-        // asingados, no los recorro y muestro msj informandolo
-        if (postulados.size() > 0) {
+
+        this.mostrarPostulantesYAsignados();
+    }
+
+    public void mostrarPostulantesYAsignados() {
+        if (this.postulados.size() > 0) {
 
             System.out.println("\n** Postulantes **");
             for (Empleado empleado : postulados) {
@@ -48,7 +51,7 @@ public abstract class Convocatoria {
             System.out.println("No hay postulantes");
         }
 
-        if (asignados.size() > 0) {
+        if (this.asignados.size() > 0) {
 
             System.out.println("\n** Asignados **");
             for (Empleado empleado : asignados) {
@@ -251,5 +254,25 @@ public abstract class Convocatoria {
         }
     }
 
+    public boolean estaCerradaConEmpleadoAsignado(Empleado empleado) {
+        return !this.estaAbierta() || this.empleadoEstaAsignado(empleado);
+    }
+
+    public boolean estaAbiertaConEmpleadoPostulado(Empleado empleado) {
+        return this.estaAbierta() && this.empleadoEstaPostulado(empleado);
+    }
+
+    public boolean estaAbiertaConEmpleadoAsignado(Empleado empleado) {
+        return this.estaAbierta() && this.empleadoEstaAsignado(empleado);
+    }
+
+    public boolean puedeAplicarYcumpleExpectativaSalario(
+        Empleado empleadoAplicar,
+        float salarioMin,
+        float salarioMax,
+        Scanner scanner
+    ) {
+        return this.puedeAplicar(empleadoAplicar, scanner) && this.dentroDeRango(salarioMin, salarioMax);
+    }
 
 }
