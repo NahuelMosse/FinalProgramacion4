@@ -137,28 +137,18 @@ public class Empleado {
                 case 0:
                     break;
                 case 1:
-                    System.out.println("Nombre anterior: " + nombre);
-                    System.out.print("Nuevo nombre: ");
-                    nombre = scanner.nextLine();
-                    Logger.logSuccess("Nombre actualizado");
+                    this.editarNombre(scanner);
                     break;
 
                 case 2:
-                    System.out.println("Apellido anterior: " + apellido);
-                    System.out.print("Nuevo apellido: ");
-                    apellido = scanner.nextLine();
-                    Logger.logSuccess("Apellido actualizado");
+                    this.editarApellido(scanner);
                     break;
 
                 case 3:
-                    System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
-                    System.out.println("Nueva fecha: ");
-                    fechaNacimiento = Fecha.nuevaFecha();
-                    Logger.logSuccess("Fecha de nacimiento actualizada");
+                    this.editarFechaDeNacimiento(scanner);
                     break;
 
                 case 4:
-                    System.out.println("\nInformacion empleado");
                     this.mostrar();
                     break;
 
@@ -167,6 +157,27 @@ public class Empleado {
             }
 
         } while (opcion != 0);
+    }
+
+    private void editarNombre(Scanner scanner) {
+        System.out.println("Nombre anterior: " + nombre);
+        System.out.print("Nuevo nombre: ");
+        nombre = scanner.nextLine();
+        Logger.logSuccess("Nombre actualizado");
+    }
+
+    private void editarApellido(Scanner scanner) {
+        System.out.println("Apellido anterior: " + apellido);
+        System.out.print("Nuevo apellido: ");
+        apellido = scanner.nextLine();
+        Logger.logSuccess("Apellido actualizado");
+    }
+
+    private void editarFechaDeNacimiento(Scanner scanner) {
+        System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
+        System.out.println("Nueva fecha: ");
+        fechaNacimiento = Fecha.nuevaFecha();
+        Logger.logSuccess("Fecha de nacimiento actualizada");
     }
 
 
