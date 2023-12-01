@@ -250,7 +250,7 @@ public class Ejecutora {
 	}
 
 	public static void ayuda() {
-		System.out.println("Utilidad menus: ");
+		Logger.header("Funcion menus");
 		System.out.println("Menu admin: gestionar los registros de la empresa (empleados, habilidades, puestos)");
 		System.out.println("Menu general: gestionar las convocatorias");
 		System.out.println("Menu usuario: gestionar los datos de los usuarios");
