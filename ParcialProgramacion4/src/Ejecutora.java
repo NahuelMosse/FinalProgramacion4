@@ -59,8 +59,7 @@ public class Ejecutora {
 					Ejecutora.menuUsuario();
 					break;
 				case 4:
-					// ayuda
-					// Se puede hacer todo un menu que te explique a usar el sistema
+					Ejecutora.ayuda();
 					break;
 				default:
 					Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -248,6 +247,13 @@ public class Ejecutora {
 			}
 
 		} while (opcion != 0);
+	}
+
+	public static void ayuda() {
+		Logger.header("Funcion menus");
+		System.out.println("Menu admin: gestionar los registros de la empresa (empleados, habilidades, puestos)");
+		System.out.println("Menu general: gestionar las convocatorias");
+		System.out.println("Menu usuario: gestionar los datos de los usuarios");
 	}
 
 	public static int conseguirOpcionDelMenu() {
