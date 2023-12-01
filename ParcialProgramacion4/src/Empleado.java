@@ -39,8 +39,15 @@ public class Empleado {
         System.out.println("Edad: " + this.calcularEdad());
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();
-        System.out.println("Habilidades: ");
-        this.mostrarHabilidades();
+
+        if (habilidades.size() == 0) {
+            System.out.println("No tiene habilidades");
+        } else {
+            Logger.subDivider();
+            System.out.println("Habilidades: ");
+            this.mostrarHabilidades();
+            Logger.subDivider();
+        }
     }
 
     public int calcularEdad() {
@@ -101,8 +108,9 @@ public class Empleado {
         while (enumH.hasMoreElements()) {
             habilidad = enumH.nextElement();
 
-            habilidad.mostrar();
+            Logger.subDivider();
 
+            habilidad.mostrar();
             System.out.println("años de experiencia: "+habilidades.get(habilidad));
         }
     }

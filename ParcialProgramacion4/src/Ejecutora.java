@@ -121,6 +121,9 @@ public class Ejecutora {
 			case 9:
 				empresa.mostrarPuestos();
 				break;
+			case 10:
+				empresa.mostrarEmpleados();
+				break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
 	            break;
@@ -164,7 +167,7 @@ public class Ejecutora {
 	            empresa.darDeBajaConvocatoria();
 	            break;
 	        case 4:
-	                
+	            PuestoJerarquico.setAnnosMinimosParaCambiar();
 	            break;
 	        case 5:
 	            empresa.mostrarConvocatoriasAbiertas();

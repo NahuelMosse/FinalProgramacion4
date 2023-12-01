@@ -21,8 +21,7 @@ public class Habilidad {
 	
     public void mostrar() {
         System.out.println("Nombre: " + nombre);
-        System.out.println("Descripcion: ");
-        System.out.println(descripcion);
+        System.out.println("Descripcion: " + descripcion);
     }
 
     public String getNombre() {
