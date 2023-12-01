@@ -859,7 +859,7 @@ public class Empresa {
 
     // CU EDITAR ANNOS EMPLEADOS
     public void editarAnnosEmpleado() {
-        Logger.header("Formulario Editar Annos Empleados");
+        Logger.header("Formulario para editar annos de experiencia de una habilidad de un empleado");
 
         int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
 

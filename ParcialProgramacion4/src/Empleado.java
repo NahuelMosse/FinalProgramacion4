@@ -95,7 +95,11 @@ public class Empleado {
         if (!habilidades.containsKey(habilidad)) {
             Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
         } else {
-            int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+            int annosExperiencia = habilidades.get(habilidad);
+
+            System.out.println("Ahora tiene " + annosExperiencia + " años de experiencia en " + habilidad.getNombre());
+
+            annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
 
             habilidades.put(habilidad, annosExperiencia);
 
