@@ -911,7 +911,7 @@ public class Empresa {
 
             if (!convocatoriaEliminar.estaAbierta()) { // si esta cerrada, se lo informo y le pregunto si quiere
                                                        // continuar
-                Logger.logWarning("Dar de baja una convocatoria");
+                Logger.logWarning("La convocatoria esta cerrada");
                 eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
             }
 
