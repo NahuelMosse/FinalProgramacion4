@@ -844,7 +844,7 @@ public class Empresa {
 
    
     public void editarInformacionEmpleado() {
-        Logger.header("Formulario para editar informacion personal del empleado");
+        Logger.header("Editar informacion personal del empleado");
 
         int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
 
