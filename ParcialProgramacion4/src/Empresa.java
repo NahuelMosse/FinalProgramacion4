@@ -1316,5 +1316,11 @@ public class Empresa {
         }
     }
 
+
+    //CU Mostrar empleados
+    public void mostrarEmpleados() {
+        Logger.header("Empleados registrados en el sistema");
+        
+    }
 }
 
