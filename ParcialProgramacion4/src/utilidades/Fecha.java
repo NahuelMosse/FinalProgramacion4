@@ -67,7 +67,7 @@ public class Fecha {
 		{
 			do
 			{
-				System.out.print("Ingrese D�a: ");
+				System.out.print("Ingrese Dia: ");
 				d = entrada.nextInt();
 			}
 			while (d < 1 || d > 31);
@@ -79,7 +79,7 @@ public class Fecha {
 			while(m < 1 || m > 12);
 			do
 			{
-				System.out.print("Ingrese A�o: ");
+				System.out.print("Ingrese Anno: ");
 				a = entrada.nextInt();
 			}
 			while (a < 1442 || a > 9999);
