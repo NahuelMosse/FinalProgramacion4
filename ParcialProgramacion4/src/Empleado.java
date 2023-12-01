@@ -37,7 +37,7 @@ public class Empleado {
         System.out.println("Legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
         System.out.println("Edad: " + this.calcularEdad());
-        System.out.println("Puesto actual: ");
+        System.out.print("Puesto actual: ");
         this.getPuestoActual().mostrar();
 
         if (habilidades.size() == 0) {
