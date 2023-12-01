@@ -33,9 +33,11 @@ public abstract class Convocatoria {
         this.mostrar();
         //agrego informacion de cada postulante y asignado, si no hay postulantes o asingados, no los recorro y muestro msj informandolo
         if (postulados.size() > 0) {
-            
+
+            System.out.println("\n** Postulantes **");
             for(Empleado empleado: postulados) {
                 empleado.mostrar();
+                Logger.subDivider();
             }
 
         } else {
@@ -43,9 +45,11 @@ public abstract class Convocatoria {
         }
 
         if (asignados.size() > 0) {
-            
+
+            System.out.println("\n** Asignados **");
             for(Empleado empleado: asignados) {
                 empleado.mostrar();
+                Logger.subDivider();
             }
 
         } else {
@@ -54,23 +58,43 @@ public abstract class Convocatoria {
     }
 
     public void mostrar() {
-        Logger.header("Convocatoria " + codigo);
+        Logger.divider();
+        
+        System.out.println("Codigo convocatoria: " + codigo);
 
+        System.out.print("Puesto vacante: ");
         puesto.mostrar();
 
         System.out.println("Fecha convocatoria: " + fecha.getDia() + " / " + fecha.getMes() + " / " + fecha.getAño());
 
         System.out.println("Cantidad de empleados requeridos: " + cantEmpleadosRequeridos);
 
-        System.out.println("Hay " + postulados.size() + " postulantes registrados");
-        System.out.println("Hay " + asignados.size() + " asignados al puesto");
+        System.out.println("\nHay " + postulados.size() + " postulantes registrados");
+        System.out.println("Hay " + asignados.size() + " asignados al puesto\n");
 
+        Logger.subDivider();
         System.out.println("Requisitos necesarios: ");
         this.mostrarHabilidades();
+        Logger.subDivider();
+
     }
   
     public boolean hasCodigo(int codigo) {
         return this.codigo == codigo;
+    }
+   
+    public boolean empleadoEstaPostulado(Empleado empleado){
+        return postulados.contains(empleado);
+    }
+    
+    public boolean empleadoEstaAsignado(Empleado empleado) {
+    	return asignados.contains(empleado);
+    }
+    
+    public boolean eliminarEmpleado(Empleado empleadoEliminar) {
+        boolean fuePostulado = postulados.remove(empleadoEliminar);
+        boolean fueAsignado = asignados.remove(empleadoEliminar);
+        return fuePostulado || fueAsignado;
     }
 
     public Puesto getPuesto() {
@@ -95,9 +119,75 @@ public abstract class Convocatoria {
         while (enumH.hasMoreElements()) {
             habilidad = enumH.nextElement();
 
-            habilidad.mostrar();
+            Logger.subDivider();
 
-            System.out.println("años de experiencia: " + requisitos.get(habilidad));
+            habilidad.mostrar();
+            System.out.println("Años de experiencia: " + requisitos.get(habilidad));
         }
    }
+
+   public int getCantEmpleadosRequeridos() {
+        return this.cantEmpleadosRequeridos;
+   }
+
+   public boolean hasPostulantes() {
+        return this.postulados.size() > 0;
+   }
+
+   
+   public void asignarEmpleado(Empleado empleadoSeleccionado) {
+        //como ya se que es postulante, ya se que cumple los requisitos xq paso por el proceso de inscripcion
+        postulados.remove(empleadoSeleccionado);
+        asignados.add(empleadoSeleccionado);
+
+        empleadoSeleccionado.nuevoCargo(puesto);
+
+        puesto.agregarEmpleadoPorConvocatoria(empleadoSeleccionado);
+
+        Logger.logSuccess("El empleado con legajo " + empleadoSeleccionado.getLegajo() + " ha sido asignado al puesto de " + puesto.getNombre());
+   }
+
+   public boolean esPostulante(Empleado empleado) {
+        return postulados.contains(empleado);
+   }
+
+   public int getCantRestante() {
+        return cantEmpleadosRequeridos - asignados.size();
+   }
+
+   
+   public boolean puedeAplicar(Empleado empleadoAplicar) {
+        return (!this.estaInscripto(empleadoAplicar)) && this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
+   }
+
+   public boolean estaInscripto(Empleado empleado) {
+        return postulados.contains(empleado) || asignados.contains(empleado); 
+   }
+
+
+   public boolean dentroDeRango(float salarioMin, float salarioMax) {
+        return puesto.dentroDeRango(salarioMin, salarioMax);
+   }
+  
+   public boolean hasPuesto(Puesto puesto) {
+        return this.puesto == puesto;
+   }
+  
+   public boolean tieneRequisito(Habilidad requisitoBuscado) {
+        return requisitos.containsKey(requisitoBuscado);
+   }
+
+   public void tryEliminarRequisito(Habilidad requisitoBuscado) {
+        requisitos.remove(requisitoBuscado);
+
+   }
+
+   public void inscribirEmpleado(Empleado empleado) {
+    //ya verifique si podria inscribirse o no en empresa, solo lo agrego a postulados
+    postulados.add(empleado);
+    }
+
+    public void informarCantidadRestante() {
+        Logger.logSuccess("Aun puede asignar a " + this.getCantRestante() + " postulantes al puesto de " + puesto.getNombre() + " para esta convocatoria");
+    }
 }

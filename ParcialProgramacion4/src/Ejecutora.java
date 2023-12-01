@@ -17,8 +17,8 @@ public class Ejecutora {
     	System.out.println("\nEzequiel Spagnoli - Horacio Balart - Nahuel Mosse - Nicolas Colli - Santiago Nunnez");
     	Logger.divider();
 
-        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico
-        // PuestoJerarquico.setAnnosMinimosParaCambiar();
+        // Define la cantidad minima de annos para cambiar de puesto siendo jerarquico, es 4 años excepto que se modifique
+		PuestoJerarquico.setAnnosMinimosParaCambiar(4);
 
         Ejecutora.menuPrincipal();
 
@@ -95,7 +95,7 @@ public class Ejecutora {
 	            empresa.agregarEmpleado();
 	            break;
 	        case 2:
-	            	
+	            empresa.darDeBajaEmpleado();
 	            break;
 	        case 3:
 	            empresa.agregarPuesto();   
@@ -110,7 +110,7 @@ public class Ejecutora {
 	            	
 	            break;
 	        case 7:
-	            	
+	            empresa.borrarHabilidad();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -130,12 +130,12 @@ public class Ejecutora {
             System.out.println("\n[1] Crear una nueva convocatoria");
             System.out.println("[2] Editar convocatoria");
             System.out.println("[3] Dar de baja convocatoria");
-            System.out.println("[4] Terminar proceso de convocatoria");
+            System.out.println("[4] Definir años necesarios en puesto jerarquico para cambiar");
             System.out.println("[5] Mostrar convocatorias abiertas");
             System.out.println("[6] Mostrar convocatorias a las que pueda aplicar empleado");
             System.out.println("[7] Inscribir empleado a convocatorias");
             System.out.println("[8] Dar de baja incripto a convocatoria");
-            System.out.println("[9] Definir años necesarios en puesto jerarquico para cambiar");
+            System.out.println("[9] Elegir postulantes en convocatoria y asignarlos al puesto vacante");
             System.out.println("[0] Volver al menu principal");
             
             opcion = Ejecutora.conseguirOpcionDelMenu();
@@ -161,16 +161,16 @@ public class Ejecutora {
 	            empresa.mostrarConvocatoriasAbiertas();
 	            break;
 	        case 6:
-	            	
+	            empresa.mostrarConvocatoriasPuedaAplicarEmpleado();
 	            break;
 	        case 7:
-	            // empresa.inscribirEmpleadoConvocatoria();
+	            empresa.inscribirEmpleadoEnConvocatorias();
 	            break;
 	        case 8:
 	            	
 	            break;
 	        case 9:
-	            	
+	            empresa.elegirPostulantesConvocatoria();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -202,22 +202,22 @@ public class Ejecutora {
 	            // Volver al menu principal
 	            break;
 	        case 1:
-	            	
+				empresa.verDatosEmpleado();
 	            break;
 	        case 2:
-	                
+	            empresa.verHistorialDeCargos();
 	            break;
 	        case 3:
 	            empresa.editarInformacionEmpleado();
 	            break;
 	        case 4:
-	                
+	        	empresa.agregarHabilidadEmpleado();    
 	            break;
 	        case 5:
-	                
+	        	empresa.editarAnnosEmpleado();    
 	            break;
 	        case 6:
-	            	
+	        	empresa.quitarHabilidadEmpleado();	
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
