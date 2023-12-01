@@ -1407,7 +1407,7 @@ public class Empresa {
     public void verDatosEmpleado() {
         Logger.header("Mostrar empleado");
 
-        int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+        int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
 
         if (unEmpleado == null) {
