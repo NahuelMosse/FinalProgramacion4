@@ -172,7 +172,7 @@ public class Ejecutora {
 					empresa.darDeBajaConvocatoria();
 					break;
 				case 4:
-
+					PuestoJerarquico.setAnnosMinimosParaCambiar();
 					break;
 				case 5:
 					empresa.mostrarConvocatoriasAbiertas();
