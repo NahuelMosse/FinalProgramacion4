@@ -1,4 +1,5 @@
 import java.util.Hashtable;
+import java.util.Scanner;
 
 import utilidades.Fecha;
 
@@ -17,10 +18,10 @@ public class ConvocatoriaJerarquico extends Convocatoria {
         this.annosMinimosEnEmpresa = annosMinimosEnEmpresa;
     }
 
-    public boolean puedeAplicar(Empleado empleadoAplicar) {
+    public boolean puedeAplicar(Empleado empleadoAplicar, Scanner scanner) {
         // si es para un puesto jerarquico, el empleado debe estar como minimo hace n
         // años en la empresa
-        return super.puedeAplicar(empleadoAplicar) && (empleadoAplicar.getAnnosEnEmpresa() >= annosMinimosEnEmpresa);
+        return super.puedeAplicar(empleadoAplicar, scanner) && (empleadoAplicar.getAnnosEnEmpresa() >= annosMinimosEnEmpresa);
     }
 
     public void mostrar() {

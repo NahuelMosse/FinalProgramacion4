@@ -1201,7 +1201,7 @@ public class Empresa {
         ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
 
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.puedeAplicar(empleadoAplicar)) {
+            if (convocatoria.puedeAplicar(empleadoAplicar, scanner)) {
                 convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
@@ -1218,7 +1218,7 @@ public class Empresa {
         if (puestoAplicar == null) {
             Logger.logError("No existe un puesto llamado '" + nombrePuesto + "'");
         } else {
-            puestoAplicar.mostrarConvocatoriasPuedeAplicar(empleadoAplicar);
+            puestoAplicar.mostrarConvocatoriasPuedeAplicar(empleadoAplicar, scanner);
         }
     }
 
@@ -1247,7 +1247,7 @@ public class Empresa {
         ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
 
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.puedeAplicar(empleadoAplicar) && convocatoria.dentroDeRango(salarioMin, salarioMax)) {
+            if (convocatoria.puedeAplicar(empleadoAplicar, scanner) && convocatoria.dentroDeRango(salarioMin, salarioMax)) {
                 convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
@@ -1294,7 +1294,7 @@ public class Empresa {
 
                     } else {
 
-                        if (!convocatoria.puedeAplicar(empleado)) {
+                        if (!convocatoria.puedeAplicar(empleado, scanner)) {
 
                             Logger.logError("El empleado con legajo " + legajoEmpleado
                                     + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
