@@ -196,9 +196,10 @@ public class Empleado {
         // puesto
         // comparo requisitos (lo q pide puesto) con habilidades (lo q tiene el
         // empleado)
+
         Cargo cargoActual = this.getCargoActual();
 
-        return cargoActual.jerarquicoCumpleAnnosMinimos(scanner) && this.cumpleRequisitos(requisitos);
+        return this.cumpleRequisitos(requisitos) && cargoActual.puedeCambiarDeCargo(scanner);
     }
 
     public boolean cumpleRequisitos(Hashtable<Habilidad, Integer> requisitos) {
