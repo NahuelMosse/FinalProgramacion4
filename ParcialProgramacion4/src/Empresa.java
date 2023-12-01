@@ -24,7 +24,7 @@ public class Empresa {
 
     // CASO DE USO DAR DE BAJA EMPLEADO
     public void darDeBajaEmpleado() {
-        Logger.header("Formulario para dar de baja empleado");
+        Logger.header("Dar de baja empleado");
 
         int legajo = InputHelper.scanInt(scanner, "Numero de legajo empleado a dar de baja: ");
 
@@ -44,7 +44,7 @@ public class Empresa {
 
             if (estaAsignadoEnHistorica) {
                 Logger.logWarning("El empleado con legajo " + legajo
-                        + "esta registrado en convocatorias historicas, NO es recomendable eliminarlo");
+                    + "esta registrado en convocatorias historicas, NO es recomendable eliminarlo");
             }
 
             int cantInscripciones = this.cantInscripcionesEmpleadoConvocatoriasAbiertas(empleadoEliminar);
@@ -74,10 +74,10 @@ public class Empresa {
 
                 if (cantConvocatorias > 0) {
                     Logger.logSuccess(
-                            "El empleado con legajo " + legajo + " ha sido eliminado de " + cantConvocatorias);
+                        "El empleado con legajo " + legajo + " ha sido eliminado de " + cantConvocatorias);
                 } else {
                     Logger.logSuccess("El empleado con legajo " + legajo
-                            + " NO ha sido eliminado de convocatorias porque no esta inscripto o asignado en ninguna");
+                        + " NO ha sido eliminado de convocatorias porque no esta inscripto o asignado en ninguna");
                 }
 
                 // eliminar cargos
@@ -95,8 +95,11 @@ public class Empresa {
 
     private boolean empleadoAsignadoEnConvocatoriaHistoria(Empleado empleado) {
         int i = 0;
-        while (i < convocatorias.size()
-                && (convocatorias.get(i).estaAbierta() || !convocatorias.get(i).empleadoEstaAsignado(empleado))) {
+
+        while (
+            i < convocatorias.size() &&
+            !convocatorias.get(i).estaCerradaConEmpleadoAsignado(empleado)
+        ) {
             i++;
         }
 
@@ -105,8 +108,9 @@ public class Empresa {
 
     private int cantInscripcionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
         int i = 0;
+
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaPostulado(empleado)) {
+            if (convocatoria.estaAbiertaConEmpleadoPostulado(empleado)) {
                 i++;
             }
         }
@@ -116,8 +120,9 @@ public class Empresa {
 
     private int cantAsignacionesEmpleadoConvocatoriasAbiertas(Empleado empleado) {
         int i = 0;
+
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.estaAbierta() && convocatoria.empleadoEstaAsignado(empleado)) {
+            if (convocatoria.estaAbiertaConEmpleadoAsignado(empleado)) {
                 i++;
             }
         }
@@ -127,11 +132,14 @@ public class Empresa {
 
     private int eliminarEmpleadoDeConvocatorias(Empleado empleado) {
         int i = 0;
+
         for (Convocatoria convocatoria : convocatorias) {
+            // devuelve true si lo elimino
             if (convocatoria.eliminarEmpleado(empleado)) {
                 i++;
             }
         }
+
         return i;
     }
 
@@ -143,28 +151,28 @@ public class Empresa {
 
         Habilidad habilidadExistente = this.buscarHabilidad(nombre);
 
+        Habilidad habilidadNueva = null;
+
         if (habilidadExistente != null) {
             Logger.logError("Ya existe una habilidad con este nombre");
 
             boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 
             if (continuar) {
-                return this.crearUnaHabilidad();
+                habilidadNueva = this.crearUnaHabilidad();
             }
         } else {
             System.out.print("Descripcion: ");
             String descripcion = scanner.nextLine();
 
-            Habilidad habilidadNueva = new Habilidad(nombre, descripcion);
+            habilidadNueva = new Habilidad(nombre, descripcion);
 
             this.habilidades.add(habilidadNueva);
 
             Logger.logSuccess("Habilidad registrada con exito");
-
-            return habilidadNueva;
         }
 
-        return null;
+        return habilidadNueva;
     }
 
     public Habilidad crearUnaHabilidad(String nombre) {
@@ -172,28 +180,28 @@ public class Empresa {
 
         Habilidad habilidadExistente = this.buscarHabilidad(nombre);
 
+        Habilidad habilidadNueva = null;
+
         if (habilidadExistente != null) {
             Logger.logError("Ya existe una habilidad con este nombre");
 
             boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea ingresar otro nombre?");
 
             if (continuar) {
-                return this.crearUnaHabilidad();
+                habilidadNueva = this.crearUnaHabilidad();
             }
         } else {
             System.out.print("Descripcion: ");
             String descripcion = scanner.nextLine();
 
-            Habilidad habilidadNueva = new Habilidad(nombre, descripcion);
+            habilidadNueva = new Habilidad(nombre, descripcion);
 
             this.habilidades.add(habilidadNueva);
 
             Logger.logSuccess("Habilidad registrada con exito");
-
-            return habilidadNueva;
         }
 
-        return null;
+        return habilidadNueva;
     }
 
     public void agregarPuesto() {
@@ -242,18 +250,21 @@ public class Empresa {
         if (i < habilidades.size()) {
             return habilidades.get(i);
         }
+
         return null;
     }
 
     private Puesto buscarPuesto(String nombre) {
         int i = 0;
 
-        while (i < puestos.size() && !puestos.get(i).hasNombre(nombre))
+        while (i < puestos.size() && !puestos.get(i).hasNombre(nombre)) {
             i++;
+        }
 
         if (i < puestos.size()) {
             return puestos.get(i);
         }
+
         return null;
     }
 
@@ -270,7 +281,7 @@ public class Empresa {
             if (quiereVerPostulantesAsignados) {
                 for (Convocatoria convocatoria : convocatorias) {
                     if (convocatoria.estaAbierta()) {
-                        convocatoria.mostrarConPostulantesAsignados();
+                        convocatoria.mostrarConPostulantesYAsignados();
                     }
                 }
             } else {
@@ -287,6 +298,7 @@ public class Empresa {
     // informo al usuario en mostrarConvocatoriasAbiertas()
     public boolean hayConvocatoriasAbiertas() {
         int i = 0;
+        
         while (i < convocatorias.size() && !convocatorias.get(i).estaAbierta()) {
             i++;
         }
@@ -303,7 +315,7 @@ public class Empresa {
         Empleado empleadoRepetido = this.buscarEmpleado(legajo);
 
         if (empleadoRepetido != null) {
-            Logger.logError("ya existe un empleado con ese numero de legajo");
+            Logger.logError("Ya existe un empleado con ese numero de legajo");
 
             boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea probar con otro numero de legajo? ");
 
@@ -329,7 +341,7 @@ public class Empresa {
             System.out.println("Fecha de ingreso a la empresa: ");
             Fecha fechaIngreso = Fecha.nuevaFecha();
 
-            while (fechaIngreso.compareTo(Fecha.hoy()) > 0 || fechaIngreso.compareTo(fechaNacimiento) <= 0) {
+            while (!fechaIngreso.entre(fechaNacimiento, Fecha.hoy())) {
 
                 if (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
                     Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
@@ -353,13 +365,14 @@ public class Empresa {
 
             // constructor empleado
             Empleado empleadoNuevo = new Empleado(
-                    legajo,
-                    nombre,
-                    apellido,
-                    fechaNacimiento,
-                    fechaIngreso,
-                    historialDeCargos,
-                    habilidades);
+                legajo,
+                nombre,
+                apellido,
+                fechaNacimiento,
+                fechaIngreso,
+                historialDeCargos,
+                habilidades
+            );
 
             // agrego al empleado en el puesto actual
             Puesto puestoActual = empleadoNuevo.getPuestoActual();
@@ -380,7 +393,7 @@ public class Empresa {
 
         System.out.println("Primero se pediran los cargos ANTIGUOS que ocupo (Se ingresa SI en caso de que los tenga)");
         System.out.println(
-                "Cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a 'tiene puestos antiguos?')\n");
+            "Cuando usted lo decida, ingresara el cargo ACTUAL (Ingresando NO a 'tiene puestos antiguos?')\n");
 
         // creo un arraylist local para el historial de cargos para pasarle al
         // constructor de empleado (es lo que retorno)
@@ -406,12 +419,11 @@ public class Empresa {
 
     // INGRESO CARGOS ANTIGUOS
     private ArrayList<Cargo> pedirListaCargosAntiguos(Fecha fechaIngresoEmpresa) {
-        ArrayList<Cargo> historialDeCargos = new ArrayList<Cargo>();
-
         Logger.header("Ingreso cargos antiguos");
 
-        System.out
-                .println("\nRECORDAR: Los cargos antiguos se deben ingresar en orden empezando desde el mas antiguo\n");
+        ArrayList<Cargo> historialDeCargos = new ArrayList<Cargo>();
+
+        System.out.println("\nRECORDAR: Los cargos antiguos se deben ingresar en orden empezando desde el mas antiguo\n");
 
         boolean tieneCargoAntiguo = true;
 
@@ -450,7 +462,9 @@ public class Empresa {
             Fecha fechaFin = Fecha.nuevaFecha();
 
             // comprobaciones fecha fin sea correcta
-            while (fechaFin.compareTo(fechaInicio) <= 0 || fechaFin.compareTo(Fecha.hoy()) > 0) {
+            
+            while (!fechaFin.entre(fechaInicio, Fecha.hoy())) {
+
                 if (fechaFin.compareTo(fechaInicio) <= 0) {
                     Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio: ");
                     System.out.println("\nFecha en la que finalizo el cargo: ");
@@ -460,6 +474,7 @@ public class Empresa {
                     System.out.println("\nFecha en la que finalizo el cargo: ");
                     fechaFin = Fecha.nuevaFecha();
                 }
+
             }
 
             Cargo nuevoCargo = new Cargo(fechaInicio, fechaFin, puesto);
@@ -484,9 +499,7 @@ public class Empresa {
 
         Puesto puestoActual = this.buscarPuesto(nombrePuestoActual);
 
-        while (puestoActual == null) { // es un while porque si o si debe tener un puesto actual, sino no puedo crear
-                                       // empleado
-            // doy la posibilidad de crearlo
+        while (puestoActual == null) { 
             boolean agregarPuesto = InputHelper.yesOrNoInput(scanner, "El puesto no existe, quiere AGREGARLO?");
 
             if (agregarPuesto) {
@@ -512,8 +525,8 @@ public class Empresa {
             fechaInicio = fechaIngresoEmpresa;
         }
 
-        Cargo nuevoCargo = new Cargo(fechaInicio, null, puestoActual); // mando null a fechaFin para colocarlo cuando
-                                                                       // abandone cargo
+        Cargo nuevoCargo = new Cargo(fechaInicio, null, puestoActual); 
+        // mando null a fechaFin para colocarlo cuando abandone cargo
 
         return nuevoCargo;
     }
@@ -653,8 +666,18 @@ public class Empresa {
             Convocatoria convocatoriaNueva;
 
             if (puestoConvocatoria.esJerarquico()) {
-                int annosMinimosEnEmpresa = InputHelper.scanInt(scanner,
-                        "\nAños minimos en la empresa que se requieren para aplicar: ");
+                int annosMinimosEnEmpresa = InputHelper.scanInt(
+                    scanner,
+                    "\nAños minimos en la empresa que se requieren para aplicar: "
+                );
+
+                while (annosMinimosEnEmpresa < 0) {
+                    Logger.logError("La cantidad de Años minimos debe ser positiva");
+                    annosMinimosEnEmpresa = InputHelper.scanInt(
+                        scanner,
+                        "\nAños minimos en la empresa que se requieren para aplicar: "
+                    );
+                }
 
                 convocatoriaNueva = new ConvocatoriaJerarquico(
                         codigoConvocatoria,
@@ -685,13 +708,13 @@ public class Empresa {
     private Convocatoria buscarConvocatoria(int codigo) {
         int i = 0;
 
-        while (i < convocatorias.size() && !convocatorias.get(i).hasCodigo(codigo))
+        while (i < convocatorias.size() && !convocatorias.get(i).hasCodigo(codigo)) {
             i++;
+        }
 
         if (i < convocatorias.size())
             return convocatorias.get(i);
-        else
-            return null;
+        return null;
     }
     
     // CU Editar datos de convocatoria
@@ -739,7 +762,7 @@ public class Empresa {
                         break;
                         
                     case 5:
-                    	convocatoria.mostrarConPostulantesAsignados();
+                    	convocatoria.mostrarConPostulantesYAsignados();
                         break;
 
                     default:
@@ -802,6 +825,7 @@ public class Empresa {
 
     private boolean puestoEstaEnConvocatorias(Puesto puesto) {
         int i = 0;
+
         while (i < convocatorias.size() && !convocatorias.get(i).hasPuesto(puesto)) {
             i++;
         }
@@ -909,8 +933,8 @@ public class Empresa {
         } else {
             boolean eliminar = true;
 
-            if (!convocatoriaEliminar.estaAbierta()) { // si esta cerrada, se lo informo y le pregunto si quiere
-                                                       // continuar
+            if (!convocatoriaEliminar.estaAbierta()) { 
+                // si esta cerrada, se lo informo y le pregunto si quiere continuar
                 Logger.logWarning("La convocatoria esta cerrada");
                 eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
             }
@@ -937,8 +961,10 @@ public class Empresa {
     public void darDeBajaPostulanteConvocatoria() {
         Logger.header("Dar de baja inscripto a convocatoria: ");
 
-        boolean verConvocatoriasAbiertas = InputHelper.yesOrNoInput(scanner,
-                "Quiere ver las convocatorias que se encuentran abiertas?");
+        boolean verConvocatoriasAbiertas = InputHelper.yesOrNoInput(
+            scanner,
+            "Quiere ver las convocatorias que se encuentran abiertas?"
+        );
 
         if (verConvocatoriasAbiertas) {
             this.mostrarConvocatoriasAbiertas();
@@ -1026,28 +1052,27 @@ public class Empresa {
 
             System.out.println("\nMenu para editar habilidad");
             do {
+
                 System.out.println("[1] Editar nombre");
                 System.out.println("[2] Editar descripcion");
                 System.out.println("[3] Ver habilidad");
                 System.out.println("[0] Volver al menu Admin");
+
                 opcion = InputHelper.scanInt(scanner, "Opcion: ");
 
                 switch (opcion) {
                     case 0:
+                        // Volver al menu
                         break;
-
                     case 1:
                         habilidad.editarNombre(scanner);
                         break;
-
                     case 2:
                         habilidad.editarDescripcion(scanner);
                         break;
-
                     case 3:
                         habilidad.mostrar();
                         break;
-
                     default:
                         Logger.logError("Opcion no valida");
                         break;
@@ -1073,12 +1098,13 @@ public class Empresa {
             } else {
                 if (!convocatoria.hasPostulantes()) {
                     Logger.logError(
-                            "No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo "
-                                    + codigoConvocatoria);
+                        "No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo "
+                        + codigoConvocatoria
+                    );
                 } else {
                     // se pueden seleccionar postulantes para el puesto vacante
 
-                    convocatoria.mostrarConPostulantesAsignados();
+                    convocatoria.mostrarConPostulantesYAsignados();
 
                     int legajoEmpleado;
                     Empleado empleadoSeleccionado;
@@ -1123,8 +1149,7 @@ public class Empresa {
 
     // CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
     public void mostrarConvocatoriasPuedaAplicarEmpleado() {
-        // le muestro al empleado todas las convocatorias que pueda aplicar de todos los
-        // puestos
+        // le muestro al empleado todas las convocatorias que pueda aplicar de todos los puestos
         Logger.header("Convocatorias disponibles para el empleado");
 
         int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo empleado: ");
@@ -1157,20 +1182,17 @@ public class Empresa {
 
                 switch (opcion) {
                     case 0:
+                        // Volver al menu
                         break;
-
                     case 1:
                         this.mostrarTodasConvocatoriasPuedaAplicar(empleadoAplicar);
                         break;
-
                     case 2:
                         this.mostrarConvocatoriasPuestoPuedeAplicar(empleadoAplicar);
                         break;
-
                     case 3:
                         this.mostrarConvocatoriasPuedaAplicarRangoSalario(empleadoAplicar);
                         break;
-
                     default:
                         Logger.logError("Opcion no disponible");
                         break;
@@ -1190,8 +1212,8 @@ public class Empresa {
         } else {
             Logger.header("Convocatorias disponibles");
             for (Convocatoria convocatoria : convocatoriaPuedeAplicar) {
-                convocatoria.mostrar(); // muestra sin los datos de los postulantes y asignados xq esta pensado para que
-                                        // lo vea el empleado
+                convocatoria.mostrar(); 
+                // muestra sin los datos de los postulantes y asignados xq esta pensado para que lo vea el empleado
             }
         }
 
@@ -1227,14 +1249,19 @@ public class Empresa {
         float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
         float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
 
-        ArrayList<Convocatoria> convocatoriasPuedeAplicar = convocatoriasPuedeAplicarRango(empleadoAplicar, salarioMin,
-                salarioMax);
+        ArrayList<Convocatoria> convocatoriasPuedeAplicar = convocatoriasPuedeAplicarRango(
+            empleadoAplicar,
+            salarioMin,
+            salarioMax
+        );
 
         if (convocatoriasPuedeAplicar.size() == 0) {
-            Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango " + salarioMin
-                    + " - " + salarioMax);
+            Logger.logSuccess(
+                "Lo sentimos, no puede aplicar a NINGUNA convocatoria dentro del rango "
+                + salarioMin + " - " + salarioMax
+            );
         } else {
-            Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
+            Logger.header("Convocatorias disponibles con sueldo $" + salarioMin + " - $" + salarioMax);
             for (Convocatoria convocatoria : convocatoriasPuedeAplicar) {
                 convocatoria.mostrar();
             }
@@ -1242,12 +1269,15 @@ public class Empresa {
 
     }
 
-    private ArrayList<Convocatoria> convocatoriasPuedeAplicarRango(Empleado empleadoAplicar, float salarioMin,
-            float salarioMax) {
+    private ArrayList<Convocatoria> convocatoriasPuedeAplicarRango(
+        Empleado empleadoAplicar,
+        float salarioMin,
+        float salarioMax
+    ) {
         ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
 
         for (Convocatoria convocatoria : convocatorias) {
-            if (convocatoria.puedeAplicar(empleadoAplicar, scanner) && convocatoria.dentroDeRango(salarioMin, salarioMax)) {
+            if (convocatoria.puedeAplicarYcumpleExpectativaSalario(empleadoAplicar, salarioMin, salarioMax,scanner)) {
                 convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
@@ -1271,9 +1301,7 @@ public class Empresa {
             int cantPuedeAplicar = this.convocatoriasPuedeAplicar(empleado).size();
 
             if (cantPuedeAplicar == 0) {
-                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria"); // No es un error, por
-                                                                                                 // eso no se utiliza
-                                                                                                 // Logger
+                System.out.println("Lo sentimos, no puede inscribirse en ninguna convocatoria");
             } else {
                 boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner,
                         "Quiere ver las convocatorias a las que puede aplicar?");
@@ -1296,8 +1324,10 @@ public class Empresa {
 
                         if (!convocatoria.puedeAplicar(empleado, scanner)) {
 
-                            Logger.logError("El empleado con legajo " + legajoEmpleado
-                                    + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria);
+                            Logger.logError(
+                                "El empleado con legajo " + legajoEmpleado
+                                + " NO puede aplicar a la convocatoria con codigo " + codigoConvocatoria
+                            );
 
                         } else {
 
@@ -1307,8 +1337,8 @@ public class Empresa {
                                     + " ha sido añadido exitosamente a la convocatoria con codigo "
                                     + codigoConvocatoria);
 
-                            cantPuedeAplicar--; // se usa para no darle la posibilidad de inscribirse a mas
-                                                // convocatorias si no puede
+                            cantPuedeAplicar--;
+                            // se usa para no darle la posibilidad de inscribirse a mas convocatorias si no puede
                         }
                     }
 
@@ -1386,6 +1416,7 @@ public class Empresa {
     public boolean empleadosTienenHabilidad(Habilidad habilidad) {
         // busco si esta en algun empleado
         int i = 0;
+
         while (i < empleados.size() && !empleados.get(i).tieneHabilidad(habilidad)) {
             i++;
         }
@@ -1396,6 +1427,7 @@ public class Empresa {
     public boolean convocatoriasTienenRequisito(Habilidad habilidad) {
         // busco si esta en alguna convocatoria
         int i = 0;
+
         while (i < convocatorias.size() && !convocatorias.get(i).tieneRequisito(habilidad)) {
             i++;
         }
@@ -1440,20 +1472,17 @@ public class Empresa {
 
                 switch (opcion) {
                     case 0:
+                        // Volver al menu
                         break;
-
                     case 1:
                         this.mostrarTodasConvocatorias();
                         break;
-
                     case 2:
                         this.mostrarConvocatoriasPuesto();
                         break;
-
                     case 3:
                         this.mostrarConvocatoriasRangoSalario();
                         break;
-
                     default:
                         Logger.logError("Opcion no disponible");
                         break;

@@ -24,9 +24,9 @@ public class Cargo {
         fechaFin = Fecha.hoy();
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos(Scanner scanner) {
+    public boolean puedeCambiarDeCargo(Scanner scanner) {
         int annosEnCargo = this.getAnnosEnCargo();
-        return puesto.jerarquicoCumpleAnnosMinimos(annosEnCargo, scanner);
+        return puesto.puedeCambiarDePuesto(annosEnCargo, scanner);
     }
 
     public int getAnnosEnCargo() {

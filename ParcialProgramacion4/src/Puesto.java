@@ -96,10 +96,7 @@ public abstract class Puesto {
         return (sueldo >= salarioMin) && (sueldo <= salarioMax);
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto, Scanner scanner) {
-        return true; // comparo en PuestoJerarquico, aca no hay condicion
-    }
-
+    public abstract boolean puedeCambiarDePuesto(int annosEnPuesto, Scanner scanner);
 
     public void mostrarConvocatorias() {
         for (Convocatoria convocatoria: convocatorias) {
