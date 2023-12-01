@@ -53,11 +53,11 @@ public class Cargo {
     }
 
     public void mostrarCargo() {
-        System.out.println("Puesto:");
+        System.out.print("Puesto: ");
         this.puesto.mostrar();
-        System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+        System.out.println("Fecha de Inicio: " + this.getFechaInicio());
         if (fechaFin != null) {
-            System.out.println("Fecha de Fin    : |" + this.getFechaFin());
+            System.out.println("Fecha de Fin: " + this.getFechaFin());
         }
     }
 }
