@@ -866,34 +866,29 @@ public class Empresa {
 
                         if (empleadoSeleccionado == null || !convocatoria.esPostulante(empleadoSeleccionado)) {
                             Logger.logError("No existe un postulante con el legajo " + legajoEmpleado);
+
+                            agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere intentar con otro legajo? ");
                         } else {
                             convocatoria.asignarEmpleado(empleadoSeleccionado);
-                        }
 
-                        //me adelanto a comprobar para saber si pregunto o no, para no preguntar si se que ya no puede inscribir a nadie mas    
-                        if (convocatoria.quedaCupo() && convocatoria.hasPostulantes()) { 
-                            String pregunta;
-
-                            if (empleadoSeleccionado == null || !convocatoria.esPostulante(empleadoSeleccionado)) {
-                                pregunta = "Quiere intentar con otro legajo?"; //xq se q el anterior ingreso no funciono
-                            } else {
-                                pregunta = "Quiere agregar otro postulante?"; //xq se que el anterior funciono y lo agrego
-                            }
-
-                            agregarOtro = InputHelper.yesOrNoInput(scanner, pregunta); //la pregunta depende del caso anterior
-
-                        } else {
-                            //Determino porque no puedo seguir, para informarle al usuario
-                            if (!convocatoria.quedaCupo()) {
+                            if (!convocatoria.quedaCupo()) { 
+                                agregarOtro = false;
+                                
                                 Logger.logSuccess("Ya no puede seleccionar a mas postulantes porque se quedo sin cupo");
                                 Logger.logSuccess("Convocatoria cerrada");
-                            } else { 
+
+                            } else if(!convocatoria.hasPostulantes()){
+                                agregarOtro = false;
+
                                 Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas");
                                 Logger.logSuccess("Aun puede asignar a " + convocatoria.getCantRestante() + " postulantes al puesto de " + convocatoria.getPuesto().getNombre() + " para esta convocatoria");
+                            
+                            } else {
+                                agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere agregar otro legajo? ");
                             }
                         }
-                        
-                    } while (convocatoria.quedaCupo() && convocatoria.hasPostulantes() && agregarOtro);
+
+                    } while (agregarOtro);
                 }
             }
         }
