@@ -19,7 +19,33 @@ public class Cargo {
     	return this.fechaFin;
     }
 
+    
     public void cerrarCargo() {
         fechaFin = Fecha.hoy();
     }
+
+
+
+    public boolean jerarquicoCumpleAnnosMinimos() {
+        int annosEnCargo = this.getAnnosEnCargo();
+        return puesto.jerarquicoCumpleAnnosMinimos(annosEnCargo);
+    }
+
+    public int getAnnosEnCargo(){
+       //calcular años y luego determino si tengo que restarle porque no llego mes o dia para pasar de año
+       Fecha hoy = Fecha.hoy();
+       int annosEnCargo = hoy.getAño() - fechaInicio.getAño();
+
+       //Determino si tengo que restarle un año de mas
+       if (hoy.getMes() < fechaInicio.getMes()) {
+            annosEnCargo--; //todavia no paso el mes de inicio para contabilizar el año ej fecha hoy 2023/11/29 y fecha inicio 2022/12/20
+       } else {
+            if (hoy.getMes() == fechaInicio.getMes() && hoy.getDia() < fechaInicio.getDia()) {
+                annosEnCargo--; //todaia no paso el dia del inicio en el mismo mes para contabilizar el año ej fecha hoy 2023/11/29 y fecha inicio 2022/11/30
+            }
+       }
+
+       return annosEnCargo;
+    }
+
 }
