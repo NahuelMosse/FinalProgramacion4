@@ -782,16 +782,14 @@ public class Empresa {
     
     //CU VER DATOS EMPELADO
     public void verHistorialDeCargos() {
-    	Logger.header("Formulario para ingresar empleado - Habilidades");
+    	Logger.header("Historial de cargos");
     	
-    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado");
+    	int unLegajo = InputHelper.scanInt(scanner, "Ingrese el legajo del empleado: ");
         Empleado unEmpleado = this.buscarEmpleado(unLegajo);
         
-        if (unEmpleado == null)
-		{
-			Logger.logError("NO existe el empleado");
-		}
-        {
+        if (unEmpleado == null) {
+			Logger.logError("NO existe el empleado con legajo " + unLegajo);
+		} else {
         	unEmpleado.mostrarCargos();
 		}
 		

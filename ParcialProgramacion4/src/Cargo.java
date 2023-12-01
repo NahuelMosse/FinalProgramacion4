@@ -42,22 +42,15 @@ public class Cargo {
     }
 
     
-    public Fecha getFechaInicio()
-    {
+    public Fecha getFechaInicio() {
     	return this.fechaInicio;
     }
     
-    public void mostrarCargo()
-    {
-    	if(fechaFin==null)
-    	{
-    		System.out.println("Puesto : |" + this.getPuesto());
-    		System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
-    	}
-    	else
-    	{
-    		System.out.println("Puesto : |" + this.getPuesto());
-    		System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+    public void mostrarCargo() {
+        System.out.println("Puesto : |");
+        this.puesto.mostrar();
+    	System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
+    	if(fechaFin != null) {
     		System.out.println("Fecha de Fin    : |" + this.getFechaFin());
     	}
     }
