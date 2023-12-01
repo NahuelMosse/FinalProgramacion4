@@ -8,7 +8,7 @@ public class ConvocatoriaNoJerarquico extends Convocatoria {
         Puesto puesto,
         Fecha fecha,
         int cantEmpleadosRequeridos,
-        Hashtable<Habilidad,Integer> requisitos
+        Hashtable<Habilidad, Integer> requisitos
     ) {
         super(codigo, puesto, fecha, cantEmpleadosRequeridos, requisitos);
     }
