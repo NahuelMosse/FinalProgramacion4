@@ -161,4 +161,13 @@ public class Empleado {
         habilidades.remove(habilidadBuscada);
     }
 
+	public void mostrarCargos() {
+		for(Cargo unCargo: historialDeCargos)
+		{
+			unCargo.mostrarCargo();
+		}
+		
+	}
+
+
 }
