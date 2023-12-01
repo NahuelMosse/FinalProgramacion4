@@ -186,8 +186,8 @@ public abstract class Convocatoria {
         return cantEmpleadosRequeridos - asignados.size();
     }
 
-    public boolean puedeAplicar(Empleado empleadoAplicar) {
-        return (!this.estaInscripto(empleadoAplicar)) && this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos);
+    public boolean puedeAplicar(Empleado empleadoAplicar, Scanner scanner) {
+        return (!this.estaInscripto(empleadoAplicar)) && this.estaAbierta() && empleadoAplicar.puedeAplicar(requisitos, scanner);
     }
 
     public boolean estaInscripto(Empleado empleado) {

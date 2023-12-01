@@ -8,25 +8,23 @@ public class PuestoJerarquico extends Puesto {
         super(nombre, sueldo);
     }
 
-    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
-        return annosEnPuesto >= PuestoJerarquico.getAnnosMinimosParaCambiar();
+    public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto, Scanner scanner) {
+        return annosEnPuesto >= PuestoJerarquico.getAnnosMinimosParaCambiar(scanner);
     }
 
     // variables de clase
-    public static void setAnnosMinimosParaCambiar() {
-        Scanner scanner = new Scanner(System.in);
+    public static void setAnnosMinimosParaCambiar(Scanner scanner) {
         PuestoJerarquico.annosMinimosParaCambiar = InputHelper.scanInt(scanner,
                 "Ingrese la cantidad minima de años requerida para cambiar a un puesto Jerarquico:");
-        scanner.close();
     }
 
     public static void setAnnosMinimosParaCambiar(int annosMinimos) {
         PuestoJerarquico.annosMinimosParaCambiar = annosMinimos;
     }
 
-    public static int getAnnosMinimosParaCambiar() {
+    public static int getAnnosMinimosParaCambiar(Scanner scanner) {
         if (annosMinimosParaCambiar == 0) {
-            PuestoJerarquico.setAnnosMinimosParaCambiar(); // iniciacion tardia
+            PuestoJerarquico.setAnnosMinimosParaCambiar(scanner); // iniciacion tardia
         }
         return annosMinimosParaCambiar;
     }

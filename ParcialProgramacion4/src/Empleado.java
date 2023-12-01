@@ -191,14 +191,14 @@ public class Empleado {
         Logger.logSuccess("Fecha de nacimiento actualizada");
     }
 
-    public boolean puedeAplicar(Hashtable<Habilidad, Integer> requisitos) {
+    public boolean puedeAplicar(Hashtable<Habilidad, Integer> requisitos, Scanner scanner) {
         // si esta en un puesto jerarquico, determino si cumple con annos minimos en ese
         // puesto
         // comparo requisitos (lo q pide puesto) con habilidades (lo q tiene el
         // empleado)
         Cargo cargoActual = this.getCargoActual();
 
-        return cargoActual.jerarquicoCumpleAnnosMinimos() && this.cumpleRequisitos(requisitos);
+        return cargoActual.jerarquicoCumpleAnnosMinimos(scanner) && this.cumpleRequisitos(requisitos);
     }
 
     public boolean cumpleRequisitos(Hashtable<Habilidad, Integer> requisitos) {
