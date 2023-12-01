@@ -858,27 +858,15 @@ public class Empresa {
                         break;
                 
                     case 1:
-                        System.out.println("Nombre antiguo: " + habilidad.getNombre());
-                        System.out.print("Nuevo nombre: ");
-                        String nuevoNombre = scanner.nextLine();
-                        habilidad.setNombre(nuevoNombre);
-                        Logger.logSuccess("Nombre editado correctamente");
+                        habilidad.editarNombre(scanner);
                         break;
 
                     case 2:
-                        System.out.println("Descripcion antigua: ");
-                        System.out.println(habilidad.getDescripcion());
-                        System.out.print("Nueva descripcion: ");
-                        String nuevaDescripcion = scanner.nextLine();
-                        habilidad.setDescripcion(nuevaDescripcion);
-                        Logger.logSuccess("Descripcion editada correctamente");
+                        habilidad.editarDescripcion(scanner);
                         break;
                     
                     case 3:
-                        Logger.divider();
-                        System.out.println("Habilidad a editar: ");
                         habilidad.mostrar();
-                        Logger.divider();
                         break;
 
                     default:
