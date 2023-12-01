@@ -1391,10 +1391,19 @@ public class Empresa {
         float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
         float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
 
+        int i = 0;
+
         Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
         for (Convocatoria convocatoria : convocatorias) {
-            convocatoria.mostrar();
+            if (convocatoria.dentroDeRango(salarioMin, salarioMax)) {
+                convocatoria.mostrar();
+                i++;
+            }
         }
         
+        if (i == 0) {
+            Logger.logError("No existen convocatorias dentro del rango " + salarioMin + "$ - " + salarioMax + "$");
+        }
+
     }
 }
