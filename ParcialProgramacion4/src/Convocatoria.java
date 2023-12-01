@@ -147,8 +147,9 @@ public abstract class Convocatoria {
    private Empleado buscarPostulante(int legajoPostulante) {
     int i = 0;
 
-    while(i<postulados.size() && !postulados.get(i).hasLegajo(legajoPostulante))
+    while(i<postulados.size() && !postulados.get(i).hasLegajo(legajoPostulante)) {
         i++;
+    }
     
     if(i<postulados.size())
         return postulados.get(i);
