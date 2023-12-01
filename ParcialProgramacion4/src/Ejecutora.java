@@ -175,7 +175,7 @@ public class Ejecutora {
 	            empresa.inscribirEmpleadoEnConvocatorias();
 	            break;
 	        case 8:
-	            	
+	            empresa.darDeBajaPostulanteConvocatoria();
 	            break;
 	        case 9:
 	            empresa.elegirPostulantesConvocatoria();
