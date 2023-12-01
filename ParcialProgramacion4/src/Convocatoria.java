@@ -128,7 +128,7 @@ public abstract class Convocatoria {
 
 
    public boolean hasPostulantes() {
-        return postulados.size() > 0;
+        return this.postulados.size() > 0;
    }
 
    public void darDeBajaPostulante(int legajoPostulante) {
