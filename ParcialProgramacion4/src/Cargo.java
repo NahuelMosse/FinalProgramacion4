@@ -47,7 +47,7 @@ public class Cargo {
     }
     
     public void mostrarCargo() {
-        System.out.println("Puesto : ");
+        System.out.println("Puesto:");
         this.puesto.mostrar();
     	System.out.println("Fecha de Inicio : |" + this.getFechaInicio());
     	if(fechaFin != null) {
