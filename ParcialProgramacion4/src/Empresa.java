@@ -847,10 +847,10 @@ public class Empresa {
 
             System.out.println("\nMenu para editar habilidad");
             do {
-                System.out.println("1- Editar nombre");
-                System.out.println("2- Editar descripcion");
-                System.out.println("3- Ver habilidad");
-                System.out.println("0- Volver al menu Admin");
+                System.out.println("[1] Editar nombre");
+                System.out.println("[2] Editar descripcion");
+                System.out.println("[3] Ver habilidad");
+                System.out.println("[0] Volver al menu Admin");
                 opcion = InputHelper.scanInt(scanner, "Opcion: ");
 
                 switch (opcion) {
