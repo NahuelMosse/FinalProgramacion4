@@ -320,13 +320,22 @@ public class Empresa {
             System.out.println("Fecha de nacimiento: ");
             Fecha fechaNacimiento = Fecha.nuevaFecha();
 
+            while (fechaNacimiento.compareTo(Fecha.hoy()) > 0) {
+                Logger.logError("La fecha de nacimiento debe ser anterior al dia de hoy");
+                System.out.println("Fecha de nacimiento: ");
+                fechaNacimiento = Fecha.nuevaFecha();
+            }
+
             System.out.println("Fecha de ingreso a la empresa: ");
             Fecha fechaIngreso = Fecha.nuevaFecha();
 
-            while (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
-                Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
-                System.out.println("Fecha de ingreso a la empresa: ");
-                fechaIngreso = Fecha.nuevaFecha();
+            while (fechaIngreso.compareTo(Fecha.hoy()) > 0 || fechaIngreso.compareTo(fechaNacimiento) <= 0) {
+
+                if (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
+                    Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
+                } else {
+                    Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento");
+                }
             }
 
             // INGRESAR TODOS LOS CARGOS QUE EMPLEADO OCUPO HASTA AHORA
