@@ -336,6 +336,8 @@ public class Empresa {
                 } else {
                     Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento");
                 }
+
+                fechaIngreso = Fecha.nuevaFecha();
             }
 
             // INGRESAR TODOS LOS CARGOS QUE EMPLEADO OCUPO HASTA AHORA
