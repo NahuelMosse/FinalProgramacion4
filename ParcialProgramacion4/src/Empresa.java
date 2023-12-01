@@ -704,17 +704,7 @@ public class Empresa {
                         break;
 
                     case 2:
-                    	System.out.println("\nFecha a realizar convocatoria: ");
-                        Fecha fechaConvocatoria = Fecha.nuevaFecha();
-
-                        // verificar si la fecha es hoy o posterior 
-                        while (fechaConvocatoria.compareTo(Fecha.hoy()) < 0) {
-                            Logger.logError("La fecha debe ser posterior o igual al dia de hoy");
-                            System.out.println("Fecha a realizar convocatoria: ");
-                            fechaConvocatoria = Fecha.nuevaFecha();
-                        }
-                        
-                        convocatoria.editarFecha(fechaConvocatoria);
+                    	this.editarFechaConvocatoria(convocatoria);
                         break;
 
                     case 3:
@@ -736,6 +726,20 @@ public class Empresa {
 
             } while (opcion != 0);
         }
+    }
+    
+    public void editarFechaConvocatoria(Convocatoria convocatoria){
+    	System.out.println("\nFecha a realizar convocatoria: ");
+        Fecha fechaConvocatoria = Fecha.nuevaFecha();
+
+        // verificar si la fecha es hoy o posterior 
+        while (fechaConvocatoria.compareTo(Fecha.hoy()) < 0) {
+            Logger.logError("La fecha debe ser posterior o igual al dia de hoy");
+            System.out.println("Fecha a realizar convocatoria: ");
+            fechaConvocatoria = Fecha.nuevaFecha();
+        }
+        
+        convocatoria.editarFecha(fechaConvocatoria);
     }
     
     
