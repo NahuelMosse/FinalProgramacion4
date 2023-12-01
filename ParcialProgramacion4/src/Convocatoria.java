@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import utilidades.Fecha;
+import utilidades.InputHelper;
+import java.util.Scanner;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 import utilidades.Logger;
@@ -217,6 +220,24 @@ public abstract class Convocatoria {
     public void informarCantidadRestante() {
         Logger.logSuccess("Aun puede asignar a " + this.getCantRestante() + " postulantes al puesto de "
                 + puesto.getNombre() + " para esta convocatoria");
+    }
+    
+    public void editarFecha(Fecha fechaConvocatoria) {
+    	this.fecha = fechaConvocatoria;
+    }
+    
+    public void editarCantEmpleadosRequeridos(Scanner scanner) {
+    	int cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+    	
+    	while(cantEmpleadosRequeridos < this.asignados.size()) {
+    		System.out.println("Error, no se puede asignar una cantidad de empleados menor a la cantidad de asignados en la convocatoria");
+    		cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+    	}
+    	this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
+    }
+    
+    public void editarRequisitos(Hashtable<Habilidad, Integer> requisitos) {
+    	this.requisitos = requisitos;
     }
 
 }

@@ -165,7 +165,7 @@ public class Ejecutora {
 					empresa.agregarConvocatoria();
 					break;
 				case 2:
-
+					empresa.editarConvocatoria();
 					break;
 				case 3:
 					empresa.darDeBajaConvocatoria();
