@@ -834,7 +834,7 @@ public class Empresa {
 
     //CASO DE USO ELEGIR POSTULANTES DE CONVOCATORIA PARA EL PUESTO VACANTE
     public void elegirPostulantesConvocatoria() {
-        Logger.header("Formulario para elegir postulantes de convocatoria");
+        Logger.header("Elegir postulantes de convocatoria");
 
         int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
 
