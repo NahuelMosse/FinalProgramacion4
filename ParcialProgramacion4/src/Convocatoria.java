@@ -185,5 +185,9 @@ public abstract class Convocatoria {
    public void inscribirEmpleado(Empleado empleado) {
     //ya verifique si podria inscribirse o no en empresa, solo lo agrego a postulados
     postulados.add(empleado);
-}
+    }
+
+    public void informarCantidadRestante() {
+        Logger.logSuccess("Aun puede asignar a " + this.getCantRestante() + " postulantes al puesto de " + puesto.getNombre() + " para esta convocatoria");
+    }
 }

@@ -881,7 +881,7 @@ public class Empresa {
                                 agregarOtro = false;
 
                                 Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas");
-                                Logger.logSuccess("Aun puede asignar a " + convocatoria.getCantRestante() + " postulantes al puesto de " + convocatoria.getPuesto().getNombre() + " para esta convocatoria");
+                                convocatoria.informarCantidadRestante();
                             
                             } else {
                                 agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere agregar otro legajo? ");
