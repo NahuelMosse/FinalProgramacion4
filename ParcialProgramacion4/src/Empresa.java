@@ -831,6 +831,69 @@ public class Empresa {
     }
 
 
+
+    //CASO DE USO ELEGIR POSTULANTES DE CONVOCATORIA PARA EL PUESTO VACANTE
+    public void elegirPostulantesConvocatoria() {
+        Logger.header("Elegir postulantes de convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria == null) {
+            Logger.logError("NO existe una convocatoria con codigo " + codigoConvocatoria + " en el sistema");
+        } else {
+            if (!convocatoria.estaAbierta()) {
+                Logger.logError("La convocatoria esta cerrada, NO se puede seleccionar postulantes");
+            } else {
+                if (!convocatoria.hasPostulantes()) {
+                    Logger.logError("No puede continuar la seleccion porque no hay postulantes para la convocatoria con codigo " + codigoConvocatoria);
+                } else {
+                    //se pueden seleccionar postulantes para el puesto vacante
+
+                    convocatoria.mostrarConPostulantesAsignados();
+
+                    int legajoEmpleado;
+                    Empleado empleadoSeleccionado;
+                    boolean agregarOtro = true;
+
+                    System.out.println("\n Elegir postulantes: ");
+
+                    do {
+                        legajoEmpleado = InputHelper.scanInt(scanner, "Legajo postulante seleccionado: ");
+
+                        empleadoSeleccionado = this.buscarEmpleado(legajoEmpleado);
+
+                        if (empleadoSeleccionado == null || !convocatoria.esPostulante(empleadoSeleccionado)) {
+                            Logger.logError("No existe un postulante con el legajo " + legajoEmpleado);
+
+                            agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere intentar con otro legajo? ");
+                        } else {
+                            convocatoria.asignarEmpleado(empleadoSeleccionado);
+
+                            if (!convocatoria.quedaCupo()) { 
+                                agregarOtro = false;
+                                
+                                Logger.logSuccess("Ya no puede seleccionar a mas postulantes porque se quedo sin cupo");
+                                Logger.logSuccess("Convocatoria cerrada");
+
+                            } else if(!convocatoria.hasPostulantes()){
+                                agregarOtro = false;
+
+                                Logger.logSuccess("Ya no puede selecccionar a mas postulantes porque no hay mas");
+                                convocatoria.informarCantidadRestante();
+                            
+                            } else {
+                                agregarOtro = InputHelper.yesOrNoInput(scanner, "Quiere agregar otro legajo? ");
+                            }
+                        }
+
+                    } while (agregarOtro);
+                }
+            }
+        }
+    }
+
     //CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
     public void mostrarConvocatoriasPuedaAplicarEmpleado() {
         //le muestro al empleado todas las convocatorias que pueda aplicar de todos los puestos
@@ -1092,6 +1155,7 @@ public class Empresa {
             }
         }
     }
+
 
     public boolean empleadosTienenHabilidad(Habilidad habilidad) {
         //busco si esta en algun empleado
