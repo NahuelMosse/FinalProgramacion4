@@ -911,7 +911,7 @@ public class Empresa {
 
             if (!convocatoriaEliminar.estaAbierta()) { // si esta cerrada, se lo informo y le pregunto si quiere
                                                        // continuar
-                Logger.logWarning("Dar de baja una convocatoria");
+                Logger.logWarning("La convocatoria esta cerrada");
                 eliminar = InputHelper.yesOrNoInput(scanner, "Quiere eliminarla?");
             }
 
@@ -1514,6 +1514,29 @@ public class Empresa {
             for (Empleado empleado: empleados) {
                 empleado.mostrar();
                 Logger.divider();
+            }
+        }
+    }
+
+
+    //CU Terminar convocatoria
+    public void terminarConvocatoria() {
+        Logger.header("Terminar convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria != null) {
+            convocatoria.terminar(); //iguala cant inscriptos con los asignados, para que se cierre
+        } else {
+
+            Logger.logError("No existe convocatoria con codigo " + codigoConvocatoria);
+
+            boolean continuar = InputHelper.yesOrNoInput(scanner, "Quiere probar con otro codigo?");
+         
+            if (continuar) {
+                this.terminarConvocatoria();
             }
         }
     }
