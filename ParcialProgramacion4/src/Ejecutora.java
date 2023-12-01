@@ -130,12 +130,12 @@ public class Ejecutora {
             System.out.println("\n[1] Crear una nueva convocatoria");
             System.out.println("[2] Editar convocatoria");
             System.out.println("[3] Dar de baja convocatoria");
-            System.out.println("[4] Terminar proceso de convocatoria");
+            System.out.println("[4] Definir años necesarios en puesto jerarquico para cambiar");
             System.out.println("[5] Mostrar convocatorias abiertas");
             System.out.println("[6] Mostrar convocatorias a las que pueda aplicar empleado");
             System.out.println("[7] Inscribir empleado a convocatorias");
             System.out.println("[8] Dar de baja incripto a convocatoria");
-            System.out.println("[9] Definir años necesarios en puesto jerarquico para cambiar");
+            System.out.println("[9] Elegir postulantes en convocatoria y asignarlos al puesto vacante");
             System.out.println("[0] Volver al menu principal");
             
             opcion = Ejecutora.conseguirOpcionDelMenu();
@@ -164,13 +164,13 @@ public class Ejecutora {
 	            empresa.mostrarConvocatoriasPuedaAplicarEmpleado();
 	            break;
 	        case 7:
-	            // empresa.inscribirEmpleadoConvocatoria();
+	            empresa.inscribirEmpleadoEnConvocatorias();
 	            break;
 	        case 8:
 	            	
 	            break;
 	        case 9:
-	            	
+	            empresa.elegirPostulantesConvocatoria();
 	            break;
 	        default:
 	            Logger.logError("La opcion " + opcion + " no esta en la lista");
@@ -205,7 +205,7 @@ public class Ejecutora {
 				empresa.verDatosEmpleado();
 	            break;
 	        case 2:
-	                
+	            empresa.verHistorialDeCargos();
 	            break;
 	        case 3:
 	                
