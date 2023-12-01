@@ -12,8 +12,8 @@ public class Empleado {
     private String nombre;
     private String apellido;
     private Fecha fechaNacimiento;
-    private ArrayList<Cargo>historialDeCargos;
-    private Hashtable<Habilidad,Integer> habilidades;
+    private ArrayList<Cargo> historialDeCargos;
+    private Hashtable<Habilidad, Integer> habilidades;
     private Fecha fechaDeIngreso;
 
     public Empleado(
@@ -22,7 +22,7 @@ public class Empleado {
         String apellido,
         Fecha fechaNacimiento,
         Fecha fechaDeIngreso, ArrayList<Cargo> historialDeCargos,
-        Hashtable<Habilidad,Integer> habilidades
+        Hashtable<Habilidad, Integer> habilidades
     ) {
         this.legajo = legajo;
         this.nombre = nombre;
@@ -32,7 +32,7 @@ public class Empleado {
         this.habilidades = habilidades;
         this.fechaDeIngreso = fechaDeIngreso;
     }
-    
+
     public void mostrar() {
         System.out.println("Legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
@@ -51,21 +51,22 @@ public class Empleado {
             edad--;
         } else {
             if (hoy.getMes() == fechaNacimiento.getMes() && hoy.getDia() < fechaNacimiento.getDia()) {
-                edad--; 
+                edad--;
             }
         }
 
         return edad;
     }
-  
+
     public Puesto getPuestoActual() {
-        //siempre se cumple que el ultimo agregado es el actual, entonces saco el ultimo
+        // siempre se cumple que el ultimo agregado es el actual, entonces saco el
+        // ultimo
         return this.historialDeCargos.get(historialDeCargos.size() - 1).getPuesto();
     }
-  
+
     public void agregarHabilidad(Scanner scanner, Habilidad habilidad) {
-        if(habilidades.containsKey(habilidad)) { 
-            Logger.logError("El empleado "  + this.nombre + " ya tiene registrada esta habilidad");
+        if (habilidades.containsKey(habilidad)) {
+            Logger.logError("El empleado " + this.nombre + " ya tiene registrada esta habilidad");
         } else {
             int annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
 
@@ -74,15 +75,15 @@ public class Empleado {
             Logger.logSuccess("Habilidad agregada al empleado con exito");
         }
     }
-   
+
     public void eliminarHabilidad(Habilidad habilidad) {
-		if (habilidades.remove(habilidad) == null) {
-		    Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
-		} else  {
+        if (habilidades.remove(habilidad) == null) {
+            Logger.logError("El empleado " + this.nombre + " no tiene la habilidad " + habilidad.getNombre());
+        } else {
             Logger.logSuccess("Habilidad eliminada con exito");
         }
-	  }
-    
+    }
+
     public void modificarAnnos(Scanner scanner, Habilidad habilidad) {
         if (!habilidades.containsKey(habilidad)) {
             Logger.logError("El empleado " + this.nombre + " no tiene la habilidad ");
@@ -103,22 +104,19 @@ public class Empleado {
 
             habilidad.mostrar();
 
-            System.out.println("años de experiencia: "+habilidades.get(habilidad));
+            System.out.println("años de experiencia: " + habilidades.get(habilidad));
         }
     }
-    
+
     public boolean hasLegajo(int legajo) {
         return this.legajo == legajo;
     }
 
-
     public void eliminarCargos() {
-        for (Cargo cargo: historialDeCargos) {
+        for (Cargo cargo : historialDeCargos) {
             historialDeCargos.remove(cargo);
         }
     }
-
-    
 
     public void editarInformacion(Scanner scanner) {
         int opcion;
@@ -174,24 +172,27 @@ public class Empleado {
     }
 
     private void editarFechaDeNacimiento(Scanner scanner) {
-        System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
+        System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes()
+                + "/" + fechaNacimiento.getAño());
         System.out.println("Nueva fecha: ");
         fechaNacimiento = Fecha.nuevaFecha();
         Logger.logSuccess("Fecha de nacimiento actualizada");
     }
 
-
-    public boolean puedeAplicar(Hashtable<Habilidad,Integer> requisitos) {
-        //si esta en un puesto jerarquico, determino si cumple con annos minimos en ese puesto
-        //comparo requisitos (lo q pide puesto) con habilidades (lo q tiene el empleado) 
+    public boolean puedeAplicar(Hashtable<Habilidad, Integer> requisitos) {
+        // si esta en un puesto jerarquico, determino si cumple con annos minimos en ese
+        // puesto
+        // comparo requisitos (lo q pide puesto) con habilidades (lo q tiene el
+        // empleado)
         Cargo cargoActual = this.getCargoActual();
-        
+
         return cargoActual.jerarquicoCumpleAnnosMinimos() && this.cumpleRequisitos(requisitos);
     }
-    
-    public boolean cumpleRequisitos(Hashtable<Habilidad,Integer> requisitos) {
-        //recorro la hashtable de requisitos y me fijo si tiene la habilidad el empleado y los años minimos
-        boolean cumpleReq = true; //si no tiene algun requisito o años necesarios, no sigue recorriendo
+
+    public boolean cumpleRequisitos(Hashtable<Habilidad, Integer> requisitos) {
+        // recorro la hashtable de requisitos y me fijo si tiene la habilidad el
+        // empleado y los años minimos
+        boolean cumpleReq = true; // si no tiene algun requisito o años necesarios, no sigue recorriendo
         Habilidad requisito;
 
         Enumeration<Habilidad> enumReq = requisitos.keys();
@@ -199,32 +200,34 @@ public class Empleado {
             requisito = enumReq.nextElement();
 
             if (habilidades.containsKey(requisito)) {
-                            //   años de la persona    >= años necesarios convocatoria
-                cumpleReq = habilidades.get(requisito) >= requisitos.get(requisito); 
+                // años de la persona >= años necesarios convocatoria
+                cumpleReq = habilidades.get(requisito) >= requisitos.get(requisito);
 
             } else {
-                cumpleReq = false; //no tiene ese requisito, ya no puede aplicar
+                cumpleReq = false; // no tiene ese requisito, ya no puede aplicar
             }
         }
 
         return cumpleReq;
     }
 
-
     public int getAnnosEnEmpresa() {
-        //calcular años y luego determino si tengo que restarle porque no llego mes o dia para pasar de año
+        // calcular años y luego determino si tengo que restarle porque no llego mes o
+        // dia para pasar de año
         Fecha hoy = Fecha.hoy();
         int annosEnEmpresa = hoy.getAño() - fechaDeIngreso.getAño();
- 
-        //Determino si tengo que restarle un año de mas
+
+        // Determino si tengo que restarle un año de mas
         if (hoy.getMes() < fechaDeIngreso.getMes()) {
-             annosEnEmpresa--; //todavia no paso el mes de ingreso para contabilizar el año ej fecha hoy 2023/11/29 y fecha inicio 2022/12/20
+            annosEnEmpresa--; // todavia no paso el mes de ingreso para contabilizar el año ej fecha hoy
+                              // 2023/11/29 y fecha inicio 2022/12/20
         } else {
-             if (hoy.getMes() == fechaDeIngreso.getMes() && hoy.getDia() < fechaDeIngreso.getDia()) {
-                 annosEnEmpresa--; //todaia no paso el dia del ingreso en el mismo mes para contabilizar el año ej fecha hoy 2023/11/29 y fecha inicio 2022/11/30
-             }
+            if (hoy.getMes() == fechaDeIngreso.getMes() && hoy.getDia() < fechaDeIngreso.getDia()) {
+                annosEnEmpresa--; // todaia no paso el dia del ingreso en el mismo mes para contabilizar el año ej
+                                  // fecha hoy 2023/11/29 y fecha inicio 2022/11/30
+            }
         }
- 
+
         return annosEnEmpresa;
     }
 
@@ -244,22 +247,21 @@ public class Empleado {
         Cargo cargoActual = this.getCargoActual();
         cargoActual.cerrarCargo();
 
-        //crear nuevo cargo
-        Cargo cargoNuevo = new Cargo(Fecha.hoy(), null, nuevoPuesto); //null xq no finalizo, cuando finaliza se establece fechaFin
+        // crear nuevo cargo
+        Cargo cargoNuevo = new Cargo(Fecha.hoy(), null, nuevoPuesto); // null xq no finalizo, cuando finaliza se
+                                                                      // establece fechaFin
         historialDeCargos.add(cargoNuevo);
     }
 
     public Cargo getCargoActual() {
-        return this.historialDeCargos.get(historialDeCargos.size() - 1); //el ultimo cargo agregado
+        return this.historialDeCargos.get(historialDeCargos.size() - 1); // el ultimo cargo agregado
     }
 
-	public void mostrarCargos() {
-		for(Cargo unCargo: historialDeCargos)
-		{
-			unCargo.mostrarCargo();
-		}
-		
-	}
+    public void mostrarCargos() {
+        for (Cargo unCargo : historialDeCargos) {
+            unCargo.mostrarCargo();
+        }
 
-  
+    }
+
 }

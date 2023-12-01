@@ -7,7 +7,7 @@ public class Logger {
 		System.out.println("ERROR: " + stringError);
 		Logger.divider();
 	}
-	
+
 	public static void logSuccess(String stringSuccess) {
 		System.out.println("\n" + stringSuccess + " !!!");
 	}
@@ -21,7 +21,7 @@ public class Logger {
 	public static void subDivider() {
 		System.out.println("*********************************");
 	}
-	
+
 	public static void divider() {
 		System.out.println("--------------------------------------------------------------------------------------");
 	}
