@@ -38,6 +38,7 @@ public class Empleado {
         System.out.println("Nombre completo: " + nombre + " " + apellido);
         System.out.println("Edad: " + this.calcularEdad());
         System.out.print("Puesto actual: ");
+        this.getPuestoActual().mostrar();
 
         if (habilidades.size() == 0) {
             System.out.println("No tiene habilidades");
