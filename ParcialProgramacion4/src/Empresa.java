@@ -1322,4 +1322,79 @@ public class Empresa {
         }
     }
 
+
+    //CU Mostrar todas las convocatorias
+    public void mostrarConvocatorias() {
+        if (convocatorias.size() == 0) {
+
+            Logger.logSuccess("Lo sentimos, NO existen convocatoria en el sistema");
+
+        } else {
+            int opcion = 0;
+
+            do {
+                Logger.header("Menu Consultar Convocatorias");
+                System.out.println("[1] Ver todas las convocatorias");
+                System.out.println("[2] Ver convocatorias de un puesto especifico");
+                System.out.println("[3] Ver convocatorias para un rango de salario");
+                System.out.println("[0] Volver");
+
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+
+                    case 1:
+                        this.mostrarTodasConvocatorias();
+                        break;
+
+                    case 2:
+                        this.mostrarConvocatoriasPuesto();
+                        break;
+
+                    case 3:
+                        this.mostrarConvocatoriasRangoSalario();
+                        break;
+
+                    default:
+                        Logger.logError("Opcion no disponible");
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+
+    }
+
+    public void mostrarTodasConvocatorias() {
+        for (Convocatoria convocatoria: convocatorias) {
+            convocatoria.mostrar();
+        }
+    }
+
+    public void mostrarConvocatoriasPuesto() {
+        System.out.println("Nombre puesto: ");
+        String nombrePuesto = scanner.nextLine();
+
+        Puesto puesto = this.buscarPuesto(nombrePuesto);
+
+        if (puesto == null) {
+            Logger.logError("No existe puesto con el nombre " + nombrePuesto);
+        } else {
+            puesto.mostrarConvocatorias();
+        }
+    }
+
+
+    public void mostrarConvocatoriasRangoSalario() {
+        float salarioMin = InputHelper.scanFloat(scanner, "Salario minimo: ");
+        float salarioMax = InputHelper.scanFloat(scanner, "Salario maximo: ");
+
+        Logger.header("Convocatorias disponibles con sueldo " + salarioMin + "$ - " + salarioMax + "$");
+        for (Convocatoria convocatoria : convocatorias) {
+            convocatoria.mostrar();
+        }
+        
+    }
 }
