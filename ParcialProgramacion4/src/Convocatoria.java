@@ -126,12 +126,40 @@ public abstract class Convocatoria {
         }
    }
 
-   public int getCantEmpleadosRequeridos() {
-        return this.cantEmpleadosRequeridos;
-   }
 
    public boolean hasPostulantes() {
         return this.postulados.size() > 0;
+   }
+
+   public void darDeBajaPostulante(int legajoPostulante) {
+        Empleado postulante = this.buscarPostulante(legajoPostulante);
+
+        if (postulante == null) {
+            Logger.logError("La convocatoria no tiene un postulante con legajo " + legajoPostulante);
+        } else {
+            postulados.remove(postulante);
+
+            Logger.logSuccess("El postulante con legajo " + legajoPostulante + " se ha dado de baja de la convocatoria con exito");
+        }
+   }
+
+
+   private Empleado buscarPostulante(int legajoPostulante) {
+    int i = 0;
+
+    while(i<postulados.size() && !postulados.get(i).hasLegajo(legajoPostulante)) {
+        i++;
+    }
+    
+    if(i<postulados.size()) {
+        return postulados.get(i);
+    }
+    return null;
+}
+
+
+   public int getCantEmpleadosRequeridos() {
+        return this.cantEmpleadosRequeridos;
    }
 
    
@@ -190,4 +218,5 @@ public abstract class Convocatoria {
     public void informarCantidadRestante() {
         Logger.logSuccess("Aun puede asignar a " + this.getCantRestante() + " postulantes al puesto de " + puesto.getNombre() + " para esta convocatoria");
     }
+
 }
