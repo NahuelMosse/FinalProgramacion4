@@ -858,7 +858,7 @@ public class Empresa {
         }
     
     }
-/*
+
     // CU VER DATOS EMPELADO
     public void verHistorialDeCargos() {
         Logger.header("Historial de cargos");
@@ -873,7 +873,7 @@ public class Empresa {
         }
 
     }
- */
+ 
     // CASO DE USO DAR DE BAJA CONVOCATORIA
     public void darDeBajaConvocatoria() {
         Logger.header("Dar de baja una convocatoria");
@@ -973,7 +973,7 @@ public class Empresa {
             }
         }
     }
-/*
+
     public void editarInformacionEmpleado() {
         Logger.header("Editar informacion personal del empleado");
 
@@ -987,7 +987,7 @@ public class Empresa {
             empleado.editarInformacion(scanner);
         }
     }
- */
+ 
     // CASO DE USO EDITAR HABILIDAD MENU GENERAL (para todo el sistema)
     public void editarHabilidad() {
         Logger.header("Formulario para editar habilidad");
@@ -1380,7 +1380,7 @@ public class Empresa {
 
         return i < convocatorias.size();
     }
-/*
+
     // CU VER DATOS EMPLEADO
     public void verDatosEmpleado() {
         Logger.header("Mostrar empleado");
@@ -1396,7 +1396,7 @@ public class Empresa {
             Logger.divider();
         }
     }
- */
+ 
 
     //CU Mostrar todas las convocatorias
     public void mostrarConvocatorias() {
