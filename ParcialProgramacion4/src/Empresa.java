@@ -816,12 +816,7 @@ public class Empresa {
     }
 
 
-    //CASO DE USO INSCRIBIR EMPLEADO EN CONVOCATORIAS
-    public void inscribirEmpleadoEnConvocatorias() {
-        Logger.header("Formulario para inscribir empleado en convocatorias");
-
-        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
-    }
+    
   
     //CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
     public void mostrarConvocatoriasPuedaAplicarEmpleado() {
@@ -837,7 +832,7 @@ public class Empresa {
         } else {
 
             //determinar si puede inscribirse a alguna convocatoria, si no puede a ninguna, se lo informo
-            int cantPuedeAplicar = this.cantConvocatoriasPuedeAplicar(empleado);
+            int cantPuedeAplicar = this.convocatoriasPuedeAplicar(empleado).size(); //devuelve arraylist que me da la cantidad
 
             if (cantPuedeAplicar == 0) {
 
@@ -889,7 +884,19 @@ public class Empresa {
                 } while (otra);
 
             }
+        }
+    }
+           
+           
+    //CASO DE USO INSCRIBIR EMPLEADO EN CONVOCATORIAS
+    public void inscribirEmpleadoEnConvocatorias() {
+        Logger.header("Formulario para inscribir empleado en convocatorias");
 
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+            
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
             Logger.logError("No existe un empleado con ese legajo");
         } else {
             this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
