@@ -587,6 +587,13 @@ public class Empresa {
 
 
 
+
+
+
+
+
+
+
     
     public void editarInformacionEmpleado() {
         Logger.header("Formulario para editar informacion personal del empleado");
