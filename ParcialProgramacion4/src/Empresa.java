@@ -842,7 +842,23 @@ public class Empresa {
         }
     }
 
+   
+    public void editarInformacionEmpleado() {
+        Logger.header("Editar informacion personal del empleado");
 
+        int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
+
+        Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+
+        if (empleado == null) {
+            Logger.logError("No existe un empleado con el legajo " + legajoEmpleado);
+        } else {
+            empleado.editarInformacion(scanner);
+        }
+    }
+      
+   
+  
     //CASO DE USO EDITAR HABILIDAD MENU GENERAL (para todo el sistema)
     public void editarHabilidad() {
         Logger.header("Formulario para editar habilidad");
@@ -890,7 +906,7 @@ public class Empresa {
         }
     }
 
- 
+
 
     //CASO DE USO ELEGIR POSTULANTES DE CONVOCATORIA PARA EL PUESTO VACANTE
     public void elegirPostulantesConvocatoria() {
@@ -1086,16 +1102,6 @@ public class Empresa {
     } 
 
 
-    private boolean hayConvocatoriasAbiertas() {
-        int i = 0;
-
-        while (i<convocatorias.size() && !convocatorias.get(i).estaAbierta()) {
-            i++;
-        }
-
-        return i < convocatorias.size();
-    }
-
 
     //CASO DE USO INSCRIBIR EMPLEADO A CONVOCATORIAS
     public void inscribirEmpleadoEnConvocatorias() {
@@ -1104,6 +1110,7 @@ public class Empresa {
         int legajoEmpleado = InputHelper.scanInt(scanner, "Numero de legajo: ");
 
         Empleado empleado = this.buscarEmpleado(legajoEmpleado);
+      
         if (empleado == null) {
             Logger.logError("No existe un empleado con el legajo " + legajoEmpleado + " en el sistema");
         } else {
@@ -1252,5 +1259,6 @@ public class Empresa {
             Logger.divider();
         }
     }
+
 }
 
