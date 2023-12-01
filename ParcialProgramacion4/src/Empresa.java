@@ -556,7 +556,7 @@ public class Empresa {
             Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
 
             if (habilidad == null) {
-                System.out.println("Descripcion: ");
+                System.out.print("Descripcion: ");
                 String descripcion = scanner.nextLine();
 
                 habilidad = new Habilidad(nombreHabilidad, descripcion);
