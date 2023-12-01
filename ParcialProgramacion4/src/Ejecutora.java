@@ -150,6 +150,7 @@ public class Ejecutora {
 			System.out.println("[8] Dar de baja incripto a convocatoria");
 			System.out.println("[9] Elegir postulantes en convocatoria y asignarlos al puesto vacante");
 			System.out.println("[10] Mostrar todas las convocatorias");
+			System.out.println("[11] Terminar convocatoria");
 			System.out.println("[0] Volver al menu principal");
 
 			opcion = Ejecutora.conseguirOpcionDelMenu();
@@ -190,6 +191,9 @@ public class Ejecutora {
 					break;
 				case 10:
 					empresa.mostrarConvocatorias();
+					break;
+				case 11:
+					empresa.terminarConvocatoria();
 					break;
 				default:
 					Logger.logError("La opcion " + opcion + " no esta en la lista");
