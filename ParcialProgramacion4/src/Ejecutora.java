@@ -206,48 +206,69 @@ public class Ejecutora {
 	public static void menuUsuario() {
 		int opcion = 0;
 
-		do {
-			Logger.header("Menu Usuario");
+		Logger.header("Menu Usuario");
 
-			System.out.println("\nSeleccione una de las opciones de la lista");
-			System.out.println("\n[1] Ver datos de empleado");
-			System.out.println("[2] Ver historial de cargos");
-			System.out.println("[3] Editar informacion personal del empleado");
-			System.out.println("[4] Agregar habilidad");
-			System.out.println("[5] Editar años de experiencia habilidad");
-			System.out.println("[6] Quitar habilidad");
-			System.out.println("[0] Volver al menu principal");
+		int legajo = InputHelper.scanInt(scanner, "Legajo empleado: ");
 
-			opcion = Ejecutora.conseguirOpcionDelMenu();
+		Empleado empleado = empresa.buscarEmpleado(legajo);
 
-			switch (opcion) {
-				case 0:
-					// Volver al menu principal
-					break;
-				case 1:
-					empresa.verDatosEmpleado();
-					break;
-				case 2:
-					empresa.verHistorialDeCargos();
-					break;
-				case 3:
-					empresa.editarInformacionEmpleado();
-					break;
-				case 4:
-					empresa.agregarHabilidadEmpleado();
-					break;
-				case 5:
-					empresa.editarAnnosEmpleado();
-					break;
-				case 6:
-					empresa.quitarHabilidadEmpleado();
-					break;
-				default:
-					Logger.logError("La opcion " + opcion + " no esta en la lista");
-					break;
+		boolean intentar = true;
+
+		while (empleado == null && intentar) {
+			Logger.logError("No existe empleado con legajo " + legajo);
+
+			intentar = InputHelper.yesOrNoInput(scanner, "Quiere intentar con otro legajo?");
+
+			if (intentar) {
+				legajo = InputHelper.scanInt(scanner, "Legajo empleado: ");
+
+				empleado = empresa.buscarEmpleado(legajo);
 			}
+		}
 
-		} while (opcion != 0);
+		if (empleado != null) {
+			do {
+				System.out.println("\nSeleccione una de las opciones de la lista");
+				System.out.println("\n[1] Ver datos de empleado");
+				System.out.println("[2] Ver historial de cargos");
+				System.out.println("[3] Editar informacion personal del empleado");
+				System.out.println("[4] Agregar habilidad");
+				System.out.println("[5] Editar años de experiencia habilidad");
+				System.out.println("[6] Quitar habilidad");
+				System.out.println("[0] Volver al menu principal");
+
+				opcion = Ejecutora.conseguirOpcionDelMenu();
+
+				switch (opcion) {
+					case 0:
+						// Volver al menu principal
+						break;
+					case 1:
+						empleado.mostrar();
+						break;
+					case 2:
+						empleado.mostrarCargos();
+						break;
+					case 3:
+						empleado.editarInformacion(scanner);
+						break;
+					case 4:
+						empresa.agregarHabilidadEmpleado(empleado);
+						break;
+					case 5:
+						empresa.editarAnnosEmpleado(empleado);
+						break;
+					case 6:
+						empresa.quitarHabilidadEmpleado(empleado);
+						break;
+					default:
+						Logger.logError("La opcion " + opcion + " no esta en la lista");
+						break;
+				}
+
+			} while (opcion != 0);
+		}
+
 	}
 
 	public static int conseguirOpcionDelMenu() {
