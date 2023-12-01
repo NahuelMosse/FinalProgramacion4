@@ -151,10 +151,10 @@ public abstract class Convocatoria {
         i++;
     }
     
-    if(i<postulados.size())
+    if(i<postulados.size()) {
         return postulados.get(i);
-    else
-        return null;
+    }
+    return null;
 }
 
 
