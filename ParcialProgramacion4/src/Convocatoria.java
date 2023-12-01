@@ -240,4 +240,16 @@ public abstract class Convocatoria {
     	this.requisitos = requisitos;
     }
 
+
+    public void terminar() {
+        if (this.cantEmpleadosRequeridos == this.asignados.size()) {
+            Logger.logError("La convocatoria ya estaba cerrada");
+        } else {
+            this.cantEmpleadosRequeridos = this.asignados.size();
+
+            Logger.logSuccess("Convocatoria cerrada");
+        }
+    }
+
+
 }

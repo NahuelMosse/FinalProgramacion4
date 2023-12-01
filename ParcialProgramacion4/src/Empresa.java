@@ -1517,4 +1517,27 @@ public class Empresa {
             }
         }
     }
+
+
+    //CU Terminar convocatoria
+    public void terminarConvocatoria() {
+        Logger.header("Terminar convocatoria");
+
+        int codigoConvocatoria = InputHelper.scanInt(scanner, "Codigo convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigoConvocatoria);
+
+        if (convocatoria != null) {
+            convocatoria.terminar(); //iguala cant inscriptos con los asignados, para que se cierre
+        } else {
+
+            Logger.logError("No existe convocatoria con codigo " + codigoConvocatoria);
+
+            boolean continuar = InputHelper.yesOrNoInput(scanner, "Quiere probar con otro codigo?");
+         
+            if (continuar) {
+                this.terminarConvocatoria();
+            }
+        }
+    }
 }
