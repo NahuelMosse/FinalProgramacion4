@@ -858,6 +858,55 @@ public class Empresa {
     }
       
    
+  
+    //CASO DE USO EDITAR HABILIDAD MENU GENERAL (para todo el sistema)
+    public void editarHabilidad() {
+        Logger.header("Formulario para editar habilidad");
+
+        System.out.print("Nombre habilidad: "); 
+        String nombreHabilidad = scanner.nextLine();
+
+        Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
+
+        if (habilidad == null) {
+            Logger.logError("No existe una habilidad llamada " + nombreHabilidad);
+        } else {
+            int opcion;
+
+            System.out.println("\nMenu para editar habilidad");
+            do {
+                System.out.println("[1] Editar nombre");
+                System.out.println("[2] Editar descripcion");
+                System.out.println("[3] Ver habilidad");
+                System.out.println("[0] Volver al menu Admin");
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+                
+                    case 1:
+                        habilidad.editarNombre(scanner);
+                        break;
+
+                    case 2:
+                        habilidad.editarDescripcion(scanner);
+                        break;
+                    
+                    case 3:
+                        habilidad.mostrar();
+                        break;
+
+                    default:
+                        Logger.logError("Opcion no valida");
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+    }
+
+
 
     //CASO DE USO ELEGIR POSTULANTES DE CONVOCATORIA PARA EL PUESTO VACANTE
     public void elegirPostulantesConvocatoria() {
@@ -920,7 +969,7 @@ public class Empresa {
             }
         }
     }
-
+  
     //CASO DE USO MOSTRAR CONVOCATORIAS PUEDA APLICAR EMPLEADO
     public void mostrarConvocatoriasPuedaAplicarEmpleado() {
         //le muestro al empleado todas las convocatorias que pueda aplicar de todos los puestos
