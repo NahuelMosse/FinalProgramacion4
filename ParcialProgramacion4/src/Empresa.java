@@ -337,6 +337,7 @@ public class Empresa {
                     Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento");
                 }
 
+                System.out.println("Fecha de ingreso a la empresa: ");
                 fechaIngreso = Fecha.nuevaFecha();
             }
 
