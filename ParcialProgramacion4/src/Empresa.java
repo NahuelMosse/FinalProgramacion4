@@ -842,6 +842,31 @@ public class Empresa {
         }
     }
 
+
+    //CASO DE USO MOSTRAR HABILIDADES
+    public void mostrarHabilidades() {
+        Logger.header("Habilidades registradas en el sistema");
+
+        if (habilidades.size() == 0) {
+            Logger.logError("No se encuentran habilidades registradas");
+        } else {
+            for (Habilidad habilidad: habilidades) {
+                habilidad.mostrar();
+            }
+        }
+    }
+
+    public void mostrarPuestos() {
+        Logger.header("Puestos de trabajo registrados en el sistema");
+
+        if (puestos.size() == 0) {
+            Logger.logError("No se encuentran puestos de trabajo registrados");
+        } else {
+            for (Puesto puesto: puestos) {
+                puesto.mostrar();
+            }
+        }
+    }
    
     public void editarInformacionEmpleado() {
         Logger.header("Editar informacion personal del empleado");
