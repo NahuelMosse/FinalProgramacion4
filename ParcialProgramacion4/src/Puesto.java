@@ -4,8 +4,8 @@ import utilidades.Logger;
 public abstract class Puesto {
     private String nombre;
     private float sueldo;
-    private ArrayList<Convocatoria>convocatorias;
-    private ArrayList<Empleado>empleados;
+    private ArrayList<Convocatoria> convocatorias;
+    private ArrayList<Empleado> empleados;
 
     public Puesto(String nombre, float sueldo) {
         this.nombre = nombre;
@@ -13,7 +13,7 @@ public abstract class Puesto {
         this.convocatorias = new ArrayList<Convocatoria>();
         this.empleados = new ArrayList<Empleado>();
     }
-  
+
     public boolean hasNombre(String nombre) {
         return this.nombre.equalsIgnoreCase(nombre);
     }
@@ -21,13 +21,11 @@ public abstract class Puesto {
     public void agregarEmpleado(Empleado empleadoNuevo) {
         empleados.add(empleadoNuevo);
         Logger.logSuccess("Empleado nuevo agregado con exito a la lista de " + nombre);
-    } 
-
-
-    public void agregarEmpleadoPorConvocatoria(Empleado empleadoNuevo) {
-        empleados.add(empleadoNuevo); //solo cambia con metodo agregarEmpleado que no muestro mensaje
     }
 
+    public void agregarEmpleadoPorConvocatoria(Empleado empleadoNuevo) {
+        empleados.add(empleadoNuevo); // solo cambia con metodo agregarEmpleado que no muestro mensaje
+    }
 
     public void mostrar() {
         String tipo;
@@ -51,7 +49,7 @@ public abstract class Puesto {
     public void agregarConvocatoria(Convocatoria convocatoriaNueva) {
         convocatorias.add(convocatoriaNueva);
     }
-    
+
     public void eliminarEmpleado(Empleado empleadoEliminar) {
         empleados.remove(empleadoEliminar);
     }
@@ -60,49 +58,44 @@ public abstract class Puesto {
         this.convocatorias.remove(convocatoriaEliminar);
     }
 
-
     public String getNombre() {
         return nombre;
     }
 
     public void mostrarConvocatoriasPuedeAplicar(Empleado empleadoAplicar) {
-        //misma logica que metodos de Empresa, solo que esta en Puesto
-        
-        ArrayList<Convocatoria>convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
+        // misma logica que metodos de Empresa, solo que esta en Puesto
+
+        ArrayList<Convocatoria> convocatoriaPuedeAplicar = convocatoriasPuedeAplicar(empleadoAplicar);
 
         if (convocatoriaPuedeAplicar.size() == 0) {
             Logger.logSuccess("Lo sentimos, no puede aplicar a NINGUNA convocatoria para el puesto de " + nombre);
         } else {
             Logger.header("Convocatorias disponibles para " + nombre);
-            for (Convocatoria convocatoria: convocatoriaPuedeAplicar) {
+            for (Convocatoria convocatoria : convocatoriaPuedeAplicar) {
                 convocatoria.mostrar();
             }
         }
-        
+
     }
 
     private ArrayList<Convocatoria> convocatoriasPuedeAplicar(Empleado empleadoAplicar) {
         ArrayList<Convocatoria> convocatoriasPuedeAplicar = new ArrayList<>();
 
-        for (Convocatoria convocatoria: convocatorias) {
+        for (Convocatoria convocatoria : convocatorias) {
             if (convocatoria.puedeAplicar(empleadoAplicar)) {
                 convocatoriasPuedeAplicar.add(convocatoria);
             }
         }
 
         return convocatoriasPuedeAplicar;
-    } 
-
-
+    }
 
     public boolean dentroDeRango(float salarioMin, float salarioMax) {
         return (sueldo >= salarioMin) && (sueldo <= salarioMax);
     }
 
-
     public boolean jerarquicoCumpleAnnosMinimos(int annosEnPuesto) {
-        return true; //comparo en PuestoJerarquico, aca no hay condicion
+        return true; // comparo en PuestoJerarquico, aca no hay condicion
     }
 
 }
-
