@@ -304,6 +304,12 @@ public class Empresa {
 
         if (empleadoRepetido != null) {
             Logger.logError("ya existe un empleado con ese numero de legajo");
+
+            boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea probar con otro numero de legajo? ");
+
+            if (continuar) {
+                this.agregarEmpleado();
+            }
         } else {
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
