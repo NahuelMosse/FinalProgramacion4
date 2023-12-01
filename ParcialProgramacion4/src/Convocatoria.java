@@ -222,15 +222,17 @@ public abstract class Convocatoria {
                 + puesto.getNombre() + " para esta convocatoria");
     }
     
-    public int getCantEmpleadosAsignados() {
-    	return asignados.size();
-    }
-    
     public void editarFecha(Fecha fechaConvocatoria) {
     	this.fecha = fechaConvocatoria;
     }
     
-    public void editarCantEmpleadosRequeridos(int cantEmpleadosRequeridos) {
+    public void editarCantEmpleadosRequeridos(Scanner scanner) {
+    	int cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+    	
+    	while(cantEmpleadosRequeridos < this.asignados.size()) {
+    		System.out.println("Error, no se puede asignar una cantidad de empleados menor a la cantidad de asignados en la convocatoria");
+    		cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+    	}
     	this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
     }
     
