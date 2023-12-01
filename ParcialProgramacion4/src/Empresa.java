@@ -1322,4 +1322,20 @@ public class Empresa {
         }
     }
 
+
+    
+    //CU Mostrar empleados
+    public void mostrarEmpleados() {
+        Logger.header("Empleados registrados en el sistema");
+
+        if (empleados.size() == 0) {
+            Logger.logError("No hay empleados registrados en el sistema");
+        } else {
+            Logger.divider();
+            for (Empleado empleado: empleados) {
+                empleado.mostrar();
+                Logger.divider();
+            }
+        }
+    }
 }

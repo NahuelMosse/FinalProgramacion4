@@ -86,6 +86,7 @@ public class Ejecutora {
 			System.out.println("[7] Borrar habilidad");
 			System.out.println("[8] Mostrar habilidades");
 			System.out.println("[9] Mostrar puestos de trabajo");
+			System.out.println("[10] Mostrar empleaados");
 			System.out.println("[0] Volver al menu principal");
 
 			opcion = Ejecutora.conseguirOpcionDelMenu();
@@ -120,6 +121,9 @@ public class Ejecutora {
 					break;
 				case 9:
 					empresa.mostrarPuestos();
+					break;
+				case 10:
+					empresa.mostrarEmpleados();
 					break;
 				default:
 					Logger.logError("La opcion " + opcion + " no esta en la lista");
