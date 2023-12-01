@@ -626,8 +626,7 @@ public class Empresa {
                 cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
             }
 
-            Hashtable<Habilidad, Integer> requisitos = this
-                    .pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
 
             Convocatoria convocatoriaNueva;
 
@@ -672,7 +671,80 @@ public class Empresa {
         else
             return null;
     }
+    
+    // CU Editar datos de convocatoria
+    public void editarConvocatoria() {
+    	Logger.header("Editar informacion de Convocatoria");
 
+        int codigo = InputHelper.scanInt(scanner, "Ingrese el codigo de la convocatoria: ");
+
+        Convocatoria convocatoria = this.buscarConvocatoria(codigo);
+
+        if (convocatoria == null) {
+            Logger.logError("No existe la convocatoria con codigo " + codigo);
+        } else {
+        	int opcion;
+
+            do {
+                Logger.header("Menu para editar informacion de Convocatoria");
+                System.out.println("[1] Sacar un empleado de los postulados");
+                System.out.println("[2] Editar la fecha");
+                System.out.println("[3] Editar la cantidad de empleados requeridos");
+                System.out.println("[4] Volver a ingresar las habilidades");
+                System.out.println("[5] Ver informacion de la convocatoria");
+                System.out.println("[0] Volver al menu del General");
+
+                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+                switch (opcion) {
+                    case 0:
+                        break;
+                    case 1:
+                    	this.darDeBajaPostulante(convocatoria);
+                        break;
+
+                    case 2:
+                    	System.out.println("\nFecha a realizar convocatoria: ");
+                        Fecha fechaConvocatoria = Fecha.nuevaFecha();
+
+                        // verificar si la fecha es hoy o posterior 
+                        while (fechaConvocatoria.compareTo(Fecha.hoy()) < 0) {
+                            Logger.logError("La fecha debe ser posterior o igual al dia de hoy");
+                            System.out.println("Fecha a realizar convocatoria: ");
+                            fechaConvocatoria = Fecha.nuevaFecha();
+                        }
+                        
+                        convocatoria.editarFecha(fechaConvocatoria);
+                        break;
+
+                    case 3:
+                    	int cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+                    	
+                    	while(cantEmpleadosRequeridos < convocatoria.getCantEmpleadosAsignados()) {
+                    		System.out.println("Error, no se puede asignar una cantidad de empleados menor a la cantidad de asignados en la convocatoria");
+                    		cantEmpleadosRequeridos = InputHelper.scanInt(scanner,"Ingrese la cantidad de empleados requeridos para la convocatoria:");
+                    	}
+                    	convocatoria.editarCantEmpleadosRequeridos(cantEmpleadosRequeridos);
+                        break;
+
+                    case 4:
+                    	Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+                    	convocatoria.editarRequisitos(requisitos);
+                        break;
+                        
+                    case 5:
+                    	convocatoria.mostrarConPostulantesAsignados();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+    }
+    
+    
     // CASO DE USO BORRAR PUESTO DE TRABAJO
     public void borrarPuesto() {
         Logger.header("Borrar puesto de trabajo");
@@ -863,14 +935,19 @@ public class Empresa {
             if (!convocatoria.estaAbierta()) {
                 Logger.logError("La convocatoria esta cerrada");
             } else {
-                if (!convocatoria.hasPostulantes()) {
-                    Logger.logError("La convocatoria NO tiene postulantes");
-                } else {
-                    int legajoPostulante = InputHelper.scanInt(scanner, "Legajo postulante: ");
-
-                    convocatoria.darDeBajaPostulante(legajoPostulante);
-                }
+                this.darDeBajaPostulante(convocatoria);
             }
+        }
+    }
+    
+    //Se usa en "darDeBajaPostulanteConvocatoria" y en "editarConvocatoria"
+    public void darDeBajaPostulante(Convocatoria convocatoria) {
+    	if (!convocatoria.hasPostulantes()) {
+            Logger.logError("La convocatoria NO tiene postulantes");
+        } else {
+            int legajoPostulante = InputHelper.scanInt(scanner, "Legajo postulante: ");
+
+            convocatoria.darDeBajaPostulante(legajoPostulante);
         }
     }
 

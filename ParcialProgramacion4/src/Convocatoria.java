@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import utilidades.Fecha;
+import utilidades.InputHelper;
+import java.util.Scanner;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 import utilidades.Logger;
@@ -217,6 +220,22 @@ public abstract class Convocatoria {
     public void informarCantidadRestante() {
         Logger.logSuccess("Aun puede asignar a " + this.getCantRestante() + " postulantes al puesto de "
                 + puesto.getNombre() + " para esta convocatoria");
+    }
+    
+    public int getCantEmpleadosAsignados() {
+    	return asignados.size();
+    }
+    
+    public void editarFecha(Fecha fechaConvocatoria) {
+    	this.fecha = fechaConvocatoria;
+    }
+    
+    public void editarCantEmpleadosRequeridos(int cantEmpleadosRequeridos) {
+    	this.cantEmpleadosRequeridos = cantEmpleadosRequeridos;
+    }
+    
+    public void editarRequisitos(Hashtable<Habilidad, Integer> requisitos) {
+    	this.requisitos = requisitos;
     }
 
 }
