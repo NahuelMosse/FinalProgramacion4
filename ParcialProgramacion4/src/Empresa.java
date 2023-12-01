@@ -304,6 +304,12 @@ public class Empresa {
 
         if (empleadoRepetido != null) {
             Logger.logError("ya existe un empleado con ese numero de legajo");
+
+            boolean continuar = InputHelper.yesOrNoInput(scanner, "Desea probar con otro numero de legajo? ");
+
+            if (continuar) {
+                this.agregarEmpleado();
+            }
         } else {
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
@@ -314,11 +320,23 @@ public class Empresa {
             System.out.println("Fecha de nacimiento: ");
             Fecha fechaNacimiento = Fecha.nuevaFecha();
 
+            while (fechaNacimiento.compareTo(Fecha.hoy()) > 0) {
+                Logger.logError("La fecha de nacimiento debe ser anterior al dia de hoy");
+                System.out.println("Fecha de nacimiento: ");
+                fechaNacimiento = Fecha.nuevaFecha();
+            }
+
             System.out.println("Fecha de ingreso a la empresa: ");
             Fecha fechaIngreso = Fecha.nuevaFecha();
 
-            while (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
-                Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
+            while (fechaIngreso.compareTo(Fecha.hoy()) > 0 || fechaIngreso.compareTo(fechaNacimiento) <= 0) {
+
+                if (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
+                    Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
+                } else {
+                    Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento");
+                }
+
                 System.out.println("Fecha de ingreso a la empresa: ");
                 fechaIngreso = Fecha.nuevaFecha();
             }
@@ -327,7 +345,11 @@ public class Empresa {
             ArrayList<Cargo> historialDeCargos = this.pedirListaCargos(fechaIngreso);
 
             // crear hashtable con las habilidades y años de experiencia
-            Hashtable<Habilidad, Integer> habilidades = this.pedirListaHabilidades("del empleado");
+            Hashtable<Habilidad, Integer> habilidades = new Hashtable<>();
+
+            if (InputHelper.yesOrNoInput(scanner, "\nTiene habilidades para ingresar?")) {
+                habilidades = this.pedirListaHabilidades("del empleado");
+            }
 
             // constructor empleado
             Empleado empleadoNuevo = new Empleado(
@@ -537,7 +559,7 @@ public class Empresa {
             Habilidad habilidad = this.buscarHabilidad(nombreHabilidad);
 
             if (habilidad == null) {
-                System.out.println("Descripcion: ");
+                System.out.print("Descripcion: ");
                 String descripcion = scanner.nextLine();
 
                 habilidad = new Habilidad(nombreHabilidad, descripcion);
@@ -1404,6 +1426,20 @@ public class Empresa {
         if (i == 0) {
             Logger.logError("No existen convocatorias dentro del rango " + salarioMin + "$ - " + salarioMax + "$");
         }
+    }
+    
+    //CU Mostrar empleados
+    public void mostrarEmpleados() {
+        Logger.header("Empleados registrados en el sistema");
 
+        if (empleados.size() == 0) {
+            Logger.logError("No hay empleados registrados en el sistema");
+        } else {
+            Logger.divider();
+            for (Empleado empleado: empleados) {
+                empleado.mostrar();
+                Logger.divider();
+            }
+        }
     }
 }
