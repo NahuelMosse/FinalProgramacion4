@@ -189,7 +189,7 @@ public class Ejecutora {
             System.out.println("\nSeleccione una de las opciones de la lista");
             System.out.println("\n[1] Ver datos de empleado");
             System.out.println("[2] Ver historial de cargos");
-            System.out.println("[3] Editar datos");
+            System.out.println("[3] Editar informacion personal del empleado");
             System.out.println("[4] Agregar habilidad");
             System.out.println("[5] Editar años de experiencia habilidad");
             System.out.println("[6] Quitar habilidad");
@@ -208,7 +208,7 @@ public class Ejecutora {
 	            empresa.verHistorialDeCargos();
 	            break;
 	        case 3:
-	                
+	            empresa.editarInformacionEmpleado();
 	            break;
 	        case 4:
 	        	empresa.agregarHabilidadEmpleado();    

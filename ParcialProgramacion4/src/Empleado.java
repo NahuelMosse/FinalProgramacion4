@@ -36,10 +36,26 @@ public class Empleado {
     public void mostrar() {
         System.out.println("Legajo: " + legajo);
         System.out.println("Nombre completo: " + nombre + " " + apellido);
+        System.out.println("Edad: " + this.calcularEdad());
         System.out.println("Puesto actual: ");
         this.getPuestoActual().mostrar();
         System.out.println("Habilidades: ");
         this.mostrarHabilidades();
+    }
+
+    public int calcularEdad() {
+        Fecha hoy = Fecha.hoy();
+        int edad = hoy.getAño() - fechaNacimiento.getAño();
+
+        if (hoy.getMes() < fechaNacimiento.getMes()) {
+            edad--;
+        } else {
+            if (hoy.getMes() == fechaNacimiento.getMes() && hoy.getDia() < fechaNacimiento.getDia()) {
+                edad--; 
+            }
+        }
+
+        return edad;
     }
   
     public Puesto getPuestoActual() {
@@ -101,6 +117,69 @@ public class Empleado {
             historialDeCargos.remove(cargo);
         }
     }
+
+    
+
+    public void editarInformacion(Scanner scanner) {
+        int opcion;
+
+        do {
+            Logger.header("Menu para editar informacion personal");
+            System.out.println("[1] Editar nombre");
+            System.out.println("[2] Editar apellido");
+            System.out.println("[3] Editar fecha de nacimiento");
+            System.out.println("[4] Ver informacion personal");
+            System.out.println("[0] Volver al menu del Usuario");
+
+            opcion = InputHelper.scanInt(scanner, "Opcion: ");
+
+            switch (opcion) {
+                case 0:
+                    break;
+                case 1:
+                    this.editarNombre(scanner);
+                    break;
+
+                case 2:
+                    this.editarApellido(scanner);
+                    break;
+
+                case 3:
+                    this.editarFechaDeNacimiento(scanner);
+                    break;
+
+                case 4:
+                    this.mostrar();
+                    break;
+
+                default:
+                    break;
+            }
+
+        } while (opcion != 0);
+    }
+
+    private void editarNombre(Scanner scanner) {
+        System.out.println("Nombre anterior: " + nombre);
+        System.out.print("Nuevo nombre: ");
+        nombre = scanner.nextLine();
+        Logger.logSuccess("Nombre actualizado");
+    }
+
+    private void editarApellido(Scanner scanner) {
+        System.out.println("Apellido anterior: " + apellido);
+        System.out.print("Nuevo apellido: ");
+        apellido = scanner.nextLine();
+        Logger.logSuccess("Apellido actualizado");
+    }
+
+    private void editarFechaDeNacimiento(Scanner scanner) {
+        System.out.println("Fecha de nacimiento anterior: " + fechaNacimiento.getDia() + "/" + fechaNacimiento.getMes() + "/" + fechaNacimiento.getAño());
+        System.out.println("Nueva fecha: ");
+        fechaNacimiento = Fecha.nuevaFecha();
+        Logger.logSuccess("Fecha de nacimiento actualizada");
+    }
+
 
     public boolean puedeAplicar(Hashtable<Habilidad,Integer> requisitos) {
         //si esta en un puesto jerarquico, determino si cumple con annos minimos en ese puesto
@@ -182,4 +261,5 @@ public class Empleado {
 		
 	}
 
+  
 }
