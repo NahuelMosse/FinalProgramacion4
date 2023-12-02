@@ -275,6 +275,7 @@ public class Ejecutora {
 		System.out.println("Menu admin: gestionar los registros de la empresa (empleados, habilidades, puestos)");
 		System.out.println("Menu general: gestionar las convocatorias");
 		System.out.println("Menu usuario: gestionar los datos de los usuarios");
+		Logger.divider();
 		System.out.println("Annos minimos para cambiar de puesto jeraquico: " + PuestoJerarquico.getAnnosMinimosParaCambiar(scanner));
 	}
 
