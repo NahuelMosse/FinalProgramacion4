@@ -79,11 +79,14 @@ public abstract class Convocatoria {
         System.out.println("\nHay " + postulados.size() + " postulantes registrados");
         System.out.println("Hay " + asignados.size() + " asignados al puesto\n");
 
-        Logger.subDivider();
-        System.out.println("Requisitos necesarios: ");
-        this.mostrarHabilidades();
-        Logger.subDivider();
-
+        if (requisitos.size() == 0) {
+            System.out.println("No tiene requisitos");
+        } else {
+            Logger.subDivider();
+            System.out.println("Requisitos necesarios: ");
+            this.mostrarHabilidades();
+            Logger.subDivider();
+        }
     }
 
     public boolean hasCodigo(int codigo) {
