@@ -1473,7 +1473,7 @@ public class Empresa {
 
     public void mostrarTodasConvocatorias() {
         for (Convocatoria convocatoria: convocatorias) {
-            convocatoria.mostrar();
+            convocatoria.mostrarConPostulantesYAsignados();
         }
     }
 
