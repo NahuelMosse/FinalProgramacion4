@@ -344,9 +344,9 @@ public class Empresa {
             while (!fechaIngreso.entre(fechaNacimiento, Fecha.hoy())) {
 
                 if (fechaIngreso.compareTo(Fecha.hoy()) > 0) {
-                    Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy");
+                    Logger.logError("La fecha de ingreso NO debe ser posterior al dia de hoy (" + Fecha.hoy().toString() + ")");
                 } else {
-                    Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento");
+                    Logger.logError("La fecha de ingreso DEBE ser posterior a la fecha de nacimiento (" + fechaNacimiento.toString() + ")");
                 }
 
                 System.out.println("Fecha de ingreso a la empresa: ");
@@ -466,11 +466,11 @@ public class Empresa {
             while (!fechaFin.entre(fechaInicio, Fecha.hoy())) {
 
                 if (fechaFin.compareTo(fechaInicio) <= 0) {
-                    Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio: ");
+                    Logger.logError("La fecha de fin debe ser posterior a la fecha de inicio (" + fechaInicio.toString() + ")");
                     System.out.println("\nFecha en la que finalizo el cargo: ");
                     fechaFin = Fecha.nuevaFecha();
                 } else {
-                    Logger.logError("La fecha de fin debe ser anterior al dia de hoy: ");
+                    Logger.logError("La fecha de fin debe ser anterior al dia de hoy (" + Fecha.hoy().toString() + ")");
                     System.out.println("\nFecha en la que finalizo el cargo: ");
                     fechaFin = Fecha.nuevaFecha();
                 }
