@@ -37,10 +37,10 @@ public class Ejecutora {
 			Logger.header("Menu Principal");
 
 			System.out.println("\nSeleccione una de las opciones de la lista");
-			System.out.println("\n[1] Admin");
-			System.out.println("[2] General");
-			System.out.println("[3] Usuario");
-			System.out.println("[4] Ayuda"); // Comming soon
+			System.out.println("\n[1] Admin - gestionar los registros de empleados, puestos y habilidades");
+			System.out.println("[2] General - gestionar convocatorias");
+			System.out.println("[3] Usuario - gestionar datos de empleado");
+			System.out.println("[4] Ayuda");
 			System.out.println("[0] Salir");
 
 			opcion = Ejecutora.conseguirOpcionDelMenu();
@@ -275,6 +275,8 @@ public class Ejecutora {
 		System.out.println("Menu admin: gestionar los registros de la empresa (empleados, habilidades, puestos)");
 		System.out.println("Menu general: gestionar las convocatorias");
 		System.out.println("Menu usuario: gestionar los datos de los usuarios");
+		Logger.divider();
+		System.out.println("Annos minimos para cambiar de puesto jeraquico: " + PuestoJerarquico.getAnnosMinimosParaCambiar(scanner));
 	}
 
 	public static int conseguirOpcionDelMenu() {
