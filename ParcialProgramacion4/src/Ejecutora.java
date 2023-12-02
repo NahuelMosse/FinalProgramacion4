@@ -40,7 +40,7 @@ public class Ejecutora {
 			System.out.println("\n[1] Admin - gestionar los registros de empleados, puestos y habilidades");
 			System.out.println("[2] General - gestionar convocatorias");
 			System.out.println("[3] Usuario - gestionar datos de empleado");
-			System.out.println("[4] Ayuda"); // Comming soon
+			System.out.println("[4] Ayuda");
 			System.out.println("[0] Salir");
 
 			opcion = Ejecutora.conseguirOpcionDelMenu();
