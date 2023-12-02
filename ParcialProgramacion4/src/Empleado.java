@@ -147,7 +147,7 @@ public class Empleado {
             System.out.println("[4] Ver informacion personal");
             System.out.println("[0] Volver al menu del Usuario");
 
-            opcion = InputHelper.scanInt(scanner, "Opcion: ");
+            opcion = InputHelper.scanInt(scanner, "\nOpcion: ");
 
             switch (opcion) {
                 case 0:
