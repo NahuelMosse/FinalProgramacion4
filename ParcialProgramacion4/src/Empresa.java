@@ -587,6 +587,12 @@ public class Empresa {
                 // ya se que no esta, ahora pido los años de experiencia en ella
                 int annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
 
+                while (annosExperiencia < 0) {
+                    Logger.logError("Los años de experiencia debe ser mayor a 0");
+
+                    annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
+                }
+
                 // agrego a la hashtable
                 habilidades.put(habilidad, annosExperiencia);
 
@@ -661,8 +667,13 @@ public class Empresa {
                 cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
             }
 
-            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+            Hashtable<Habilidad, Integer> requisitos = new Hashtable<>();
 
+            if (InputHelper.yesOrNoInput(scanner, "Tiene requisitos? ")) {
+                requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+            }
+
+            
             Convocatoria convocatoriaNueva;
 
             if (puestoConvocatoria.esJerarquico()) {
@@ -854,16 +865,22 @@ public class Empresa {
     public void quitarHabilidadEmpleado(Empleado unEmpleado) {
         Logger.header("Formulario Quitar Habilidad de Empleado");
 
-        System.out.print("Ingrese el nombre de la habilidad: ");
-        String nombre = scanner.nextLine();
-
-        Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-
-        if (habilidadExistente == null) {
-            Logger.logError("NO existe la habilidad " + nombre);
+        if (!unEmpleado.tieneHabilidades()) {
+            Logger.logError("No tiene habilidades");
         } else {
-            unEmpleado.eliminarHabilidad(habilidadExistente);
+            System.out.print("Ingrese el nombre de la habilidad: ");
+            String nombre = scanner.nextLine();
+
+            Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+
+            if (habilidadExistente == null) {
+                Logger.logError("NO existe la habilidad " + nombre);
+            } else {
+                unEmpleado.eliminarHabilidad(habilidadExistente);
+            }
         }
+
+        
     }
 
     // CU EDITAR ANNOS EMPLEADOS
@@ -984,6 +1001,7 @@ public class Empresa {
         } else {
             for (Habilidad habilidad : habilidades) {
                 habilidad.mostrar();
+                Logger.subDivider();
             }
         }
     }
@@ -1284,7 +1302,7 @@ public class Empresa {
                 boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner,
                         "Quiere ver las convocatorias a las que puede aplicar?");
                 if (quiereVerConvocatorias) {
-                    this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
+                    this.mostrarTodasConvocatoriasPuedaAplicar(empleado);
                 }
                 int codigoConvocatoria;
                 Convocatoria convocatoria;

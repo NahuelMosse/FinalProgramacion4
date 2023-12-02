@@ -101,6 +101,12 @@ public class Empleado {
 
             annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
 
+            while (annosExperiencia < 0) {
+                Logger.logError("Los años de experiencia debe ser mayor a 0");
+
+                annosExperiencia = InputHelper.scanInt(scanner, "Ingrese el tiempo de experiencia: ");
+            }
+
             habilidades.put(habilidad, annosExperiencia);
 
             Logger.logSuccess("Experiencia del empleado actualizada con exito");
@@ -273,8 +279,13 @@ public class Empleado {
     public void mostrarCargos() {
         for (Cargo unCargo : historialDeCargos) {
             unCargo.mostrarCargo();
+            Logger.divider();
         }
 
+    }
+
+    public boolean tieneHabilidades() {
+        return habilidades.size() > 0;
     }
 
 }
