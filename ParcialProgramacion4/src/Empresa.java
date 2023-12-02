@@ -1106,7 +1106,7 @@ public class Empresa {
                     Empleado empleadoSeleccionado;
                     boolean agregarOtro = true;
 
-                    System.out.println("\n Elegir postulantes: ");
+                    Logger.header("Elegir postulantes");
 
                     do {
                         legajoEmpleado = InputHelper.scanInt(scanner, "Legajo postulante seleccionado: ");
