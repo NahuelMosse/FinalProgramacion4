@@ -234,7 +234,7 @@ public class Ejecutora {
 				System.out.println("[4] Agregar habilidad");
 				System.out.println("[5] Editar años de experiencia habilidad");
 				System.out.println("[6] Quitar habilidad");
-				System.out.println("[0] Volver al menu principal");
+				System.out.println("[0] Volver al menu principal\n");
 
 				opcion = Ejecutora.conseguirOpcionDelMenu();
 
