@@ -295,4 +295,8 @@ public class Empleado {
         return habilidades.size() > 0;
     }
 
+    public boolean tieneAnnosEnEmpresa(int annosMinimosEnEmpresa) {
+        return this.getAnnosEnEmpresa() >= annosMinimosEnEmpresa;
+    }
+
 }
