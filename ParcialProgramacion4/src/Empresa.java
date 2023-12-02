@@ -1000,7 +1000,12 @@ public class Empresa {
                         break;
 
                     case 4:
-                    	Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+                    	Hashtable<Habilidad, Integer> requisitos = new Hashtable<>();
+
+                        if (InputHelper.yesOrNoInput(scanner, "Tiene requisitos? ")) {
+                            requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+                        }
+                        
                     	convocatoria.editarRequisitos(requisitos);
                         break;
                         
