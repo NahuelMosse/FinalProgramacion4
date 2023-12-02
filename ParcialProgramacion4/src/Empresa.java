@@ -587,7 +587,7 @@ public class Empresa {
                 // ya se que no esta, ahora pido los años de experiencia en ella
                 int annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
 
-                while (annosExperiencia < 0) {
+                while (annosExperiencia <= 0) {
                     Logger.logError("Los años de experiencia debe ser mayor a 0");
 
                     annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
