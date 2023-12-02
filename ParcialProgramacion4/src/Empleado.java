@@ -194,6 +194,13 @@ public class Empleado {
                 + "/" + fechaNacimiento.getAño());
         System.out.println("Nueva fecha: ");
         fechaNacimiento = Fecha.nuevaFecha();
+
+        while (fechaNacimiento.compareTo(Fecha.hoy()) > 0) {
+            Logger.logError("La fecha de nacimiento debe ser anterior al dia de hoy");
+            System.out.println("Fecha de nacimiento: ");
+            fechaNacimiento = Fecha.nuevaFecha();
+        }
+
         Logger.logSuccess("Fecha de nacimiento actualizada");
     }
 
