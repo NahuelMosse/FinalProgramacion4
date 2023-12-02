@@ -854,16 +854,22 @@ public class Empresa {
     public void quitarHabilidadEmpleado(Empleado unEmpleado) {
         Logger.header("Formulario Quitar Habilidad de Empleado");
 
-        System.out.print("Ingrese el nombre de la habilidad: ");
-        String nombre = scanner.nextLine();
-
-        Habilidad habilidadExistente = this.buscarHabilidad(nombre);
-
-        if (habilidadExistente == null) {
-            Logger.logError("NO existe la habilidad " + nombre);
+        if (!unEmpleado.tieneHabilidades()) {
+            Logger.logError("No tiene habilidades");
         } else {
-            unEmpleado.eliminarHabilidad(habilidadExistente);
+            System.out.print("Ingrese el nombre de la habilidad: ");
+            String nombre = scanner.nextLine();
+
+            Habilidad habilidadExistente = this.buscarHabilidad(nombre);
+
+            if (habilidadExistente == null) {
+                Logger.logError("NO existe la habilidad " + nombre);
+            } else {
+                unEmpleado.eliminarHabilidad(habilidadExistente);
+            }
         }
+
+        
     }
 
     // CU EDITAR ANNOS EMPLEADOS

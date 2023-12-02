@@ -278,4 +278,8 @@ public class Empleado {
 
     }
 
+    public boolean tieneHabilidades() {
+        return habilidades.size() > 0;
+    }
+
 }
