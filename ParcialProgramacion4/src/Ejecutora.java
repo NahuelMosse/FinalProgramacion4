@@ -37,9 +37,9 @@ public class Ejecutora {
 			Logger.header("Menu Principal");
 
 			System.out.println("\nSeleccione una de las opciones de la lista");
-			System.out.println("\n[1] Admin");
-			System.out.println("[2] General");
-			System.out.println("[3] Usuario");
+			System.out.println("\n[1] Admin - gestionar los registros de empleados, puestos y habilidades");
+			System.out.println("[2] General - gestionar convocatorias");
+			System.out.println("[3] Usuario - gestionar datos de empleado");
 			System.out.println("[4] Ayuda"); // Comming soon
 			System.out.println("[0] Salir");
 
