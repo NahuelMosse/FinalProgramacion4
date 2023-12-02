@@ -587,7 +587,7 @@ public class Empresa {
                 // ya se que no esta, ahora pido los años de experiencia en ella
                 int annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
 
-                while (annosExperiencia < 0) {
+                while (annosExperiencia <= 0) {
                     Logger.logError("Los años de experiencia debe ser mayor a 0");
 
                     annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
@@ -1172,9 +1172,9 @@ public class Empresa {
                 System.out.println("[1] Ver todas las convocatorias a las que puede aplicar");
                 System.out.println("[2] Ver convocatorias de un puesto especifico");
                 System.out.println("[3] Ver convocatorias para un rango de salario");
-                System.out.println("[0] Volver");
+                System.out.println("[0] Volver al menu General");
 
-                opcion = InputHelper.scanInt(scanner, "Opcion: ");
+                opcion = InputHelper.scanInt(scanner, "\nOpcion: ");
 
                 switch (opcion) {
                     case 0:
