@@ -1302,7 +1302,7 @@ public class Empresa {
                 boolean quiereVerConvocatorias = InputHelper.yesOrNoInput(scanner,
                         "Quiere ver las convocatorias a las que puede aplicar?");
                 if (quiereVerConvocatorias) {
-                    this.mostrarConvocatoriasPuedaAplicarEmpleado(empleado);
+                    this.mostrarTodasConvocatoriasPuedaAplicar(empleado);
                 }
                 int codigoConvocatoria;
                 Convocatoria convocatoria;
