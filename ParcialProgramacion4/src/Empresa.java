@@ -667,8 +667,13 @@ public class Empresa {
                 cantEmpleadosRequeridos = InputHelper.scanInt(scanner, "Cantidad de empleados requeridos: ");
             }
 
-            Hashtable<Habilidad, Integer> requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+            Hashtable<Habilidad, Integer> requisitos = new Hashtable<>();
 
+            if (InputHelper.yesOrNoInput(scanner, "Tiene requisitos? ")) {
+                requisitos = this.pedirListaHabilidades("necesarios para aplicar a la convocatoria");
+            }
+
+            
             Convocatoria convocatoriaNueva;
 
             if (puestoConvocatoria.esJerarquico()) {
@@ -996,6 +1001,7 @@ public class Empresa {
         } else {
             for (Habilidad habilidad : habilidades) {
                 habilidad.mostrar();
+                Logger.subDivider();
             }
         }
     }
