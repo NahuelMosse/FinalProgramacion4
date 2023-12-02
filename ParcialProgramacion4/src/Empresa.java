@@ -588,6 +588,8 @@ public class Empresa {
                 int annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
 
                 while (annosExperiencia < 0) {
+                    Logger.logError("Los años de experiencia debe ser mayor a 0");
+
                     annosExperiencia = InputHelper.scanInt(scanner, "Años de experiencia en " + nombreHabilidad + ": ");
                 }
 
